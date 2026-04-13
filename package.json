@@ -1,0 +1,68 @@
+{
+	"name": "@anvilkit/plugin-ai-copilot",
+	"version": "0.1.0-alpha.0",
+	"description": "Headless AI copilot plugin for Anvilkit Studio (Puck-native page builder).",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./mock": {
+			"types": "./dist/mock/index.d.ts",
+			"import": "./dist/mock/index.js",
+			"require": "./dist/mock/index.cjs"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"import": "./dist/*.js",
+			"require": "./dist/*.cjs"
+		}
+	},
+	"files": ["dist"],
+	"license": "MIT",
+	"sideEffects": false,
+	"publishConfig": { "access": "public" },
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"@puckeditor/core": "^0.19.0"
+	},
+	"peerDependenciesMeta": {
+		"react": { "optional": false },
+		"react-dom": { "optional": false },
+		"@puckeditor/core": { "optional": false }
+	},
+	"dependencies": {
+		"@anvilkit/core": "workspace:*",
+		"@anvilkit/schema": "workspace:*",
+		"@anvilkit/validator": "workspace:*",
+		"@anvilkit/utils": "workspace:*"
+	},
+	"scripts": {
+		"build": "rslib build",
+		"dev": "rslib build --watch",
+		"lint": "pnpm exec biome lint package.json tsconfig.json rslib.config.ts vitest.config.ts src",
+		"format": "pnpm exec biome check --write package.json tsconfig.json rslib.config.ts vitest.config.ts src",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"devDependencies": {
+		"@anvilkit/biome-config": "workspace:*",
+		"@anvilkit/typescript-config": "workspace:*",
+		"@anvilkit/vitest-config": "workspace:*",
+		"@puckeditor/core": "^0.21.1",
+		"@rslib/core": "^0.20.1",
+		"@types/node": "^22.15.3",
+		"madge": "^8.0.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"typescript": "6.0.2",
+		"vitest": "^4.1.4"
+	}
+}
