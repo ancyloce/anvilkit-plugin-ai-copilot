@@ -11,32 +11,48 @@ via `setData`.
 ## Install
 
 ```bash
-pnpm add @anvilkit/plugin-ai-copilot
+pnpm add @anvilkit/plugin-ai-copilot @anvilkit/core react react-dom @puckeditor/core
 ```
 
-## Usage
+## Quickstart
 
 ```ts
+import { Studio } from "@anvilkit/core";
 import { createAiCopilotPlugin } from "@anvilkit/plugin-ai-copilot";
 import { puckConfig } from "./puck-config";
 
 const aiCopilot = createAiCopilotPlugin({
   puckConfig,
-  generatePage: async (prompt, ctx) => {
-    const response = await fetch("/api/ai/generate", {
+  generatePage: (prompt, ctx) =>
+    fetch("/api/ai/generate", {
       method: "POST",
       body: JSON.stringify({ prompt, availableComponents: ctx.availableComponents }),
-    });
-    return response.json();
-  },
+    }).then((response) => response.json()),
   timeoutMs: 30_000,
-  forwardCurrentData: true,
 });
 
-<Studio plugins={[aiCopilot]} ... />
-
-await aiCopilot.runGeneration("Build a hero with a CTA");
+<Studio puckConfig={puckConfig} plugins={[aiCopilot]} />
 ```
+
+For CI and local demos, `@anvilkit/plugin-ai-copilot/mock` also ships
+`createMockGeneratePage()` and deterministic fixtures that match the
+demo component catalog.
+
+## Phase 3 references
+
+See the [Phase 3 plan](../../../docs/plans/phase-3-export-ai-pipeline-plan.md)
+(`M5 — @anvilkit/plugin-ai-copilot`) and the
+[architecture package catalog](../../../docs/ai-context/anvilkit-architecture.md)
+(`§7 — @anvilkit/plugins [Stubs Exist]`) for the plugin boundary and
+Phase 3 AI generation flow.
+
+## Peer dependencies
+
+| Package | Version |
+| ------- | ------- |
+| `react` | `^18.2.0` |
+| `react-dom` | `^18.2.0` |
+| `@puckeditor/core` | `^0.19.0` |
 
 ## Security model
 

@@ -8,19 +8,34 @@
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		},
 		"./mock": {
-			"types": "./dist/mock/index.d.ts",
-			"import": "./dist/mock/index.js",
-			"require": "./dist/mock/index.cjs"
+			"import": {
+				"types": "./dist/mock/index.d.ts",
+				"default": "./dist/mock/index.js"
+			},
+			"require": {
+				"types": "./dist/mock/index.d.cts",
+				"default": "./dist/mock/index.cjs"
+			}
 		},
 		"./*": {
-			"types": "./dist/*.d.ts",
-			"import": "./dist/*.js",
-			"require": "./dist/*.cjs"
+			"import": {
+				"types": "./dist/*.d.ts",
+				"default": "./dist/*.js"
+			},
+			"require": {
+				"types": "./dist/*.d.cts",
+				"default": "./dist/*.cjs"
+			}
 		}
 	},
 	"files": ["dist"],
@@ -50,7 +65,13 @@
 		"format": "pnpm exec biome check --write package.json tsconfig.json rslib.config.ts vitest.config.ts src",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"check:publint": "publint",
+		"check:circular": "madge --circular --extensions ts src/",
+		"check:peer-deps": "node ./scripts/check-peer-deps.mjs",
+		"check:bundle-budget": "node ./scripts/check-bundle-budget.mjs",
+		"check:api-snapshot": "node ./scripts/check-api-snapshot.mjs",
+		"check:all": "pnpm check:publint && pnpm check:circular && pnpm check:peer-deps && pnpm check:bundle-budget && pnpm check:api-snapshot"
 	},
 	"devDependencies": {
 		"@anvilkit/biome-config": "workspace:*",
@@ -59,9 +80,12 @@
 		"@puckeditor/core": "^0.21.1",
 		"@rslib/core": "^0.20.1",
 		"@types/node": "^22.15.3",
+		"esbuild": "^0.25.12",
 		"madge": "^8.0.0",
+		"publint": "^0.3.18",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"typedoc": "^0.28.18",
 		"typescript": "6.0.2",
 		"vitest": "^4.1.4"
 	}

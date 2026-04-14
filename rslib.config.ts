@@ -23,11 +23,16 @@ export default defineConfig({
 	lib: [
 		{
 			bundle: false,
-			dts: true,
+			dts: {
+				autoExtension: true,
+			},
 			format: "esm",
 		},
 		{
 			bundle: false,
+			dts: {
+				autoExtension: true,
+			},
 			format: "cjs",
 		},
 	],
