@@ -29,14 +29,6 @@
 					"flags": {
 						"isReadonly": true
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 70,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L70"
-						}
-					],
 					"type": {
 						"type": "reference",
 						"target": 26,
@@ -53,14 +45,6 @@
 						"isOptional": true,
 						"isReadonly": true
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 72,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L72"
-						}
-					],
 					"type": {
 						"type": "typeOperator",
 						"operator": "readonly",
@@ -83,14 +67,6 @@
 											"flags": {
 												"isReadonly": true
 											},
-											"sources": [
-												{
-													"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-													"line": 74,
-													"character": 11,
-													"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L74"
-												}
-											],
 											"type": {
 												"type": "intrinsic",
 												"name": "string"
@@ -104,14 +80,6 @@
 											"flags": {
 												"isReadonly": true
 											},
-											"sources": [
-												{
-													"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-													"line": 73,
-													"character": 11,
-													"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L73"
-												}
-											],
 											"type": {
 												"type": "intrinsic",
 												"name": "string"
@@ -125,14 +93,6 @@
 											"flags": {
 												"isReadonly": true
 											},
-											"sources": [
-												{
-													"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-													"line": 75,
-													"character": 11,
-													"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L75"
-												}
-											],
 											"type": {
 												"type": "union",
 												"types": [
@@ -171,14 +131,6 @@
 					"flags": {
 						"isReadonly": true
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 71,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L71"
-						}
-					],
 					"type": {
 						"type": "intrinsic",
 						"name": "string"
@@ -193,14 +145,6 @@
 						7,
 						6
 					]
-				}
-			],
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-					"line": 69,
-					"character": 17,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L69"
 				}
 			]
 		},
@@ -254,14 +198,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 49,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L49"
-						}
-					],
 					"type": {
 						"type": "intrinsic",
 						"name": "boolean"
@@ -283,14 +219,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 27,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L27"
-						}
-					],
 					"type": {
 						"type": "reference",
 						"target": 27,
@@ -330,14 +258,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 35,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L35"
-						}
-					],
 					"type": {
 						"type": "reference",
 						"target": {
@@ -382,14 +302,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 42,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L42"
-						}
-					],
 					"type": {
 						"type": "intrinsic",
 						"name": "number"
@@ -405,14 +317,6 @@
 						14,
 						15
 					]
-				}
-			],
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-					"line": 22,
-					"character": 17,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L22"
 				}
 			]
 		},
@@ -470,13 +374,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "core/dist/types/plugin.d.ts",
-							"line": 429,
-							"character": 13
-						}
-					],
 					"type": {
 						"type": "reference",
 						"target": {
@@ -501,14 +398,6 @@
 					"flags": {
 						"isReadonly": true
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-							"line": 57,
-							"character": 10,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L57"
-						}
-					],
 					"type": {
 						"type": "reflection",
 						"declaration": {
@@ -566,13 +455,6 @@
 					"flags": {
 						"isInherited": true
 					},
-					"sources": [
-						{
-							"fileName": "core/dist/types/plugin.d.ts",
-							"line": 438,
-							"character": 4
-						}
-					],
 					"signatures": [
 						{
 							"id": 24,
@@ -606,13 +488,6 @@
 									}
 								]
 							},
-							"sources": [
-								{
-									"fileName": "core/dist/types/plugin.d.ts",
-									"line": 438,
-									"character": 4
-								}
-							],
 							"parameters": [
 								{
 									"id": 25,
@@ -758,14 +633,6 @@
 					]
 				}
 			],
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-					"line": 56,
-					"character": 17,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L56"
-				}
-			],
 			"extendedTypes": [
 				{
 					"type": "reference",
@@ -793,14 +660,6 @@
 					}
 				]
 			},
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-					"line": 63,
-					"character": 12,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L63"
-				}
-			],
 			"type": {
 				"type": "union",
 				"types": [
@@ -833,14 +692,6 @@
 					}
 				]
 			},
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/types.ts",
-					"line": 14,
-					"character": 12,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/types.ts#L14"
-				}
-			],
 			"type": {
 				"type": "reflection",
 				"declaration": {
@@ -919,14 +770,6 @@
 			"variant": "declaration",
 			"kind": 64,
 			"flags": {},
-			"sources": [
-				{
-					"fileName": "plugins/plugin-ai-copilot/src/create-ai-copilot-plugin.ts",
-					"line": 50,
-					"character": 16,
-					"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/create-ai-copilot-plugin.ts#L50"
-				}
-			],
 			"signatures": [
 				{
 					"id": 2,
@@ -974,14 +817,6 @@
 							}
 						]
 					},
-					"sources": [
-						{
-							"fileName": "plugins/plugin-ai-copilot/src/create-ai-copilot-plugin.ts",
-							"line": 50,
-							"character": 16,
-							"url": "https://github.com/ancyloce/anvilkit-plugin-ai-copilot/blob/2f69730be0e326aa698c3ceded16af02ee2f29a8/src/create-ai-copilot-plugin.ts#L50"
-						}
-					],
 					"parameters": [
 						{
 							"id": 3,
@@ -1078,19 +913,117 @@
 		},
 		{
 			"kind": "code",
-			"text": "```bash\npnpm add @anvilkit/plugin-ai-copilot\n```"
+			"text": "```bash\npnpm add @anvilkit/plugin-ai-copilot @anvilkit/core react react-dom @puckeditor/core\n```"
 		},
 		{
 			"kind": "text",
-			"text": "\n\n## Usage\n\n"
+			"text": "\n\n## Quickstart\n\n"
 		},
 		{
 			"kind": "code",
-			"text": "```ts\nimport { createAiCopilotPlugin } from \"@anvilkit/plugin-ai-copilot\";\nimport { puckConfig } from \"./puck-config\";\n\nconst aiCopilot = createAiCopilotPlugin({\n  puckConfig,\n  generatePage: async (prompt, ctx) => {\n    const response = await fetch(\"/api/ai/generate\", {\n      method: \"POST\",\n      body: JSON.stringify({ prompt, availableComponents: ctx.availableComponents }),\n    });\n    return response.json();\n  },\n  timeoutMs: 30_000,\n  forwardCurrentData: true,\n});\n\n<Studio plugins={[aiCopilot]} ... />\n\nawait aiCopilot.runGeneration(\"Build a hero with a CTA\");\n```"
+			"text": "```ts\nimport { Studio } from \"@anvilkit/core\";\nimport { createAiCopilotPlugin } from \"@anvilkit/plugin-ai-copilot\";\nimport { puckConfig } from \"./puck-config\";\n\nconst aiCopilot = createAiCopilotPlugin({\n  puckConfig,\n  generatePage: (prompt, ctx) =>\n    fetch(\"/api/ai/generate\", {\n      method: \"POST\",\n      body: JSON.stringify({ prompt, availableComponents: ctx.availableComponents }),\n    }).then((response) => response.json()),\n  timeoutMs: 30_000,\n});\n\n<Studio puckConfig={puckConfig} plugins={[aiCopilot]} />\n```"
 		},
 		{
 			"kind": "text",
-			"text": "\n\n## Security model\n\n- The plugin **never sees credentials**. API keys, auth headers, and\n  endpoints belong to the host backend.\n- "
+			"text": "\n\nFor CI and local demos, "
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/plugin-ai-copilot/mock`"
+		},
+		{
+			"kind": "text",
+			"text": " also ships\n"
+		},
+		{
+			"kind": "code",
+			"text": "`createMockGeneratePage()`"
+		},
+		{
+			"kind": "text",
+			"text": " and deterministic fixtures that match the\ndemo component catalog.\n\n## Phase 3 references\n\nSee the [Phase 3 plan]("
+		},
+		{
+			"kind": "relative-link",
+			"text": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
+			"target": 2
+		},
+		{
+			"kind": "text",
+			"text": ")\n("
+		},
+		{
+			"kind": "code",
+			"text": "`M5 — @anvilkit/plugin-ai-copilot`"
+		},
+		{
+			"kind": "text",
+			"text": ") and the\n[architecture package catalog]("
+		},
+		{
+			"kind": "relative-link",
+			"text": "../../../docs/ai-context/anvilkit-architecture.md",
+			"target": 3
+		},
+		{
+			"kind": "text",
+			"text": ")\n("
+		},
+		{
+			"kind": "code",
+			"text": "`§7 — @anvilkit/plugins [Stubs Exist]`"
+		},
+		{
+			"kind": "text",
+			"text": ") for the plugin boundary and\nPhase 3 AI generation flow.\n\n## Peer dependencies\n\n| Package | Version |\n| ------- | ------- |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`react`"
+		},
+		{
+			"kind": "text",
+			"text": " | "
+		},
+		{
+			"kind": "code",
+			"text": "`^18.2.0`"
+		},
+		{
+			"kind": "text",
+			"text": " |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`react-dom`"
+		},
+		{
+			"kind": "text",
+			"text": " | "
+		},
+		{
+			"kind": "code",
+			"text": "`^18.2.0`"
+		},
+		{
+			"kind": "text",
+			"text": " |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`@puckeditor/core`"
+		},
+		{
+			"kind": "text",
+			"text": " | "
+		},
+		{
+			"kind": "code",
+			"text": "`^0.19.0`"
+		},
+		{
+			"kind": "text",
+			"text": " |\n\n## Security model\n\n- The plugin **never sees credentials**. API keys, auth headers, and\n  endpoints belong to the host backend.\n- "
 		},
 		{
 			"kind": "code",
@@ -1282,13 +1215,15 @@
 	"files": {
 		"entries": {
 			"1": "src/index.ts",
-			"2": "README.md",
-			"3": ""
+			"2": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
+			"3": "../../../docs/ai-context/anvilkit-architecture.md",
+			"4": "README.md",
+			"5": ""
 		},
 		"reflections": {
 			"1": 0,
-			"2": 0,
-			"3": 0
+			"4": 0,
+			"5": 0
 		}
 	}
 }

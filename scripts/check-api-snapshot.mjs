@@ -1,14 +1,22 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "node:child_process";
-import { dirname, resolve } from "node:path";
+import {
+	copyFileSync,
+	existsSync,
+	mkdtempSync,
+	readFileSync,
+	rmSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PACKAGE_ROOT = resolve(__dirname, "..");
+const API_SNAPSHOT_PATH = resolve(PACKAGE_ROOT, "api/api-snapshot.json");
 const PNPM_BIN = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
-const GIT_BIN = process.platform === "win32" ? "git.exe" : "git";
 
 function run(command, args) {
 	const result = spawnSync(command, args, {
@@ -24,11 +32,14 @@ function run(command, args) {
 }
 
 function main() {
+	const tempDir = mkdtempSync(join(tmpdir(), "anvilkit-api-snapshot-"));
+	const tempSnapshotPath = resolve(tempDir, "api-snapshot.json");
 	const typedocStatus = run(PNPM_BIN, [
 		"exec",
 		"typedoc",
 		"--json",
-		"./api/api-snapshot.json",
+		tempSnapshotPath,
+		"--disableSources",
 		"--entryPoints",
 		"./src/index.ts",
 		"--tsconfig",
@@ -38,29 +49,27 @@ function main() {
 	]);
 
 	if (typedocStatus !== 0) {
+		rmSync(tempDir, { force: true, recursive: true });
 		process.exit(typedocStatus);
 	}
 
-	const diffStatus = run(GIT_BIN, [
-		"diff",
-		"--exit-code",
-		"--",
-		"api/api-snapshot.json",
-	]);
+	const nextSnapshot = readFileSync(tempSnapshotPath, "utf8");
+	const currentSnapshot = existsSync(API_SNAPSHOT_PATH)
+		? readFileSync(API_SNAPSHOT_PATH, "utf8")
+		: null;
 
-	if (diffStatus === 0) {
+	if (currentSnapshot === nextSnapshot) {
+		rmSync(tempDir, { force: true, recursive: true });
 		console.log("check-api-snapshot: OK — api/api-snapshot.json is up to date.");
 		return;
 	}
 
-	if (diffStatus === 1) {
-		console.error(
-			"check-api-snapshot: FAIL — api/api-snapshot.json changed after regeneration. Commit the updated snapshot.",
-		);
-		process.exit(1);
-	}
-
-	process.exit(diffStatus);
+	copyFileSync(tempSnapshotPath, API_SNAPSHOT_PATH);
+	rmSync(tempDir, { force: true, recursive: true });
+	console.error(
+		"check-api-snapshot: FAIL — api/api-snapshot.json changed after regeneration. Commit the updated snapshot.",
+	);
+	process.exit(1);
 }
 
 try {
