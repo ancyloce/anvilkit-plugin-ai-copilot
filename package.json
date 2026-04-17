@@ -66,6 +66,7 @@
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
 		"test:watch": "vitest",
+		"publint": "publint",
 		"check:publint": "publint",
 		"check:circular": "madge --circular --extensions ts src/",
 		"check:peer-deps": "node ./scripts/check-peer-deps.mjs",
