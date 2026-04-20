@@ -1,0 +1,19 @@
+[
+	{
+		"name": "@anvilkit/plugin-ai-copilot",
+		"path": "dist/index.js",
+		"limit": "15 KB",
+		"gzip": true,
+		"ignore": [
+			"react",
+			"react-dom",
+			"@puckeditor/core",
+			"@anvilkit/core",
+			"@anvilkit/ir",
+			"@anvilkit/schema",
+			"@anvilkit/validator",
+			"@anvilkit/utils",
+			"zod"
+		]
+	}
+]
