@@ -7,366 +7,171 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 4,
-			"name": "AiCopilotErrorPayload",
+			"id": 1,
+			"name": "index",
 			"variant": "declaration",
-			"kind": 256,
+			"kind": 2,
 			"flags": {},
-			"comment": {
-				"summary": [
-					{
-						"kind": "text",
-						"text": "Structured error payload emitted on the Studio plugin event bus and\nlogged through the plugin context."
-					}
-				]
-			},
 			"children": [
-				{
-					"id": 5,
-					"name": "code",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
-					"type": {
-						"type": "reference",
-						"target": 26,
-						"name": "AiErrorCode",
-						"package": "@anvilkit/plugin-ai-copilot"
-					}
-				},
-				{
-					"id": 7,
-					"name": "issues",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isOptional": true,
-						"isReadonly": true
-					},
-					"type": {
-						"type": "typeOperator",
-						"operator": "readonly",
-						"target": {
-							"type": "array",
-							"elementType": {
-								"type": "reflection",
-								"declaration": {
-									"id": 8,
-									"name": "__type",
-									"variant": "declaration",
-									"kind": 65536,
-									"flags": {},
-									"children": [
-										{
-											"id": 10,
-											"name": "message",
-											"variant": "declaration",
-											"kind": 1024,
-											"flags": {
-												"isReadonly": true
-											},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										},
-										{
-											"id": 9,
-											"name": "path",
-											"variant": "declaration",
-											"kind": 1024,
-											"flags": {
-												"isReadonly": true
-											},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										},
-										{
-											"id": 11,
-											"name": "severity",
-											"variant": "declaration",
-											"kind": 1024,
-											"flags": {
-												"isReadonly": true
-											},
-											"type": {
-												"type": "union",
-												"types": [
-													{
-														"type": "literal",
-														"value": "error"
-													},
-													{
-														"type": "literal",
-														"value": "warn"
-													}
-												]
-											}
-										}
-									],
-									"groups": [
-										{
-											"title": "Properties",
-											"children": [
-												10,
-												9,
-												11
-											]
-										}
-									]
-								}
-							}
-						}
-					}
-				},
 				{
 					"id": 6,
-					"name": "message",
+					"name": "AiCopilotErrorPayload",
 					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
+					"kind": 256,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Structured error payload emitted on the Studio plugin event bus and\nlogged through the plugin context."
+							}
+						]
 					},
-					"type": {
-						"type": "intrinsic",
-						"name": "string"
-					}
-				}
-			],
-			"groups": [
-				{
-					"title": "Properties",
 					"children": [
-						5,
-						7,
-						6
+						{
+							"id": 7,
+							"name": "code",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"type": {
+								"type": "reference",
+								"target": 28,
+								"name": "AiErrorCode",
+								"package": "@anvilkit/plugin-ai-copilot"
+							}
+						},
+						{
+							"id": 9,
+							"name": "issues",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true,
+								"isReadonly": true
+							},
+							"type": {
+								"type": "typeOperator",
+								"operator": "readonly",
+								"target": {
+									"type": "array",
+									"elementType": {
+										"type": "reflection",
+										"declaration": {
+											"id": 10,
+											"name": "__type",
+											"variant": "declaration",
+											"kind": 65536,
+											"flags": {},
+											"children": [
+												{
+													"id": 12,
+													"name": "message",
+													"variant": "declaration",
+													"kind": 1024,
+													"flags": {
+														"isReadonly": true
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												},
+												{
+													"id": 11,
+													"name": "path",
+													"variant": "declaration",
+													"kind": 1024,
+													"flags": {
+														"isReadonly": true
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												},
+												{
+													"id": 13,
+													"name": "severity",
+													"variant": "declaration",
+													"kind": 1024,
+													"flags": {
+														"isReadonly": true
+													},
+													"type": {
+														"type": "union",
+														"types": [
+															{
+																"type": "literal",
+																"value": "error"
+															},
+															{
+																"type": "literal",
+																"value": "warn"
+															}
+														]
+													}
+												}
+											],
+											"groups": [
+												{
+													"title": "Properties",
+													"children": [
+														12,
+														11,
+														13
+													]
+												}
+											]
+										}
+									}
+								}
+							}
+						},
+						{
+							"id": 8,
+							"name": "message",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								7,
+								9,
+								8
+							]
+						}
 					]
-				}
-			]
-		},
-		{
-			"id": 12,
-			"name": "AiCopilotOptions",
-			"variant": "declaration",
-			"kind": 256,
-			"flags": {},
-			"comment": {
-				"summary": [
-					{
-						"kind": "text",
-						"text": "Configuration for "
-					},
-					{
-						"kind": "inline-tag",
-						"tag": "@link",
-						"text": "createAiCopilotPlugin",
-						"target": 1
-					},
-					{
-						"kind": "text",
-						"text": "."
-					}
-				]
-			},
-			"children": [
-				{
-					"id": 16,
-					"name": "forwardCurrentData",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isOptional": true,
-						"isReadonly": true
-					},
-					"comment": {
-						"summary": [
-							{
-								"kind": "text",
-								"text": "Whether to forward the current Puck data snapshot on each run.\n\nDefaults to "
-							},
-							{
-								"kind": "code",
-								"text": "`false`"
-							},
-							{
-								"kind": "text",
-								"text": "."
-							}
-						]
-					},
-					"type": {
-						"type": "intrinsic",
-						"name": "boolean"
-					}
-				},
-				{
-					"id": 13,
-					"name": "generatePage",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
-					"comment": {
-						"summary": [
-							{
-								"kind": "text",
-								"text": "Host-owned generation callback that turns a prompt plus context\ninto a page IR document."
-							}
-						]
-					},
-					"type": {
-						"type": "reference",
-						"target": 27,
-						"name": "GeneratePageFn",
-						"package": "@anvilkit/plugin-ai-copilot"
-					}
 				},
 				{
 					"id": 14,
-					"name": "puckConfig",
+					"name": "AiCopilotOptions",
 					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
+					"kind": 256,
+					"flags": {},
 					"comment": {
 						"summary": [
 							{
 								"kind": "text",
-								"text": "The same Puck config object the host passes to "
-							},
-							{
-								"kind": "code",
-								"text": "`<Studio />`"
-							},
-							{
-								"kind": "text",
-								"text": ".\n\nThe plugin derives and caches its AI-safe schema from this config\nduring "
-							},
-							{
-								"kind": "code",
-								"text": "`onInit`"
-							},
-							{
-								"kind": "text",
-								"text": "."
-							}
-						]
-					},
-					"type": {
-						"type": "reference",
-						"target": {
-							"packageName": "@puckeditor/core",
-							"packagePath": "dist/actions-BkBoKAc5.d.ts",
-							"qualifiedName": "Config"
-						},
-						"name": "Config",
-						"package": "@puckeditor/core"
-					}
-				},
-				{
-					"id": 15,
-					"name": "timeoutMs",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isOptional": true,
-						"isReadonly": true
-					},
-					"comment": {
-						"summary": [
-							{
-								"kind": "text",
-								"text": "Optional timeout applied to the "
-							},
-							{
-								"kind": "code",
-								"text": "`generatePage()`"
-							},
-							{
-								"kind": "text",
-								"text": " call.\n\nDefaults to "
-							},
-							{
-								"kind": "code",
-								"text": "`30_000`"
-							},
-							{
-								"kind": "text",
-								"text": "."
-							}
-						]
-					},
-					"type": {
-						"type": "intrinsic",
-						"name": "number"
-					}
-				}
-			],
-			"groups": [
-				{
-					"title": "Properties",
-					"children": [
-						16,
-						13,
-						14,
-						15
-					]
-				}
-			]
-		},
-		{
-			"id": 17,
-			"name": "AiCopilotPluginInstance",
-			"variant": "declaration",
-			"kind": 256,
-			"flags": {},
-			"comment": {
-				"summary": [
-					{
-						"kind": "text",
-						"text": "Returned plugin instance, including the public "
-					},
-					{
-						"kind": "code",
-						"text": "`runGeneration()`"
-					},
-					{
-						"kind": "text",
-						"text": "\nentry point used by host UI code and tests."
-					}
-				]
-			},
-			"children": [
-				{
-					"id": 22,
-					"name": "meta",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true,
-						"isInherited": true
-					},
-					"comment": {
-						"summary": [
-							{
-								"kind": "text",
-								"text": "Frozen plugin metadata.\n\nSee "
+								"text": "Configuration for "
 							},
 							{
 								"kind": "inline-tag",
 								"tag": "@link",
-								"text": "StudioPluginMeta",
-								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/plugin.ts",
-									"qualifiedName": "StudioPluginMeta"
-								}
+								"text": "createAiCopilotPlugin",
+								"target": 3
 							},
 							{
 								"kind": "text",
@@ -374,113 +179,25 @@
 							}
 						]
 					},
-					"type": {
-						"type": "reference",
-						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/plugin.ts",
-							"qualifiedName": "StudioPluginMeta"
-						},
-						"name": "StudioPluginMeta",
-						"package": "@anvilkit/core"
-					},
-					"inheritedFrom": {
-						"type": "reference",
-						"target": -1,
-						"name": "StudioPlugin.meta"
-					}
-				},
-				{
-					"id": 18,
-					"name": "runGeneration",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
-					"type": {
-						"type": "reflection",
-						"declaration": {
-							"id": 19,
-							"name": "__type",
-							"variant": "declaration",
-							"kind": 65536,
-							"flags": {},
-							"signatures": [
-								{
-									"id": 20,
-									"name": "__type",
-									"variant": "signature",
-									"kind": 4096,
-									"flags": {},
-									"parameters": [
-										{
-											"id": 21,
-											"name": "prompt",
-											"variant": "param",
-											"kind": 32768,
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"target": {
-											"packageName": "typescript",
-											"packagePath": "lib/lib.es5.d.ts",
-											"qualifiedName": "Promise"
-										},
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										],
-										"name": "Promise",
-										"package": "typescript"
-									}
-								}
-							]
-						}
-					}
-				},
-				{
-					"id": 23,
-					"name": "register",
-					"variant": "declaration",
-					"kind": 2048,
-					"flags": {
-						"isInherited": true
-					},
-					"signatures": [
+					"children": [
 						{
-							"id": 24,
-							"name": "register",
-							"variant": "signature",
-							"kind": 4096,
+							"id": 18,
+							"name": "forwardCurrentData",
+							"variant": "declaration",
+							"kind": 1024,
 							"flags": {
-								"isInherited": true
+								"isOptional": true,
+								"isReadonly": true
 							},
 							"comment": {
 								"summary": [
 									{
 										"kind": "text",
-										"text": "Produce a registration block for the runtime to consume.\n\nCalled exactly once per plugin, during "
+										"text": "Whether to forward the current Puck data snapshot on each run.\n\nDefaults to "
 									},
 									{
 										"kind": "code",
-										"text": "`compilePlugins()`"
-									},
-									{
-										"kind": "text",
-										"text": ". May\nreturn synchronously or via a "
-									},
-									{
-										"kind": "code",
-										"text": "`Promise`"
+										"text": "`false`"
 									},
 									{
 										"kind": "text",
@@ -488,92 +205,352 @@
 									}
 								]
 							},
-							"parameters": [
-								{
-									"id": 25,
-									"name": "ctx",
-									"variant": "param",
-									"kind": 32768,
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						},
+						{
+							"id": 15,
+							"name": "generatePage",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Host-owned generation callback that turns a prompt plus context\ninto a page IR document."
+									}
+								]
+							},
+							"type": {
+								"type": "reference",
+								"target": 29,
+								"name": "GeneratePageFn",
+								"package": "@anvilkit/plugin-ai-copilot"
+							}
+						},
+						{
+							"id": 16,
+							"name": "puckConfig",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "The same Puck config object the host passes to "
+									},
+									{
+										"kind": "code",
+										"text": "`<Studio />`"
+									},
+									{
+										"kind": "text",
+										"text": ".\n\nThe plugin derives and caches its AI-safe schema from this config\nduring "
+									},
+									{
+										"kind": "code",
+										"text": "`onInit`"
+									},
+									{
+										"kind": "text",
+										"text": "."
+									}
+								]
+							},
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "@puckeditor/core",
+									"packagePath": "dist/actions-BkBoKAc5.d.ts",
+									"qualifiedName": "Config"
+								},
+								"name": "Config",
+								"package": "@puckeditor/core"
+							}
+						},
+						{
+							"id": 17,
+							"name": "timeoutMs",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true,
+								"isReadonly": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Optional timeout applied to the "
+									},
+									{
+										"kind": "code",
+										"text": "`generatePage()`"
+									},
+									{
+										"kind": "text",
+										"text": " call.\n\nDefaults to "
+									},
+									{
+										"kind": "code",
+										"text": "`30_000`"
+									},
+									{
+										"kind": "text",
+										"text": "."
+									}
+								]
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								18,
+								15,
+								16,
+								17
+							]
+						}
+					]
+				},
+				{
+					"id": 19,
+					"name": "AiCopilotPluginInstance",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Returned plugin instance, including the public "
+							},
+							{
+								"kind": "code",
+								"text": "`runGeneration()`"
+							},
+							{
+								"kind": "text",
+								"text": "\nentry point used by host UI code and tests."
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 24,
+							"name": "meta",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true,
+								"isInherited": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Frozen plugin metadata.\n\nSee "
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "StudioPluginMeta",
+										"target": {
+											"packageName": "@anvilkit/core",
+											"packagePath": "src/types/plugin.ts",
+											"qualifiedName": "StudioPluginMeta"
+										}
+									},
+									{
+										"kind": "text",
+										"text": "."
+									}
+								]
+							},
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "@anvilkit/core",
+									"packagePath": "src/types/plugin.ts",
+									"qualifiedName": "StudioPluginMeta"
+								},
+								"name": "StudioPluginMeta",
+								"package": "@anvilkit/core"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"target": -1,
+								"name": "StudioPlugin.meta"
+							}
+						},
+						{
+							"id": 20,
+							"name": "runGeneration",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 21,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
 									"flags": {},
+									"signatures": [
+										{
+											"id": 22,
+											"name": "__type",
+											"variant": "signature",
+											"kind": 4096,
+											"flags": {},
+											"parameters": [
+												{
+													"id": 23,
+													"name": "prompt",
+													"variant": "param",
+													"kind": 32768,
+													"flags": {},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"packageName": "typescript",
+													"packagePath": "lib/lib.es5.d.ts",
+													"qualifiedName": "Promise"
+												},
+												"typeArguments": [
+													{
+														"type": "intrinsic",
+														"name": "void"
+													}
+												],
+												"name": "Promise",
+												"package": "typescript"
+											}
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 25,
+							"name": "register",
+							"variant": "declaration",
+							"kind": 2048,
+							"flags": {
+								"isInherited": true
+							},
+							"signatures": [
+								{
+									"id": 26,
+									"name": "register",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {
+										"isInherited": true
+									},
 									"comment": {
 										"summary": [
 											{
 												"kind": "text",
-												"text": "The "
+												"text": "Produce a registration block for the runtime to consume.\n\nCalled exactly once per plugin, during "
 											},
 											{
-												"kind": "inline-tag",
-												"tag": "@link",
-												"text": "StudioPluginContext",
+												"kind": "code",
+												"text": "`compilePlugins()`"
+											},
+											{
+												"kind": "text",
+												"text": ". May\nreturn synchronously or via a "
+											},
+											{
+												"kind": "code",
+												"text": "`Promise`"
+											},
+											{
+												"kind": "text",
+												"text": "."
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 27,
+											"name": "ctx",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "The "
+													},
+													{
+														"kind": "inline-tag",
+														"tag": "@link",
+														"text": "StudioPluginContext",
+														"target": {
+															"packageName": "@anvilkit/core",
+															"packagePath": "src/types/plugin.ts",
+															"qualifiedName": "StudioPluginContext"
+														}
+													},
+													{
+														"kind": "text",
+														"text": " for this session."
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
 												"target": {
 													"packageName": "@anvilkit/core",
 													"packagePath": "src/types/plugin.ts",
 													"qualifiedName": "StudioPluginContext"
-												}
-											},
-											{
-												"kind": "text",
-												"text": " for this session."
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": {
+															"packageName": "@puckeditor/core",
+															"packagePath": "dist/actions-BkBoKAc5.d.ts",
+															"qualifiedName": "Config"
+														},
+														"name": "Config",
+														"package": "@puckeditor/core"
+													}
+												],
+												"name": "StudioPluginContext",
+												"package": "@anvilkit/core"
 											}
-										]
-									},
+										}
+									],
 									"type": {
-										"type": "reference",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/plugin.ts",
-											"qualifiedName": "StudioPluginContext"
-										},
-										"typeArguments": [
-											{
-												"type": "reference",
-												"target": {
-													"packageName": "@puckeditor/core",
-													"packagePath": "dist/actions-BkBoKAc5.d.ts",
-													"qualifiedName": "Config"
-												},
-												"name": "Config",
-												"package": "@puckeditor/core"
-											}
-										],
-										"name": "StudioPluginContext",
-										"package": "@anvilkit/core"
-									}
-								}
-							],
-							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "reference",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/plugin.ts",
-											"qualifiedName": "StudioPluginRegistration"
-										},
-										"typeArguments": [
-											{
-												"type": "reference",
-												"target": {
-													"packageName": "@puckeditor/core",
-													"packagePath": "dist/actions-BkBoKAc5.d.ts",
-													"qualifiedName": "Config"
-												},
-												"name": "Config",
-												"package": "@puckeditor/core"
-											}
-										],
-										"name": "StudioPluginRegistration",
-										"package": "@anvilkit/core"
-									},
-									{
-										"type": "reference",
-										"target": {
-											"packageName": "typescript",
-											"packagePath": "lib/lib.es5.d.ts",
-											"qualifiedName": "Promise"
-										},
-										"typeArguments": [
+										"type": "union",
+										"types": [
 											{
 												"type": "reference",
 												"target": {
@@ -595,13 +572,51 @@
 												],
 												"name": "StudioPluginRegistration",
 												"package": "@anvilkit/core"
+											},
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "typescript",
+													"packagePath": "lib/lib.es5.d.ts",
+													"qualifiedName": "Promise"
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": {
+															"packageName": "@anvilkit/core",
+															"packagePath": "src/types/plugin.ts",
+															"qualifiedName": "StudioPluginRegistration"
+														},
+														"typeArguments": [
+															{
+																"type": "reference",
+																"target": {
+																	"packageName": "@puckeditor/core",
+																	"packagePath": "dist/actions-BkBoKAc5.d.ts",
+																	"qualifiedName": "Config"
+																},
+																"name": "Config",
+																"package": "@puckeditor/core"
+															}
+														],
+														"name": "StudioPluginRegistration",
+														"package": "@anvilkit/core"
+													}
+												],
+												"name": "Promise",
+												"package": "typescript"
 											}
-										],
-										"name": "Promise",
-										"package": "typescript"
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"target": -1,
+										"name": "StudioPlugin.register",
+										"package": "@anvilkit/core"
 									}
-								]
-							},
+								}
+							],
 							"inheritedFrom": {
 								"type": "reference",
 								"target": -1,
@@ -610,106 +625,450 @@
 							}
 						}
 					],
-					"inheritedFrom": {
-						"type": "reference",
-						"target": -1,
-						"name": "StudioPlugin.register",
-						"package": "@anvilkit/core"
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								24,
+								20
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								25
+							]
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"target": {
+								"packageName": "@anvilkit/core",
+								"packagePath": "src/types/plugin.ts",
+								"qualifiedName": "StudioPlugin"
+							},
+							"name": "StudioPlugin",
+							"package": "@anvilkit/core"
+						}
+					]
+				},
+				{
+					"id": 28,
+					"name": "AiErrorCode",
+					"variant": "declaration",
+					"kind": 2097152,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Stable error codes emitted by the AI copilot plugin."
+							}
+						]
+					},
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "VALIDATION_FAILED"
+							},
+							{
+								"type": "literal",
+								"value": "TIMEOUT"
+							},
+							{
+								"type": "literal",
+								"value": "GENERATE_FAILED"
+							},
+							{
+								"type": "literal",
+								"value": "APPLY_FAILED"
+							}
+						]
 					}
+				},
+				{
+					"id": 29,
+					"name": "GeneratePageFn",
+					"variant": "declaration",
+					"kind": 2097152,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Host-supplied generation callback used by the AI copilot plugin.\n\nThe plugin passes exactly two arguments: the user's prompt and an\nAI-safe generation context derived from the Puck config."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 30,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 31,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 32,
+											"name": "prompt",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 33,
+											"name": "ctx",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"target": {
+													"packageName": "@anvilkit/core",
+													"packagePath": "src/types/ai.ts",
+													"qualifiedName": "AiGenerationContext"
+												},
+												"name": "AiGenerationContext",
+												"package": "@anvilkit/core"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "typescript",
+											"packagePath": "lib/lib.es5.d.ts",
+											"qualifiedName": "Promise"
+										},
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@anvilkit/core",
+													"packagePath": "src/types/ir.ts",
+													"qualifiedName": "PageIR"
+												},
+												"name": "PageIR",
+												"package": "@anvilkit/core"
+											}
+										],
+										"name": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 3,
+					"name": "createAiCopilotPlugin",
+					"variant": "declaration",
+					"kind": 64,
+					"flags": {},
+					"signatures": [
+						{
+							"id": 4,
+							"name": "createAiCopilotPlugin",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Create the headless AI copilot plugin.\n\nThe host must pass the same "
+									},
+									{
+										"kind": "code",
+										"text": "`puckConfig`"
+									},
+									{
+										"kind": "text",
+										"text": " object it gives to\n"
+									},
+									{
+										"kind": "code",
+										"text": "`<Studio />`"
+									},
+									{
+										"kind": "text",
+										"text": " so "
+									},
+									{
+										"kind": "code",
+										"text": "`configToAiContext()`"
+									},
+									{
+										"kind": "text",
+										"text": " can derive the AI-safe schema\nonce during "
+									},
+									{
+										"kind": "code",
+										"text": "`onInit`"
+									},
+									{
+										"kind": "text",
+										"text": "."
+									}
+								]
+							},
+							"parameters": [
+								{
+									"id": 5,
+									"name": "opts",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 14,
+										"name": "AiCopilotOptions",
+										"package": "@anvilkit/plugin-ai-copilot"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 19,
+								"name": "AiCopilotPluginInstance",
+								"package": "@anvilkit/plugin-ai-copilot"
+							}
+						}
+					]
 				}
 			],
 			"groups": [
 				{
-					"title": "Properties",
+					"title": "Interfaces",
 					"children": [
-						22,
-						18
+						6,
+						14,
+						19
 					]
 				},
 				{
-					"title": "Methods",
+					"title": "Type Aliases",
 					"children": [
-						23
+						28,
+						29
 					]
-				}
-			],
-			"extendedTypes": [
+				},
 				{
-					"type": "reference",
-					"target": {
-						"packageName": "@anvilkit/core",
-						"packagePath": "src/types/plugin.ts",
-						"qualifiedName": "StudioPlugin"
-					},
-					"name": "StudioPlugin",
-					"package": "@anvilkit/core"
+					"title": "Functions",
+					"children": [
+						3
+					]
 				}
 			]
 		},
 		{
-			"id": 26,
-			"name": "AiErrorCode",
+			"id": 2,
+			"name": "mock",
 			"variant": "declaration",
-			"kind": 2097152,
+			"kind": 2,
 			"flags": {},
-			"comment": {
-				"summary": [
-					{
-						"kind": "text",
-						"text": "Stable error codes emitted by the AI copilot plugin."
-					}
-				]
-			},
-			"type": {
-				"type": "union",
-				"types": [
-					{
-						"type": "literal",
-						"value": "VALIDATION_FAILED"
-					},
-					{
-						"type": "literal",
-						"value": "TIMEOUT"
-					},
-					{
-						"type": "literal",
-						"value": "GENERATE_FAILED"
-					}
-				]
-			}
-		},
-		{
-			"id": 27,
-			"name": "GeneratePageFn",
-			"variant": "declaration",
-			"kind": 2097152,
-			"flags": {},
-			"comment": {
-				"summary": [
-					{
-						"kind": "text",
-						"text": "Host-supplied generation callback used by the AI copilot plugin.\n\nThe plugin passes exactly two arguments: the user's prompt and an\nAI-safe generation context derived from the Puck config."
-					}
-				]
-			},
-			"type": {
-				"type": "reflection",
-				"declaration": {
-					"id": 28,
-					"name": "__type",
+			"children": [
+				{
+					"id": 41,
+					"name": "CreateMockGeneratePageOptions",
 					"variant": "declaration",
-					"kind": 65536,
+					"kind": 256,
+					"flags": {},
+					"children": [
+						{
+							"id": 42,
+							"name": "delayMs",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true,
+								"isReadonly": true
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							}
+						},
+						{
+							"id": 43,
+							"name": "fixtures",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true,
+								"isReadonly": true
+							},
+							"type": {
+								"type": "typeOperator",
+								"operator": "readonly",
+								"target": {
+									"type": "array",
+									"elementType": {
+										"type": "reference",
+										"target": 34,
+										"name": "Fixture",
+										"package": "@anvilkit/plugin-ai-copilot"
+									}
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								42,
+								43
+							]
+						}
+					]
+				},
+				{
+					"id": 34,
+					"name": "Fixture",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {},
+					"children": [
+						{
+							"id": 36,
+							"name": "ir",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "@anvilkit/core",
+									"packagePath": "src/types/ir.ts",
+									"qualifiedName": "PageIR"
+								},
+								"name": "PageIR",
+								"package": "@anvilkit/core"
+							}
+						},
+						{
+							"id": 35,
+							"name": "prompts",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"type": {
+								"type": "typeOperator",
+								"operator": "readonly",
+								"target": {
+									"type": "array",
+									"elementType": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								36,
+								35
+							]
+						}
+					]
+				},
+				{
+					"id": 37,
+					"name": "allFixtures",
+					"variant": "declaration",
+					"kind": 32,
+					"flags": {
+						"isConst": true
+					},
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"target": 34,
+							"name": "Fixture",
+							"package": "@anvilkit/plugin-ai-copilot"
+						}
+					},
+					"defaultValue": "..."
+				},
+				{
+					"id": 44,
+					"name": "createMockGeneratePage",
+					"variant": "declaration",
+					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 29,
-							"name": "__type",
+							"id": 45,
+							"name": "createMockGeneratePage",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 30,
+									"id": 46,
+									"name": "opts",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 41,
+										"name": "CreateMockGeneratePageOptions",
+										"package": "@anvilkit/plugin-ai-copilot"
+									},
+									"defaultValue": "{}"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 29,
+								"name": "GeneratePageFn",
+								"package": "@anvilkit/plugin-ai-copilot"
+							}
+						}
+					]
+				},
+				{
+					"id": 38,
+					"name": "matchPromptToFixture",
+					"variant": "declaration",
+					"kind": 64,
+					"flags": {},
+					"signatures": [
+						{
+							"id": 39,
+							"name": "matchPromptToFixture",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"parameters": [
+								{
+									"id": 40,
 									"name": "prompt",
 									"variant": "param",
 									"kind": 32768,
@@ -718,150 +1077,57 @@
 										"type": "intrinsic",
 										"name": "string"
 									}
-								},
-								{
-									"id": 31,
-									"name": "ctx",
-									"variant": "param",
-									"kind": 32768,
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai.ts",
-											"qualifiedName": "AiGenerationContext"
-										},
-										"name": "AiGenerationContext",
-										"package": "@anvilkit/core"
-									}
 								}
 							],
 							"type": {
-								"type": "reference",
-								"target": {
-									"packageName": "typescript",
-									"packagePath": "lib/lib.es5.d.ts",
-									"qualifiedName": "Promise"
-								},
-								"typeArguments": [
+								"type": "union",
+								"types": [
 									{
 										"type": "reference",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ir.ts",
-											"qualifiedName": "PageIR"
-										},
-										"name": "PageIR",
-										"package": "@anvilkit/core"
+										"target": 34,
+										"name": "Fixture",
+										"package": "@anvilkit/plugin-ai-copilot"
+									},
+									{
+										"type": "intrinsic",
+										"name": "undefined"
 									}
-								],
-								"name": "Promise",
-								"package": "typescript"
+								]
 							}
 						}
 					]
 				}
-			}
-		},
-		{
-			"id": 1,
-			"name": "createAiCopilotPlugin",
-			"variant": "declaration",
-			"kind": 64,
-			"flags": {},
-			"signatures": [
+			],
+			"groups": [
 				{
-					"id": 2,
-					"name": "createAiCopilotPlugin",
-					"variant": "signature",
-					"kind": 4096,
-					"flags": {},
-					"comment": {
-						"summary": [
-							{
-								"kind": "text",
-								"text": "Create the headless AI copilot plugin.\n\nThe host must pass the same "
-							},
-							{
-								"kind": "code",
-								"text": "`puckConfig`"
-							},
-							{
-								"kind": "text",
-								"text": " object it gives to\n"
-							},
-							{
-								"kind": "code",
-								"text": "`<Studio />`"
-							},
-							{
-								"kind": "text",
-								"text": " so "
-							},
-							{
-								"kind": "code",
-								"text": "`configToAiContext()`"
-							},
-							{
-								"kind": "text",
-								"text": " can derive the AI-safe schema\nonce during "
-							},
-							{
-								"kind": "code",
-								"text": "`onInit`"
-							},
-							{
-								"kind": "text",
-								"text": "."
-							}
-						]
-					},
-					"parameters": [
-						{
-							"id": 3,
-							"name": "opts",
-							"variant": "param",
-							"kind": 32768,
-							"flags": {},
-							"type": {
-								"type": "reference",
-								"target": 12,
-								"name": "AiCopilotOptions",
-								"package": "@anvilkit/plugin-ai-copilot"
-							}
-						}
-					],
-					"type": {
-						"type": "reference",
-						"target": 17,
-						"name": "AiCopilotPluginInstance",
-						"package": "@anvilkit/plugin-ai-copilot"
-					}
+					"title": "Interfaces",
+					"children": [
+						41,
+						34
+					]
+				},
+				{
+					"title": "Variables",
+					"children": [
+						37
+					]
+				},
+				{
+					"title": "Functions",
+					"children": [
+						44,
+						38
+					]
 				}
 			]
 		}
 	],
 	"groups": [
 		{
-			"title": "Interfaces",
+			"title": "Modules",
 			"children": [
-				4,
-				12,
-				17
-			]
-		},
-		{
-			"title": "Type Aliases",
-			"children": [
-				26,
-				27
-			]
-		},
-		{
-			"title": "Functions",
-			"children": [
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -946,7 +1212,7 @@
 		{
 			"kind": "relative-link",
 			"text": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
-			"target": 2
+			"target": 3
 		},
 		{
 			"kind": "text",
@@ -963,7 +1229,7 @@
 		{
 			"kind": "relative-link",
 			"text": "../../../docs/ai-context/anvilkit-architecture.md",
-			"target": 3
+			"target": 4
 		},
 		{
 			"kind": "text",
@@ -1051,179 +1317,251 @@
 		}
 	],
 	"symbolIdMap": {
-		"0": {
+		"1": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/index.ts",
 			"qualifiedName": ""
 		},
-		"1": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/create-ai-copilot-plugin.ts",
-			"qualifiedName": "createAiCopilotPlugin"
-		},
 		"2": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/create-ai-copilot-plugin.ts",
-			"qualifiedName": "createAiCopilotPlugin"
+			"packagePath": "src/mock/index.ts",
+			"qualifiedName": ""
 		},
 		"3": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/create-ai-copilot-plugin.ts",
-			"qualifiedName": "opts"
+			"qualifiedName": "createAiCopilotPlugin"
 		},
 		"4": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotErrorPayload"
+			"packagePath": "src/create-ai-copilot-plugin.ts",
+			"qualifiedName": "createAiCopilotPlugin"
 		},
 		"5": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotErrorPayload.code"
+			"packagePath": "src/create-ai-copilot-plugin.ts",
+			"qualifiedName": "opts"
 		},
 		"6": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotErrorPayload.message"
+			"qualifiedName": "AiCopilotErrorPayload"
 		},
 		"7": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotErrorPayload.issues"
+			"qualifiedName": "AiCopilotErrorPayload.code"
 		},
 		"8": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiCopilotErrorPayload.message"
 		},
 		"9": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type.path"
+			"qualifiedName": "AiCopilotErrorPayload.issues"
 		},
 		"10": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type.message"
+			"qualifiedName": "__type"
 		},
 		"11": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type.severity"
+			"qualifiedName": "__type.path"
 		},
 		"12": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotOptions"
+			"qualifiedName": "__type.message"
 		},
 		"13": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotOptions.generatePage"
+			"qualifiedName": "__type.severity"
 		},
 		"14": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotOptions.puckConfig"
+			"qualifiedName": "AiCopilotOptions"
 		},
 		"15": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotOptions.timeoutMs"
+			"qualifiedName": "AiCopilotOptions.generatePage"
 		},
 		"16": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotOptions.forwardCurrentData"
+			"qualifiedName": "AiCopilotOptions.puckConfig"
 		},
 		"17": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotPluginInstance"
+			"qualifiedName": "AiCopilotOptions.timeoutMs"
 		},
 		"18": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotPluginInstance.runGeneration"
+			"qualifiedName": "AiCopilotOptions.forwardCurrentData"
 		},
 		"19": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiCopilotPluginInstance"
 		},
 		"20": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiCopilotPluginInstance.runGeneration"
 		},
 		"21": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "prompt"
+			"qualifiedName": "__type"
 		},
 		"22": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.meta"
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
 		},
 		"23": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.register"
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "prompt"
 		},
 		"24": {
 			"packageName": "@anvilkit/core",
 			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.register"
+			"qualifiedName": "StudioPlugin.meta"
 		},
 		"25": {
 			"packageName": "@anvilkit/core",
 			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "ctx"
+			"qualifiedName": "StudioPlugin.register"
 		},
 		"26": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "AiErrorCode"
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "StudioPlugin.register"
 		},
 		"27": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "GeneratePageFn"
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "ctx"
 		},
 		"28": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiErrorCode"
 		},
 		"29": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "GeneratePageFn"
 		},
 		"30": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "prompt"
+			"qualifiedName": "__type"
 		},
 		"31": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
+		},
+		"32": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "prompt"
+		},
+		"33": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
 			"qualifiedName": "ctx"
+		},
+		"34": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/types.ts",
+			"qualifiedName": "Fixture"
+		},
+		"35": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/types.ts",
+			"qualifiedName": "Fixture.prompts"
+		},
+		"36": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/types.ts",
+			"qualifiedName": "Fixture.ir"
+		},
+		"37": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/index.ts",
+			"qualifiedName": "allFixtures"
+		},
+		"38": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/index.ts",
+			"qualifiedName": "matchPromptToFixture"
+		},
+		"39": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/index.ts",
+			"qualifiedName": "matchPromptToFixture"
+		},
+		"40": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/fixtures/index.ts",
+			"qualifiedName": "prompt"
+		},
+		"41": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "CreateMockGeneratePageOptions"
+		},
+		"42": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "CreateMockGeneratePageOptions.delayMs"
+		},
+		"43": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "CreateMockGeneratePageOptions.fixtures"
+		},
+		"44": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "createMockGeneratePage"
+		},
+		"45": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "createMockGeneratePage"
+		},
+		"46": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/mock/mock-generate-page.ts",
+			"qualifiedName": "opts"
 		}
 	},
 	"files": {
 		"entries": {
 			"1": "src/index.ts",
-			"2": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
-			"3": "../../../docs/ai-context/anvilkit-architecture.md",
-			"4": "README.md",
-			"5": ""
+			"2": "src/mock/index.ts",
+			"3": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
+			"4": "../../../docs/ai-context/anvilkit-architecture.md",
+			"5": "README.md",
+			"6": ""
 		},
 		"reflections": {
-			"1": 0,
-			"4": 0,
-			"5": 0
+			"1": 1,
+			"2": 2,
+			"5": 0,
+			"6": 0
 		}
 	}
 }
