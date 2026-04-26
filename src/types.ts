@@ -60,7 +60,11 @@ export interface AiCopilotPluginInstance extends StudioPlugin {
 /**
  * Stable error codes emitted by the AI copilot plugin.
  */
-export type AiErrorCode = "VALIDATION_FAILED" | "TIMEOUT" | "GENERATE_FAILED";
+export type AiErrorCode =
+	| "VALIDATION_FAILED"
+	| "TIMEOUT"
+	| "GENERATE_FAILED"
+	| "APPLY_FAILED";
 
 /**
  * Structured error payload emitted on the Studio plugin event bus and

@@ -29,6 +29,26 @@ class TimeoutError extends Error {
 	}
 }
 
+async function withTimeout<T>(
+	promise: Promise<T>,
+	timeoutMs: number,
+): Promise<T> {
+	let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+	try {
+		return await Promise.race([
+			promise,
+			new Promise<never>((_resolve, reject) => {
+				timeoutId = setTimeout(() => reject(new TimeoutError()), timeoutMs);
+			}),
+		]);
+	} finally {
+		if (timeoutId !== undefined) {
+			clearTimeout(timeoutId);
+		}
+	}
+}
+
 const META = {
 	id: "anvilkit-plugin-ai-copilot",
 	name: "AI Copilot",
@@ -70,6 +90,7 @@ export function createAiCopilotPlugin(
 	}
 
 	let plugin!: AiCopilotPluginInstance;
+	let latestGenerationId = 0;
 
 	async function runGeneration(prompt: string): Promise<void> {
 		const cached = cachedStateByPlugin.get(plugin);
@@ -78,23 +99,26 @@ export function createAiCopilotPlugin(
 				"createAiCopilotPlugin: runGeneration called before plugin onInit",
 			);
 		}
+		const generationId = ++latestGenerationId;
+		const isCurrentGeneration = () =>
+			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
 
 		const fullContext: AiGenerationContext = {
 			...cached.aiContext,
-			...(opts.forwardCurrentData
-				? { currentData: cached.ctx.getData() }
-				: {}),
+			...(opts.forwardCurrentData ? { currentData: cached.ctx.getData() } : {}),
 		};
 
 		let response: PageIR;
 		try {
-			response = await Promise.race([
+			response = await withTimeout(
 				opts.generatePage(prompt, fullContext),
-				new Promise<never>((_resolve, reject) => {
-					setTimeout(() => reject(new TimeoutError()), timeoutMs);
-				}),
-			]);
+				timeoutMs,
+			);
 		} catch (err) {
+			if (!isCurrentGeneration()) {
+				return;
+			}
+
 			if (err instanceof TimeoutError) {
 				reportError(cached.ctx, {
 					code: "TIMEOUT",
@@ -107,6 +131,10 @@ export function createAiCopilotPlugin(
 				code: "GENERATE_FAILED",
 				message: err instanceof Error ? err.message : String(err),
 			});
+			return;
+		}
+
+		if (!isCurrentGeneration()) {
 			return;
 		}
 
@@ -123,8 +151,22 @@ export function createAiCopilotPlugin(
 			return;
 		}
 
-		const data = irToPuckPatch(response);
-		cached.ctx.getPuckApi().dispatch({ type: "setData", data });
+		try {
+			const data = irToPuckPatch(response);
+			if (!isCurrentGeneration()) {
+				return;
+			}
+			cached.ctx.getPuckApi().dispatch({ type: "setData", data });
+		} catch (err) {
+			if (!isCurrentGeneration()) {
+				return;
+			}
+
+			reportError(cached.ctx, {
+				code: "APPLY_FAILED",
+				message: err instanceof Error ? err.message : String(err),
+			});
+		}
 	}
 
 	plugin = {
