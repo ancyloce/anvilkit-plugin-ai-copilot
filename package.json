@@ -26,31 +26,31 @@
 				"types": "./dist/mock/index.d.cts",
 				"default": "./dist/mock/index.cjs"
 			}
-		},
-		"./*": {
-			"import": {
-				"types": "./dist/*.d.ts",
-				"default": "./dist/*.js"
-			},
-			"require": {
-				"types": "./dist/*.d.cts",
-				"default": "./dist/*.cjs"
-			}
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"license": "MIT",
 	"sideEffects": false,
-	"publishConfig": { "access": "public" },
+	"publishConfig": {
+		"access": "public"
+	},
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"@puckeditor/core": "^0.19.0"
 	},
 	"peerDependenciesMeta": {
-		"react": { "optional": false },
-		"react-dom": { "optional": false },
-		"@puckeditor/core": { "optional": false }
+		"react": {
+			"optional": false
+		},
+		"react-dom": {
+			"optional": false
+		},
+		"@puckeditor/core": {
+			"optional": false
+		}
 	},
 	"dependencies": {
 		"@anvilkit/core": "workspace:*",

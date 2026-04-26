@@ -13,7 +13,7 @@
   fixture helpers, and the `./mock` subpath for CI and deterministic
   local testing.
 - **Quality gates** — `check:publint`, `check:circular`,
-  `check:peer-deps`, `check:bundle-budget` (6 KB gzipped limit),
+  `check:peer-deps`, `check:bundle-budget` (10 KB gzipped limit),
   and `check:api-snapshot`.
 
 ### Notes
