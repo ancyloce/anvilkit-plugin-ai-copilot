@@ -62,7 +62,7 @@ async function initPlugin(
 function expectRejectedWith(
 	ctx: StudioPluginContext,
 	dispatch: ReturnType<typeof vi.fn>,
-	code: "VALIDATION_FAILED" | "TIMEOUT" | "GENERATE_FAILED",
+	code: "VALIDATION_FAILED" | "TIMEOUT" | "GENERATE_FAILED" | "APPLY_FAILED",
 ): void {
 	expect(dispatch).not.toHaveBeenCalled();
 	expect(ctx.emit).toHaveBeenCalledWith(
@@ -92,9 +92,9 @@ describe("AI copilot — malformed PageIR rejected at the validator boundary", (
 		(ctx.getPuckApi as ReturnType<typeof vi.fn>).mockReturnValue({ dispatch });
 
 		const plugin = createAiCopilotPlugin({
-			generatePage: vi.fn().mockResolvedValue(
-				"not a PageIR, just a string" as unknown as PageIR,
-			),
+			generatePage: vi
+				.fn()
+				.mockResolvedValue("not a PageIR, just a string" as unknown as PageIR),
 			puckConfig: makePuckConfig(),
 		});
 		await initPlugin(ctx, plugin);
@@ -206,6 +206,55 @@ describe("AI copilot — malformed PageIR rejected at the validator boundary", (
 					type: "__root__",
 					props: {},
 					children: "not an array" as unknown as [],
+				},
+				assets: [],
+				metadata: {},
+			} as unknown as PageIR),
+			puckConfig: makePuckConfig(),
+		});
+		await initPlugin(ctx, plugin);
+		await plugin.runGeneration("x");
+
+		expectRejectedWith(ctx, dispatch, "VALIDATION_FAILED");
+	});
+
+	it("rejects a response missing root props before conversion", async () => {
+		const ctx = makeCtx();
+		const dispatch = vi.fn();
+		(ctx.getPuckApi as ReturnType<typeof vi.fn>).mockReturnValue({ dispatch });
+
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn().mockResolvedValue({
+				version: "1",
+				root: {
+					id: "r",
+					type: "__root__",
+					children: [],
+				},
+				assets: [],
+				metadata: {},
+			} as unknown as PageIR),
+			puckConfig: makePuckConfig(),
+		});
+		await initPlugin(ctx, plugin);
+		await plugin.runGeneration("x");
+
+		expectRejectedWith(ctx, dispatch, "VALIDATION_FAILED");
+	});
+
+	it("rejects component nodes missing id or props before conversion", async () => {
+		const ctx = makeCtx();
+		const dispatch = vi.fn();
+		(ctx.getPuckApi as ReturnType<typeof vi.fn>).mockReturnValue({ dispatch });
+
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn().mockResolvedValue({
+				version: "1",
+				root: {
+					id: "r",
+					type: "__root__",
+					props: {},
+					children: [{ type: "Hero" }],
 				},
 				assets: [],
 				metadata: {},
@@ -515,6 +564,40 @@ describe("AI copilot — never dispatches silently", () => {
 			"error",
 			"boom",
 			expect.objectContaining({ code: "GENERATE_FAILED" }),
+		);
+	});
+
+	it("emits + logs on APPLY_FAILED when Puck dispatch throws", async () => {
+		const ctx = makeCtx();
+		const dispatch = vi.fn(() => {
+			throw new Error("dispatch failed");
+		});
+		(ctx.getPuckApi as ReturnType<typeof vi.fn>).mockReturnValue({ dispatch });
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn().mockResolvedValue({
+				version: "1",
+				root: {
+					id: "r",
+					type: "__root__",
+					props: {},
+					children: [{ id: "h", type: "Hero", props: { title: "ok" } }],
+				},
+				assets: [],
+				metadata: {},
+			} satisfies PageIR),
+			puckConfig: makePuckConfig(),
+		});
+		await initPlugin(ctx, plugin);
+		await plugin.runGeneration("x");
+
+		expect(ctx.emit).toHaveBeenCalledWith(
+			"ai-copilot:error",
+			expect.objectContaining({ code: "APPLY_FAILED" }),
+		);
+		expect(ctx.log).toHaveBeenCalledWith(
+			"error",
+			"dispatch failed",
+			expect.objectContaining({ code: "APPLY_FAILED" }),
 		);
 	});
 

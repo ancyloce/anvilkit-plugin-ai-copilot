@@ -1,7 +1,7 @@
 import { compilePlugins, StudioConfigSchema } from "@anvilkit/core";
 import type { PageIR, StudioPluginContext } from "@anvilkit/core/types";
-import type { Config as PuckConfig } from "@puckeditor/core";
 import * as schema from "@anvilkit/schema";
+import type { Config as PuckConfig } from "@puckeditor/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
@@ -38,18 +38,28 @@ function makeCtx(
 	};
 }
 
-function makeValidIr(): PageIR {
+function makeValidIr(title = "Hello"): PageIR {
 	return {
 		version: "1",
 		root: {
 			id: "root",
 			type: "__root__",
 			props: {},
-			children: [{ id: "hero-1", type: "Hero", props: { title: "Hello" } }],
+			children: [{ id: "hero-1", type: "Hero", props: { title } }],
 		},
 		assets: [],
 		metadata: {},
 	};
+}
+
+function deferred<T>() {
+	let resolve!: (value: T) => void;
+	let reject!: (reason?: unknown) => void;
+	const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+		resolve = resolvePromise;
+		reject = rejectPromise;
+	});
+	return { promise, reject, resolve };
 }
 
 async function initPlugin(
@@ -137,6 +147,22 @@ describe("createAiCopilotPlugin", () => {
 		);
 	});
 
+	it("clears the timeout timer when generatePage resolves first", async () => {
+		vi.useFakeTimers();
+
+		const ctx = makeCtx();
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn().mockResolvedValue(makeValidIr()),
+			puckConfig: makePuckConfig(),
+			timeoutMs: 5_000,
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.runGeneration("fast");
+
+		expect(vi.getTimerCount()).toBe(0);
+	});
+
 	it("emits GENERATE_FAILED when generatePage throws", async () => {
 		const ctx = makeCtx();
 		const plugin = createAiCopilotPlugin({
@@ -177,6 +203,37 @@ describe("createAiCopilotPlugin", () => {
 		const thirdCtx = generatePage.mock.calls[2][1];
 		expect(firstCtx.availableComponents).toBe(secondCtx.availableComponents);
 		expect(firstCtx.availableComponents).toBe(thirdCtx.availableComponents);
+	});
+
+	it("ignores stale overlapping generation results", async () => {
+		const ctx = makeCtx();
+		const dispatch = vi.fn();
+		(ctx.getPuckApi as ReturnType<typeof vi.fn>).mockReturnValue({ dispatch });
+
+		const first = deferred<PageIR>();
+		const second = deferred<PageIR>();
+		const generatePage = vi.fn((prompt: string) =>
+			prompt === "first" ? first.promise : second.promise,
+		);
+		const plugin = createAiCopilotPlugin({
+			generatePage,
+			puckConfig: makePuckConfig(),
+		});
+
+		await initPlugin(ctx, plugin);
+		const firstRun = plugin.runGeneration("first");
+		const secondRun = plugin.runGeneration("second");
+
+		second.resolve(makeValidIr("Second"));
+		await secondRun;
+		expect(dispatch).toHaveBeenCalledTimes(1);
+		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
+			"Second",
+		);
+
+		first.resolve(makeValidIr("First"));
+		await firstRun;
+		expect(dispatch).toHaveBeenCalledTimes(1);
 	});
 
 	it("only ever passes (prompt, ctx) to generatePage - no credentials leak", async () => {
