@@ -4,3 +4,7 @@ export {
 	type CreateMockGeneratePageOptions,
 	createMockGeneratePage,
 } from "./mock-generate-page.js";
+export {
+	type CreateMockGenerateSectionOptions,
+	createMockGenerateSection,
+} from "./mock-generate-section.js";
