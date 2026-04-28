@@ -1,5 +1,9 @@
 import type {
 	AiGenerationContext,
+	AiSectionContext,
+	AiSectionPatch,
+	AiSectionSelection,
+	ConfigToAiSectionContextOptions,
 	PageIR,
 	StudioPlugin,
 } from "@anvilkit/core/types";
@@ -17,6 +21,23 @@ export type GeneratePageFn = (
 ) => Promise<PageIR>;
 
 /**
+ * Host-supplied callback for the Phase 6 / M9 section-level flow.
+ *
+ * Receives the user's prompt and a section-scoped {@link AiSectionContext}
+ * describing the selected nodes plus the components the LLM is allowed
+ * to emit inside the targeted zone. Returns an {@link AiSectionPatch}
+ * the plugin then validates with `validateAiSectionPatch` and applies
+ * via `puckApi.dispatch({ type: "setData", … })`.
+ *
+ * Same `(prompt, ctx)` argument order as {@link GeneratePageFn} for
+ * symmetry across the page and section flows.
+ */
+export type GenerateSectionFn = (
+	prompt: string,
+	ctx: AiSectionContext,
+) => Promise<AiSectionPatch>;
+
+/**
  * Configuration for {@link createAiCopilotPlugin}.
  */
 export interface AiCopilotOptions {
@@ -25,6 +46,18 @@ export interface AiCopilotOptions {
 	 * into a page IR document.
 	 */
 	readonly generatePage: GeneratePageFn;
+
+	/**
+	 * Host-owned callback for the Phase 6 section-level flow. When
+	 * omitted, calls to {@link AiCopilotPluginInstance.regenerateSelection}
+	 * surface a `GENERATE_FAILED` error so the host UI can hide the
+	 * "Regenerate selection" button — the page-level
+	 * {@link generatePage} flow remains fully functional.
+	 *
+	 * Optional by design: hosts that only want whole-page generation
+	 * keep their `1.0.0` integration unchanged.
+	 */
+	readonly generateSection?: GenerateSectionFn;
 
 	/**
 	 * The same Puck config object the host passes to `<Studio />`.
@@ -50,11 +83,40 @@ export interface AiCopilotOptions {
 }
 
 /**
+ * Per-call options for {@link AiCopilotPluginInstance.regenerateSelection}.
+ *
+ * Forwards onto {@link ConfigToAiSectionContextOptions} so callers can
+ * thread theme / locale / `allowResize` hints into the context the LLM
+ * sees without reaching for a separate API.
+ */
+export interface RegenerateSelectionOptions
+	extends ConfigToAiSectionContextOptions {}
+
+/**
  * Returned plugin instance, including the public `runGeneration()`
  * entry point used by host UI code and tests.
  */
 export interface AiCopilotPluginInstance extends StudioPlugin {
 	readonly runGeneration: (prompt: string) => Promise<void>;
+	/**
+	 * Phase 6 / M9 section-level entry point. Reads the current Puck
+	 * canvas, derives an {@link AiSectionContext} from the host's
+	 * Puck config plus the supplied {@link AiSectionSelection}, calls
+	 * the host's {@link GenerateSectionFn} (when configured), validates
+	 * the response with `validateAiSectionPatch`, and on success
+	 * atomically dispatches the patched canvas via
+	 * `puckApi.dispatch({ type: "setData", … })`.
+	 *
+	 * Resolves whether the run succeeded or failed — failures surface
+	 * on the `ai-copilot:error` event bus the same way as the page
+	 * flow, so callers should subscribe to that bus rather than
+	 * inspecting the return value.
+	 */
+	readonly regenerateSelection: (
+		prompt: string,
+		selection: AiSectionSelection,
+		opts?: RegenerateSelectionOptions,
+	) => Promise<void>;
 }
 
 /**
