@@ -13,6 +13,7 @@ import { validateAiOutput } from "@anvilkit/validator";
 import { validateAiSectionPatch } from "@anvilkit/validator/section";
 
 import { applySectionPatch } from "./apply-section-patch.js";
+import { findCurrentNodes } from "./internal/find-current-nodes.js";
 import { irToPuckPatch } from "./ir-to-puck-patch.js";
 import type {
 	AiCopilotErrorPayload,
@@ -207,11 +208,27 @@ export function createAiCopilotPlugin(
 		const isCurrentGeneration = () =>
 			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
 
+		// Auto-populate `selection.currentNodes` from the live Puck data
+		// when the host omitted them. Hosts driving the plugin from a UI
+		// shouldn't have to re-walk Puck's tree just to pass an LLM
+		// prompt the "before" content — the plugin already needs to read
+		// the data for `applySectionPatch`, so reusing it here is free.
+		const enrichedSelection: AiSectionSelection =
+			selection.currentNodes === undefined
+				? {
+						...selection,
+						currentNodes: findCurrentNodes(
+							cached.ctx.getData(),
+							selection.nodeIds,
+						),
+					}
+				: selection;
+
 		let sectionContext: AiSectionContext;
 		try {
 			sectionContext = configToAiSectionContext(
 				opts.puckConfig,
-				selection,
+				enrichedSelection,
 				sectionOpts,
 			);
 		} catch (err) {
