@@ -430,11 +430,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "StudioPluginMeta",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/plugin.ts",
-											"qualifiedName": "StudioPluginMeta"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
 									},
 									{
 										"kind": "text",
@@ -450,7 +446,8 @@
 									"qualifiedName": "StudioPluginMeta"
 								},
 								"name": "StudioPluginMeta",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/core",
+								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
 							},
 							"inheritedFrom": {
 								"type": "reference",
@@ -476,11 +473,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionContext"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -490,11 +483,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionSelection",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionSelection"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -577,7 +566,8 @@
 															"qualifiedName": "AiSectionSelection"
 														},
 														"name": "AiSectionSelection",
-														"package": "@anvilkit/core"
+														"package": "@anvilkit/core",
+														"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 													}
 												},
 												{
@@ -732,11 +722,7 @@
 														"kind": "inline-tag",
 														"tag": "@link",
 														"text": "StudioPluginContext",
-														"target": {
-															"packageName": "@anvilkit/core",
-															"packagePath": "src/types/plugin.ts",
-															"qualifiedName": "StudioPluginContext"
-														}
+														"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
 													},
 													{
 														"kind": "text",
@@ -764,7 +750,8 @@
 													}
 												],
 												"name": "StudioPluginContext",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/core",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
 											}
 										}
 									],
@@ -900,11 +887,7 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "ConfigToAiSectionContextOptions",
-								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ai-section.ts",
-									"qualifiedName": "ConfigToAiSectionContextOptions"
-								}
+								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 							},
 							{
 								"kind": "text",
@@ -949,11 +932,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.allowResize",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionContext.allowResize"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -963,11 +942,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionPatch",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionPatch"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -985,11 +960,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionSelection.nodeIds",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionSelection.nodeIds"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -1035,11 +1006,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.locale",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionContext.locale"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -1093,11 +1060,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.theme",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionContext.theme"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -1144,7 +1107,8 @@
 								"qualifiedName": "ConfigToAiSectionContextOptions"
 							},
 							"name": "ConfigToAiSectionContextOptions",
-							"package": "@anvilkit/core"
+							"package": "@anvilkit/core",
+							"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 						}
 					]
 				},
@@ -1286,11 +1250,7 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "AiSectionContext",
-								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ai-section.ts",
-									"qualifiedName": "AiSectionContext"
-								}
+								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 							},
 							{
 								"kind": "text",
@@ -1300,11 +1260,7 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "AiSectionPatch",
-								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ai-section.ts",
-									"qualifiedName": "AiSectionPatch"
-								}
+								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 							},
 							{
 								"kind": "text",
@@ -1387,7 +1343,8 @@
 													"qualifiedName": "AiSectionContext"
 												},
 												"name": "AiSectionContext",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/core",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 											}
 										}
 									],
@@ -1407,7 +1364,8 @@
 													"qualifiedName": "AiSectionPatch"
 												},
 												"name": "AiSectionPatch",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/core",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 											}
 										],
 										"name": "Promise",
@@ -1441,11 +1399,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionPatch",
-										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
-											"qualifiedName": "AiSectionPatch"
-										}
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									},
 									{
 										"kind": "text",
@@ -1493,7 +1447,8 @@
 											"qualifiedName": "AiSectionPatch"
 										},
 										"name": "AiSectionPatch",
-										"package": "@anvilkit/core"
+										"package": "@anvilkit/core",
+										"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
 									}
 								}
 							],
@@ -1957,190 +1912,6 @@
 		}
 	],
 	"packageName": "@anvilkit/plugin-ai-copilot",
-	"readme": [
-		{
-			"kind": "text",
-			"text": "# @anvilkit/plugin-ai-copilot\n\nHeadless AI copilot for Anvilkit Studio. The plugin caches a per-session\n"
-		},
-		{
-			"kind": "code",
-			"text": "`AiGenerationContext`"
-		},
-		{
-			"kind": "text",
-			"text": " derived from the host's Puck config, calls a\nhost-supplied "
-		},
-		{
-			"kind": "code",
-			"text": "`generatePage(prompt, ctx)`"
-		},
-		{
-			"kind": "text",
-			"text": " function, validates the\nresponse with "
-		},
-		{
-			"kind": "code",
-			"text": "`@anvilkit/validator`"
-		},
-		{
-			"kind": "text",
-			"text": ", and dispatches the result atomically\nvia "
-		},
-		{
-			"kind": "code",
-			"text": "`setData`"
-		},
-		{
-			"kind": "text",
-			"text": ".\n\n> **Status:** alpha. API may change before "
-		},
-		{
-			"kind": "code",
-			"text": "`1.0`"
-		},
-		{
-			"kind": "text",
-			"text": ".\n\n## Install\n\n"
-		},
-		{
-			"kind": "code",
-			"text": "```bash\npnpm add @anvilkit/plugin-ai-copilot @anvilkit/core react react-dom @puckeditor/core\n```"
-		},
-		{
-			"kind": "text",
-			"text": "\n\n## Quickstart\n\n"
-		},
-		{
-			"kind": "code",
-			"text": "```ts\nimport { Studio } from \"@anvilkit/core\";\nimport { createAiCopilotPlugin } from \"@anvilkit/plugin-ai-copilot\";\nimport { puckConfig } from \"./puck-config\";\n\nconst aiCopilot = createAiCopilotPlugin({\n  puckConfig,\n  generatePage: (prompt, ctx) =>\n    fetch(\"/api/ai/generate\", {\n      method: \"POST\",\n      body: JSON.stringify({ prompt, availableComponents: ctx.availableComponents }),\n    }).then((response) => response.json()),\n  timeoutMs: 30_000,\n});\n\n<Studio puckConfig={puckConfig} plugins={[aiCopilot]} />\n```"
-		},
-		{
-			"kind": "text",
-			"text": "\n\nFor CI and local demos, "
-		},
-		{
-			"kind": "code",
-			"text": "`@anvilkit/plugin-ai-copilot/mock`"
-		},
-		{
-			"kind": "text",
-			"text": " also ships\n"
-		},
-		{
-			"kind": "code",
-			"text": "`createMockGeneratePage()`"
-		},
-		{
-			"kind": "text",
-			"text": " and deterministic fixtures that match the\ndemo component catalog.\n\n## Phase 3 references\n\nSee the [Phase 3 plan]("
-		},
-		{
-			"kind": "relative-link",
-			"text": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
-			"target": 3
-		},
-		{
-			"kind": "text",
-			"text": ")\n("
-		},
-		{
-			"kind": "code",
-			"text": "`M5 — @anvilkit/plugin-ai-copilot`"
-		},
-		{
-			"kind": "text",
-			"text": ") and the\n[architecture package catalog]("
-		},
-		{
-			"kind": "relative-link",
-			"text": "../../../docs/ai-context/anvilkit-architecture.md",
-			"target": 4
-		},
-		{
-			"kind": "text",
-			"text": ")\n("
-		},
-		{
-			"kind": "code",
-			"text": "`§7 — @anvilkit/plugins [Stubs Exist]`"
-		},
-		{
-			"kind": "text",
-			"text": ") for the plugin boundary and\nPhase 3 AI generation flow.\n\n## Peer dependencies\n\n| Package | Version |\n| ------- | ------- |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`react`"
-		},
-		{
-			"kind": "text",
-			"text": " | "
-		},
-		{
-			"kind": "code",
-			"text": "`^18.2.0`"
-		},
-		{
-			"kind": "text",
-			"text": " |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`react-dom`"
-		},
-		{
-			"kind": "text",
-			"text": " | "
-		},
-		{
-			"kind": "code",
-			"text": "`^18.2.0`"
-		},
-		{
-			"kind": "text",
-			"text": " |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`@puckeditor/core`"
-		},
-		{
-			"kind": "text",
-			"text": " | "
-		},
-		{
-			"kind": "code",
-			"text": "`^0.19.0`"
-		},
-		{
-			"kind": "text",
-			"text": " |\n\n## Security model\n\n- The plugin **never sees credentials**. API keys, auth headers, and\n  endpoints belong to the host backend.\n- "
-		},
-		{
-			"kind": "code",
-			"text": "`generatePage`"
-		},
-		{
-			"kind": "text",
-			"text": " is invoked with exactly two arguments: "
-		},
-		{
-			"kind": "code",
-			"text": "`(prompt, ctx)`"
-		},
-		{
-			"kind": "text",
-			"text": ".\n- Every LLM response runs through "
-		},
-		{
-			"kind": "code",
-			"text": "`validateAiOutput`"
-		},
-		{
-			"kind": "text",
-			"text": " before being\n  dispatched.\n- The dispatch is atomic.\n\n## License\n\nMIT."
-		}
-	],
 	"symbolIdMap": {
 		"1": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -2501,17 +2272,11 @@
 	"files": {
 		"entries": {
 			"1": "src/index.ts",
-			"2": "src/mock/index.ts",
-			"3": "../../../docs/plans/phase-3-export-ai-pipeline-plan.md",
-			"4": "../../../docs/ai-context/anvilkit-architecture.md",
-			"5": "README.md",
-			"6": ""
+			"2": "src/mock/index.ts"
 		},
 		"reflections": {
 			"1": 1,
-			"2": 2,
-			"5": 0,
-			"6": 0
+			"2": 2
 		}
 	}
 }
