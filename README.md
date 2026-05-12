@@ -52,7 +52,7 @@ Phase 3 AI generation flow.
 | ------- | ------- |
 | `react` | `^18.2.0` |
 | `react-dom` | `^18.2.0` |
-| `@puckeditor/core` | `^0.19.0` |
+| `@puckeditor/core` | `^0.21.2` |
 
 ## Security model
 
