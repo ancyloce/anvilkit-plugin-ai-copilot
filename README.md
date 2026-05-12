@@ -38,13 +38,13 @@ For CI and local demos, `@anvilkit/plugin-ai-copilot/mock` also ships
 `createMockGeneratePage()` and deterministic fixtures that match the
 demo component catalog.
 
-## Phase 3 references
+## Architecture context
 
-See the [Phase 3 plan](../../../docs/plans/phase-3-export-ai-pipeline-plan.md)
-(`M5 — @anvilkit/plugin-ai-copilot`) and the
-[architecture package catalog](../../../docs/ai-context/anvilkit-architecture.md)
-(`§7 — @anvilkit/plugins [Stubs Exist]`) for the plugin boundary and
-Phase 3 AI generation flow.
+The AI generation flow runs entirely through the plugin boundary —
+`@anvilkit/core` exposes no first-party AI primitives beyond the
+`AiGenerationContext` types. See
+[`anvilkit-architecture.md`](https://github.com/ancyloce/anvilkit-studio/blob/main/docs/ai-context/anvilkit-architecture.md)
+for the full package catalog and trust-boundary discussion.
 
 ## Peer dependencies
 
