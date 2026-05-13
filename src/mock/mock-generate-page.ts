@@ -19,9 +19,23 @@ const STOPWORDS = new Set([
 	"with",
 ]);
 
+// Matches the demo Hero component's headline maxLength — keeps the
+// fallback IR renderable without clipping mid-prompt.
+const FALLBACK_HEADLINE_MAX_LENGTH = 80;
+
+// Mirrors `DEFAULT_TIMEOUT_MS` in `create-ai-copilot-plugin.ts`.
+// Hardcoded here on purpose: importing from the main plugin would
+// invert the `/mock` subpath's dependency direction.
+const COPILOT_DEFAULT_TIMEOUT_MS = 30_000;
+
 export interface CreateMockGeneratePageOptions {
 	readonly delayMs?: number;
 	readonly fixtures?: readonly Fixture[];
+}
+
+interface IndexedFixture {
+	readonly fixture: Fixture;
+	readonly tokens: ReadonlySet<string>;
 }
 
 function tokenize(prompt: string): string[] {
@@ -31,9 +45,18 @@ function tokenize(prompt: string): string[] {
 		.filter((token) => token.length > 1 && !STOPWORDS.has(token));
 }
 
-function matchFixtureFromList(
-	prompt: string,
+function indexFixtures(
 	fixtures: readonly Fixture[],
+): readonly IndexedFixture[] {
+	return fixtures.map((fixture) => ({
+		fixture,
+		tokens: new Set(fixture.prompts.flatMap(tokenize)),
+	}));
+}
+
+function matchFixtureFromIndex(
+	prompt: string,
+	indexed: readonly IndexedFixture[],
 ): Fixture | undefined {
 	const promptTokens = new Set(tokenize(prompt));
 	if (promptTokens.size === 0) {
@@ -43,8 +66,7 @@ function matchFixtureFromList(
 	let bestFixture: Fixture | undefined;
 	let bestScore = 0;
 
-	for (const fixture of fixtures) {
-		const fixtureTokens = new Set(fixture.prompts.flatMap(tokenize));
+	for (const { fixture, tokens: fixtureTokens } of indexed) {
 		let score = 0;
 		for (const token of promptTokens) {
 			if (fixtureTokens.has(token)) {
@@ -73,7 +95,7 @@ function fallbackIr(prompt: string): PageIR {
 					id: "hero-fallback",
 					type: "Hero",
 					props: {
-						headline: prompt.slice(0, 80),
+						headline: prompt.slice(0, FALLBACK_HEADLINE_MAX_LENGTH),
 					},
 				},
 			],
@@ -89,16 +111,26 @@ export function createMockGeneratePage(
 	opts: CreateMockGeneratePageOptions = {},
 ): GeneratePageFn {
 	const delayMs = Math.max(0, opts.delayMs ?? 0);
+	if (delayMs >= COPILOT_DEFAULT_TIMEOUT_MS) {
+		console.warn(
+			`createMockGeneratePage: delayMs=${delayMs} matches or exceeds the copilot's default timeoutMs (${COPILOT_DEFAULT_TIMEOUT_MS}ms). Generations will time out under the default configuration — set createAiCopilotPlugin({ timeoutMs }) to a larger value.`,
+		);
+	}
+
 	const fixtures = opts.fixtures ?? allFixtures;
+	// Tokenize fixture prompts once at factory init rather than on every
+	// call. Keeps `mock-generate-page`'s perf characteristics flat as the
+	// demo's fixture set grows.
+	const indexedFixtures =
+		opts.fixtures !== undefined ? indexFixtures(fixtures) : null;
 	const cache = new Map<string, PageIR>();
 
 	return async (prompt, _ctx) => {
 		let ir = cache.get(prompt);
 		if (!ir) {
-			const fixture =
-				opts.fixtures !== undefined
-					? matchFixtureFromList(prompt, fixtures)
-					: matchPromptToFixture(prompt);
+			const fixture = indexedFixtures
+				? matchFixtureFromIndex(prompt, indexedFixtures)
+				: matchPromptToFixture(prompt);
 			ir = fixture?.ir ?? fallbackIr(prompt);
 			cache.set(prompt, ir);
 		}
