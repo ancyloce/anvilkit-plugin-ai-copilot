@@ -27,37 +27,25 @@
  * the caller should treat as a {@link AiErrorCode | APPLY_FAILED}.
  */
 
-import type {
-	AiSectionPatch,
-	PageIRNode,
-} from "@anvilkit/core/types";
+import type { AiSectionPatch, PageIRNode } from "@anvilkit/core/types";
 import type { Data as PuckData } from "@puckeditor/core";
 
-type PuckContentItem = PuckData["content"][number];
-type PuckProps = Record<string, unknown>;
+import {
+	DEFAULT_SLOT_NAME,
+	getItemId,
+	isPuckContentItem,
+	MAX_TREE_DEPTH,
+	type PuckContentItem,
+	type PuckProps,
+} from "./internal/puck-spec.js";
+
 type PuckZones = Record<string, PuckContentItem[]>;
 
 const ROOT_ZONE_ALIASES = new Set(["root", "root-zone", ""]);
+const ZONE_ID_PATTERN = /^[^:]+:[^:]+$/;
 
 function isRootZone(zoneId: string): boolean {
 	return ROOT_ZONE_ALIASES.has(zoneId);
-}
-
-function isPuckContentItem(value: unknown): value is PuckContentItem {
-	return (
-		typeof value === "object" &&
-		value !== null &&
-		"props" in (value as object) &&
-		typeof (value as { props: unknown }).props === "object" &&
-		(value as { props: unknown }).props !== null
-	);
-}
-
-function getItemId(item: PuckContentItem): string | undefined {
-	const props = (item as { props?: PuckProps }).props;
-	if (!props) return undefined;
-	const id = props.id;
-	return typeof id === "string" ? id : undefined;
 }
 
 /**
@@ -81,18 +69,39 @@ function findContiguousRun(
 	return -1;
 }
 
+/**
+ * Collect the string ids actually present in a zone, in order. Used to
+ * enrich the "nodeIds not found" error so a host UI can surface the
+ * diff without reaching for the canvas itself (review M2, M4).
+ */
+function collectPresentIds(items: readonly PuckContentItem[]): string[] {
+	const ids: string[] = [];
+	for (const item of items) {
+		const id = getItemId(item);
+		if (id) ids.push(id);
+	}
+	return ids;
+}
+
 function nodeToPuckContent(
 	node: PageIRNode,
 	zoneAccumulator: PuckZones,
+	depth = 0,
 ): PuckContentItem {
+	if (depth > MAX_TREE_DEPTH) {
+		throw new Error(
+			`applySectionPatch: replacement tree depth exceeded ${MAX_TREE_DEPTH}`,
+		);
+	}
+
 	const props: PuckProps = {
 		id: node.id,
 		...(node.props as PuckProps),
 	};
 
 	for (const child of node.children ?? []) {
-		const childContent = nodeToPuckContent(child, zoneAccumulator);
-		const slotName = child.slot ?? "children";
+		const childContent = nodeToPuckContent(child, zoneAccumulator, depth + 1);
+		const slotName = child.slot ?? DEFAULT_SLOT_NAME;
 
 		if (child.slotKind === "zone") {
 			const zoneKey = `${node.id}:${slotName}`;
@@ -121,7 +130,10 @@ function nodeToPuckContent(
 function findSlotInProps(
 	parentItem: PuckContentItem,
 	slotName: string,
-): { items: readonly PuckContentItem[]; setItems: (next: PuckContentItem[]) => PuckContentItem } | null {
+): {
+	items: readonly PuckContentItem[];
+	setItems: (next: PuckContentItem[]) => PuckContentItem;
+} | null {
 	const props = (parentItem as { props?: PuckProps }).props;
 	if (!props) return null;
 	const value = props[slotName];
@@ -144,6 +156,10 @@ function findSlotInProps(
  * `mutator` is called with the zone's current items and must return the
  * full replacement array. Returns the rewritten top-level content; the
  * caller is responsible for re-attaching it to `Data`.
+ *
+ * Depth-bounded (MAX_TREE_DEPTH) and cycle-protected (WeakSet) so a
+ * pathological or accidentally-cyclic Puck tree throws a clear error
+ * instead of stack-overflowing (review H2).
  */
 function rewriteContentBySlot(
 	content: readonly PuckContentItem[],
@@ -151,9 +167,20 @@ function rewriteContentBySlot(
 	slotName: string,
 	mutator: (items: readonly PuckContentItem[]) => PuckContentItem[],
 	visited: { found: boolean },
+	depth: number,
+	seen: WeakSet<PuckContentItem>,
 ): PuckContentItem[] {
+	if (depth > MAX_TREE_DEPTH) {
+		throw new Error(
+			`applySectionPatch: Puck tree depth exceeded ${MAX_TREE_DEPTH} while resolving slot "${parentId}:${slotName}"`,
+		);
+	}
+
 	return content.map((item) => {
 		if (visited.found) return item;
+		if (seen.has(item)) return item;
+		seen.add(item);
+
 		const id = getItemId(item);
 		if (id === parentId) {
 			const slot = findSlotInProps(item, slotName);
@@ -175,6 +202,8 @@ function rewriteContentBySlot(
 				slotName,
 				mutator,
 				visited,
+				depth + 1,
+				seen,
 			);
 			if (rewritten !== value) {
 				if (!nextProps) nextProps = { ...props };
@@ -188,10 +217,21 @@ function rewriteContentBySlot(
 	});
 }
 
+function formatNotFoundError(
+	where: string,
+	zoneId: string,
+	expectedIds: readonly string[],
+	presentIds: readonly string[],
+): Error {
+	return new Error(
+		`applySectionPatch: nodeIds [${expectedIds.join(", ")}] not found as a contiguous run in ${where} (zoneId="${zoneId}"). Ids present: [${presentIds.join(", ")}].`,
+	);
+}
+
 /**
  * Apply an {@link AiSectionPatch} to the current Puck `Data`, returning
  * a new snapshot. Throws on any structural mismatch (missing zone,
- * non-contiguous nodeIds, etc.).
+ * non-contiguous nodeIds, invalid zoneId format, cyclic tree, etc.).
  */
 export function applySectionPatch(
 	currentData: PuckData,
@@ -209,8 +249,11 @@ export function applySectionPatch(
 		const content = (currentData.content ?? []) as readonly PuckContentItem[];
 		const start = findContiguousRun(content, patch.nodeIds);
 		if (start === -1) {
-			throw new Error(
-				`applySectionPatch: nodeIds not found as a contiguous run in root content (zoneId="${patch.zoneId}").`,
+			throw formatNotFoundError(
+				"root content",
+				patch.zoneId,
+				patch.nodeIds,
+				collectPresentIds(content),
 			);
 		}
 		const newContent: PuckContentItem[] = [
@@ -218,16 +261,13 @@ export function applySectionPatch(
 			...replacementContent,
 			...content.slice(start + patch.nodeIds.length),
 		];
-		const next: Record<string, unknown> = {
-			...(currentData as unknown as Record<string, unknown>),
+		const { zones: _existingZones, ...rest } = currentData;
+		const next: PuckData = {
+			...rest,
 			content: newContent,
+			...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
 		};
-		if (Object.keys(newZones).length > 0) {
-			next.zones = newZones;
-		} else {
-			delete next.zones;
-		}
-		return next as PuckData;
+		return next;
 	}
 
 	// Legacy data.zones entry — `${parentId}:${slotName}`.
@@ -235,8 +275,11 @@ export function applySectionPatch(
 		const items = currentData.zones[patch.zoneId] as PuckContentItem[];
 		const start = findContiguousRun(items, patch.nodeIds);
 		if (start === -1) {
-			throw new Error(
-				`applySectionPatch: nodeIds not found as a contiguous run in zone "${patch.zoneId}".`,
+			throw formatNotFoundError(
+				`zone "${patch.zoneId}"`,
+				patch.zoneId,
+				patch.nodeIds,
+				collectPresentIds(items),
 			);
 		}
 		newZones[patch.zoneId] = [
@@ -244,20 +287,24 @@ export function applySectionPatch(
 			...replacementContent,
 			...items.slice(start + patch.nodeIds.length),
 		];
-		const next: Record<string, unknown> = {
-			...(currentData as unknown as Record<string, unknown>),
+		const { zones: _existingZones, ...rest } = currentData;
+		const next: PuckData = {
+			...rest,
 			zones: newZones,
 		};
-		return next as PuckData;
+		return next;
 	}
 
 	// Modern slot zone — same `${parentId}:${slotName}` format, but the
-	// data lives inside the parent component's own props.
-	const colonIndex = patch.zoneId.indexOf(":");
-	if (colonIndex > 0) {
+	// data lives inside the parent component's own props. Reject empty
+	// prefix / empty suffix / extra colons up front so we surface a
+	// structural error instead of a vague "zone not found" (review M1).
+	if (ZONE_ID_PATTERN.test(patch.zoneId)) {
+		const colonIndex = patch.zoneId.indexOf(":");
 		const parentId = patch.zoneId.slice(0, colonIndex);
 		const slotName = patch.zoneId.slice(colonIndex + 1);
 		const visited = { found: false };
+		let notFound: Error | null = null;
 		const newContent = rewriteContentBySlot(
 			(currentData.content ?? []) as readonly PuckContentItem[],
 			parentId,
@@ -265,9 +312,13 @@ export function applySectionPatch(
 			(items) => {
 				const start = findContiguousRun(items, patch.nodeIds);
 				if (start === -1) {
-					throw new Error(
-						`applySectionPatch: nodeIds not found as a contiguous run in slot "${patch.zoneId}".`,
+					notFound = formatNotFoundError(
+						`slot "${patch.zoneId}"`,
+						patch.zoneId,
+						patch.nodeIds,
+						collectPresentIds(items),
 					);
+					return items as PuckContentItem[];
 				}
 				return [
 					...items.slice(0, start),
@@ -276,22 +327,25 @@ export function applySectionPatch(
 				];
 			},
 			visited,
+			0,
+			new WeakSet<PuckContentItem>(),
 		);
+		if (notFound) throw notFound;
 		if (visited.found) {
-			const next: Record<string, unknown> = {
-				...(currentData as unknown as Record<string, unknown>),
+			const { zones: _existingZones, ...rest } = currentData;
+			const next: PuckData = {
+				...rest,
 				content: newContent,
+				...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
 			};
-			if (Object.keys(newZones).length > 0) {
-				next.zones = newZones;
-			} else {
-				delete next.zones;
-			}
-			return next as PuckData;
+			return next;
 		}
+		throw new Error(
+			`applySectionPatch: zone "${patch.zoneId}" not found in current Puck data.`,
+		);
 	}
 
 	throw new Error(
-		`applySectionPatch: zone "${patch.zoneId}" not found in current Puck data.`,
+		`applySectionPatch: invalid zoneId format "${patch.zoneId}" — expected "root", "root-zone", or "<parentId>:<slotName>".`,
 	);
 }

@@ -97,6 +97,26 @@ export function createAiCopilotPlugin(
 		});
 	}
 
+	/**
+	 * Shared error-classification path used by both `runGeneration` and
+	 * `regenerateSelection`. Surfaces `TimeoutError` as `TIMEOUT` and
+	 * everything else as `GENERATE_FAILED`, mapping the message to the
+	 * underlying `Error` or coerced string.
+	 */
+	function reportRunError(ctx: StudioPluginContext, err: unknown): void {
+		if (err instanceof TimeoutError) {
+			reportError(ctx, {
+				code: "TIMEOUT",
+				message: `AI generation did not respond within ${timeoutMs}ms`,
+			});
+			return;
+		}
+		reportError(ctx, {
+			code: "GENERATE_FAILED",
+			message: err instanceof Error ? err.message : String(err),
+		});
+	}
+
 	let plugin!: AiCopilotPluginInstance;
 	let latestGenerationId = 0;
 
@@ -111,9 +131,17 @@ export function createAiCopilotPlugin(
 		const isCurrentGeneration = () =>
 			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
 
+		let forwardedData;
+		if (opts.forwardCurrentData) {
+			const live = cached.ctx.getData();
+			forwardedData = opts.sanitizeCurrentData
+				? opts.sanitizeCurrentData(live)
+				: live;
+		}
+
 		const fullContext: AiGenerationContext = {
 			...cached.aiContext,
-			...(opts.forwardCurrentData ? { currentData: cached.ctx.getData() } : {}),
+			...(opts.forwardCurrentData ? { currentData: forwardedData } : {}),
 		};
 
 		let response: PageIR;
@@ -126,19 +154,7 @@ export function createAiCopilotPlugin(
 			if (!isCurrentGeneration()) {
 				return;
 			}
-
-			if (err instanceof TimeoutError) {
-				reportError(cached.ctx, {
-					code: "TIMEOUT",
-					message: `AI generation did not respond within ${timeoutMs}ms`,
-				});
-				return;
-			}
-
-			reportError(cached.ctx, {
-				code: "GENERATE_FAILED",
-				message: err instanceof Error ? err.message : String(err),
-			});
+			reportRunError(cached.ctx, err);
 			return;
 		}
 
@@ -247,19 +263,7 @@ export function createAiCopilotPlugin(
 			);
 		} catch (err) {
 			if (!isCurrentGeneration()) return;
-
-			if (err instanceof TimeoutError) {
-				reportError(cached.ctx, {
-					code: "TIMEOUT",
-					message: `AI generation did not respond within ${timeoutMs}ms`,
-				});
-				return;
-			}
-
-			reportError(cached.ctx, {
-				code: "GENERATE_FAILED",
-				message: err instanceof Error ? err.message : String(err),
-			});
+			reportRunError(cached.ctx, err);
 			return;
 		}
 

@@ -38,7 +38,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 39,
+								"target": 43,
 								"name": "AiErrorCode",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -201,7 +201,41 @@
 									},
 									{
 										"kind": "text",
-										"text": "."
+										"text": ". **Security note:** when "
+									},
+									{
+										"kind": "code",
+										"text": "`true`"
+									},
+									{
+										"kind": "text",
+										"text": ", the entire\nPuck canvas — including component props that may contain PII,\nsigned asset URLs, or internal identifiers — is handed to the\nhost's "
+									},
+									{
+										"kind": "code",
+										"text": "`generatePage`"
+									},
+									{
+										"kind": "text",
+										"text": " / "
+									},
+									{
+										"kind": "code",
+										"text": "`generateSection`"
+									},
+									{
+										"kind": "text",
+										"text": " callback, which is\ntypically the boundary that ships data to an LLM. Pair with\n"
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "sanitizeCurrentData",
+										"target": 24
+									},
+									{
+										"kind": "text",
+										"text": " to strip anything that must not\nleave the application. See README §Security model."
 									}
 								]
 							},
@@ -228,7 +262,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 40,
+								"target": 44,
 								"name": "GeneratePageFn",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -252,7 +286,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiCopilotPluginInstance.regenerateSelection",
-										"target": 29
+										"target": 33
 									},
 									{
 										"kind": "text",
@@ -288,7 +322,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 45,
+								"target": 49,
 								"name": "GenerateSectionFn",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -334,6 +368,130 @@
 								},
 								"name": "Config",
 								"package": "@puckeditor/core"
+							}
+						},
+						{
+							"id": 24,
+							"name": "sanitizeCurrentData",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true,
+								"isReadonly": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Optional sanitizer applied to the Puck data snapshot before it\nis forwarded to "
+									},
+									{
+										"kind": "code",
+										"text": "`generatePage`"
+									},
+									{
+										"kind": "text",
+										"text": " / "
+									},
+									{
+										"kind": "code",
+										"text": "`generateSection`"
+									},
+									{
+										"kind": "text",
+										"text": ". Only invoked\nwhen "
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "forwardCurrentData",
+										"target": 23
+									},
+									{
+										"kind": "text",
+										"text": " is "
+									},
+									{
+										"kind": "code",
+										"text": "`true`"
+									},
+									{
+										"kind": "text",
+										"text": ". Defaults to identity.\n\nUse this to strip PII, embedded secrets, signed asset URLs, or\nany internal fields that must never reach the LLM. The\nrecommended pattern is to clone the data, redact known PII keys\n(e.g. "
+									},
+									{
+										"kind": "code",
+										"text": "`email`"
+									},
+									{
+										"kind": "text",
+										"text": ", "
+									},
+									{
+										"kind": "code",
+										"text": "`phone`"
+									},
+									{
+										"kind": "text",
+										"text": "), and drop props prefixed with "
+									},
+									{
+										"kind": "code",
+										"text": "`_`"
+									},
+									{
+										"kind": "text",
+										"text": "\n(a convention the demo uses for internal-only fields)."
+									}
+								]
+							},
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 25,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"signatures": [
+										{
+											"id": 26,
+											"name": "__type",
+											"variant": "signature",
+											"kind": 4096,
+											"flags": {},
+											"parameters": [
+												{
+													"id": 27,
+													"name": "data",
+													"variant": "param",
+													"kind": 32768,
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"target": {
+															"packageName": "@puckeditor/core",
+															"packagePath": "dist/actions-BkBoKAc5.d.ts",
+															"qualifiedName": "Data"
+														},
+														"name": "Data",
+														"package": "@puckeditor/core"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"packageName": "@puckeditor/core",
+													"packagePath": "dist/actions-BkBoKAc5.d.ts",
+													"qualifiedName": "Data"
+												},
+												"name": "Data",
+												"package": "@puckeditor/core"
+											}
+										}
+									]
+								}
 							}
 						},
 						{
@@ -383,13 +541,14 @@
 								19,
 								20,
 								21,
+								24,
 								22
 							]
 						}
 					]
 				},
 				{
-					"id": 24,
+					"id": 28,
 					"name": "AiCopilotPluginInstance",
 					"variant": "declaration",
 					"kind": 256,
@@ -406,13 +565,85 @@
 							},
 							{
 								"kind": "text",
-								"text": "\nentry point used by host UI code and tests."
+								"text": "\nentry point used by host UI code and tests.\n\n## Plugin shape — why imperative rather than declarative\n\nSibling plugins like "
+							},
+							{
+								"kind": "code",
+								"text": "`@anvilkit/plugin-export-html`"
+							},
+							{
+								"kind": "text",
+								"text": " use a purely\ndeclarative shape: they return an "
+							},
+							{
+								"kind": "code",
+								"text": "`exportFormats`"
+							},
+							{
+								"kind": "text",
+								"text": " / "
+							},
+							{
+								"kind": "code",
+								"text": "`headerActions`"
+							},
+							{
+								"kind": "text",
+								"text": "\nmap from "
+							},
+							{
+								"kind": "code",
+								"text": "`register()`"
+							},
+							{
+								"kind": "text",
+								"text": " and host UI pulls from it. This plugin\nintentionally extends that pattern with two imperative methods —\n"
+							},
+							{
+								"kind": "code",
+								"text": "`runGeneration`"
+							},
+							{
+								"kind": "text",
+								"text": " and "
+							},
+							{
+								"kind": "code",
+								"text": "`regenerateSelection`"
+							},
+							{
+								"kind": "text",
+								"text": " — because the AI copilot\nis prompt-driven: host UI code typically renders a textarea + submit\nbutton and must "
+							},
+							{
+								"kind": "code",
+								"text": "`await`"
+							},
+							{
+								"kind": "text",
+								"text": " the run to drive progress state, disable\nthe input mid-generation, and surface errors inline. A declarative\n"
+							},
+							{
+								"kind": "code",
+								"text": "`aiActions`"
+							},
+							{
+								"kind": "text",
+								"text": " map would still require a host-side "
+							},
+							{
+								"kind": "code",
+								"text": "`await invoke()`"
+							},
+							{
+								"kind": "text",
+								"text": " at\nthe call site, so we expose the imperative methods directly.\n\nThe trade-off is that host UI cannot enumerate copilot capabilities\nwithout instantiating the plugin. This is acceptable because there\nis exactly one copilot per host integration today; if multiple\ncopilots are needed in future, a registry surface will be added."
 							}
 						]
 					},
 					"children": [
 						{
-							"id": 35,
+							"id": 39,
 							"name": "meta",
 							"variant": "declaration",
 							"kind": 1024,
@@ -456,7 +687,7 @@
 							}
 						},
 						{
-							"id": 29,
+							"id": 33,
 							"name": "regenerateSelection",
 							"variant": "declaration",
 							"kind": 1024,
@@ -493,7 +724,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "GenerateSectionFn",
-										"target": 45
+										"target": 49
 									},
 									{
 										"kind": "text",
@@ -528,21 +759,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 30,
+									"id": 34,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 31,
+											"id": 35,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 32,
+													"id": 36,
 													"name": "prompt",
 													"variant": "param",
 													"kind": 32768,
@@ -553,7 +784,7 @@
 													}
 												},
 												{
-													"id": 33,
+													"id": 37,
 													"name": "selection",
 													"variant": "param",
 													"kind": 32768,
@@ -571,7 +802,7 @@
 													}
 												},
 												{
-													"id": 34,
+													"id": 38,
 													"name": "opts",
 													"variant": "param",
 													"kind": 32768,
@@ -580,7 +811,7 @@
 													},
 													"type": {
 														"type": "reference",
-														"target": 50,
+														"target": 54,
 														"name": "RegenerateSelectionOptions",
 														"package": "@anvilkit/plugin-ai-copilot"
 													}
@@ -608,7 +839,7 @@
 							}
 						},
 						{
-							"id": 25,
+							"id": 29,
 							"name": "runGeneration",
 							"variant": "declaration",
 							"kind": 1024,
@@ -618,21 +849,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 26,
+									"id": 30,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 27,
+											"id": 31,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 28,
+													"id": 32,
 													"name": "prompt",
 													"variant": "param",
 													"kind": 32768,
@@ -665,7 +896,7 @@
 							}
 						},
 						{
-							"id": 36,
+							"id": 40,
 							"name": "register",
 							"variant": "declaration",
 							"kind": 2048,
@@ -674,7 +905,7 @@
 							},
 							"signatures": [
 								{
-									"id": 37,
+									"id": 41,
 									"name": "register",
 									"variant": "signature",
 									"kind": 4096,
@@ -707,7 +938,7 @@
 									},
 									"parameters": [
 										{
-											"id": 38,
+											"id": 42,
 											"name": "ctx",
 											"variant": "param",
 											"kind": 32768,
@@ -836,15 +1067,15 @@
 						{
 							"title": "Properties",
 							"children": [
-								35,
-								29,
-								25
+								39,
+								33,
+								29
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
-								36
+								40
 							]
 						}
 					],
@@ -862,7 +1093,7 @@
 					]
 				},
 				{
-					"id": 50,
+					"id": 54,
 					"name": "RegenerateSelectionOptions",
 					"variant": "declaration",
 					"kind": 256,
@@ -877,7 +1108,7 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "AiCopilotPluginInstance.regenerateSelection",
-								"target": 29
+								"target": 33
 							},
 							{
 								"kind": "text",
@@ -905,7 +1136,7 @@
 					},
 					"children": [
 						{
-							"id": 53,
+							"id": 57,
 							"name": "allowResize",
 							"variant": "declaration",
 							"kind": 1024,
@@ -987,7 +1218,7 @@
 							}
 						},
 						{
-							"id": 52,
+							"id": 56,
 							"name": "locale",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1025,7 +1256,7 @@
 							}
 						},
 						{
-							"id": 51,
+							"id": 55,
 							"name": "theme",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1092,9 +1323,9 @@
 						{
 							"title": "Properties",
 							"children": [
-								53,
-								52,
-								51
+								57,
+								56,
+								55
 							]
 						}
 					],
@@ -1113,7 +1344,7 @@
 					]
 				},
 				{
-					"id": 39,
+					"id": 43,
 					"name": "AiErrorCode",
 					"variant": "declaration",
 					"kind": 2097152,
@@ -1149,7 +1380,7 @@
 					}
 				},
 				{
-					"id": 40,
+					"id": 44,
 					"name": "GeneratePageFn",
 					"variant": "declaration",
 					"kind": 2097152,
@@ -1165,21 +1396,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 41,
+							"id": 45,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 42,
+									"id": 46,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 43,
+											"id": 47,
 											"name": "prompt",
 											"variant": "param",
 											"kind": 32768,
@@ -1190,7 +1421,7 @@
 											}
 										},
 										{
-											"id": 44,
+											"id": 48,
 											"name": "ctx",
 											"variant": "param",
 											"kind": 32768,
@@ -1235,7 +1466,7 @@
 					}
 				},
 				{
-					"id": 45,
+					"id": 49,
 					"name": "GenerateSectionFn",
 					"variant": "declaration",
 					"kind": 2097152,
@@ -1294,7 +1525,7 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "GeneratePageFn",
-								"target": 40
+								"target": 44
 							},
 							{
 								"kind": "text",
@@ -1305,21 +1536,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 46,
+							"id": 50,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 47,
+									"id": 51,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 48,
+											"id": 52,
 											"name": "prompt",
 											"variant": "param",
 											"kind": 32768,
@@ -1330,7 +1561,7 @@
 											}
 										},
 										{
-											"id": 49,
+											"id": 53,
 											"name": "ctx",
 											"variant": "param",
 											"kind": 32768,
@@ -1411,7 +1642,7 @@
 									},
 									{
 										"kind": "text",
-										"text": ", returning\na new snapshot. Throws on any structural mismatch (missing zone,\nnon-contiguous nodeIds, etc.)."
+										"text": ", returning\na new snapshot. Throws on any structural mismatch (missing zone,\nnon-contiguous nodeIds, invalid zoneId format, cyclic tree, etc.)."
 									}
 								]
 							},
@@ -1535,7 +1766,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 24,
+								"target": 28,
 								"name": "AiCopilotPluginInstance",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -1549,16 +1780,16 @@
 					"children": [
 						10,
 						18,
-						24,
-						50
+						28,
+						54
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						39,
-						40,
-						45
+						43,
+						44,
+						49
 					]
 				},
 				{
@@ -1578,14 +1809,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 61,
+					"id": 65,
 					"name": "CreateMockGeneratePageOptions",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 62,
+							"id": 66,
 							"name": "delayMs",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1599,7 +1830,7 @@
 							}
 						},
 						{
-							"id": 63,
+							"id": 67,
 							"name": "fixtures",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1614,7 +1845,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 54,
+										"target": 58,
 										"name": "Fixture",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -1626,21 +1857,21 @@
 						{
 							"title": "Properties",
 							"children": [
-								62,
-								63
+								66,
+								67
 							]
 						}
 					]
 				},
 				{
-					"id": 67,
+					"id": 71,
 					"name": "CreateMockGenerateSectionOptions",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 68,
+							"id": 72,
 							"name": "delayMs",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1674,20 +1905,20 @@
 						{
 							"title": "Properties",
 							"children": [
-								68
+								72
 							]
 						}
 					]
 				},
 				{
-					"id": 54,
+					"id": 58,
 					"name": "Fixture",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 56,
+							"id": 60,
 							"name": "ir",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1706,7 +1937,7 @@
 							}
 						},
 						{
-							"id": 55,
+							"id": 59,
 							"name": "prompts",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1730,14 +1961,14 @@
 						{
 							"title": "Properties",
 							"children": [
-								56,
-								55
+								60,
+								59
 							]
 						}
 					]
 				},
 				{
-					"id": 57,
+					"id": 61,
 					"name": "allFixtures",
 					"variant": "declaration",
 					"kind": 32,
@@ -1748,7 +1979,7 @@
 						"type": "array",
 						"elementType": {
 							"type": "reference",
-							"target": 54,
+							"target": 58,
 							"name": "Fixture",
 							"package": "@anvilkit/plugin-ai-copilot"
 						}
@@ -1756,28 +1987,28 @@
 					"defaultValue": "..."
 				},
 				{
-					"id": 64,
+					"id": 68,
 					"name": "createMockGeneratePage",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 65,
+							"id": 69,
 							"name": "createMockGeneratePage",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 66,
+									"id": 70,
 									"name": "opts",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 61,
+										"target": 65,
 										"name": "CreateMockGeneratePageOptions",
 										"package": "@anvilkit/plugin-ai-copilot"
 									},
@@ -1786,7 +2017,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 40,
+								"target": 44,
 								"name": "GeneratePageFn",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -1794,28 +2025,28 @@
 					]
 				},
 				{
-					"id": 69,
+					"id": 73,
 					"name": "createMockGenerateSection",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 70,
+							"id": 74,
 							"name": "createMockGenerateSection",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 71,
+									"id": 75,
 									"name": "opts",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 67,
+										"target": 71,
 										"name": "CreateMockGenerateSectionOptions",
 										"package": "@anvilkit/plugin-ai-copilot"
 									},
@@ -1824,7 +2055,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 45,
+								"target": 49,
 								"name": "GenerateSectionFn",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -1832,21 +2063,21 @@
 					]
 				},
 				{
-					"id": 58,
+					"id": 62,
 					"name": "matchPromptToFixture",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 59,
+							"id": 63,
 							"name": "matchPromptToFixture",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 60,
+									"id": 64,
 									"name": "prompt",
 									"variant": "param",
 									"kind": 32768,
@@ -1862,7 +2093,7 @@
 								"types": [
 									{
 										"type": "reference",
-										"target": 54,
+										"target": 58,
 										"name": "Fixture",
 										"package": "@anvilkit/plugin-ai-copilot"
 									},
@@ -1880,23 +2111,23 @@
 				{
 					"title": "Interfaces",
 					"children": [
-						61,
-						67,
-						54
+						65,
+						71,
+						58
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						57
+						61
 					]
 				},
 				{
 					"title": "Functions",
 					"children": [
-						64,
-						69,
-						58
+						68,
+						73,
+						62
 					]
 				}
 			]
@@ -2031,12 +2262,12 @@
 		"24": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotPluginInstance"
+			"qualifiedName": "AiCopilotOptions.sanitizeCurrentData"
 		},
 		"25": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotPluginInstance.runGeneration"
+			"qualifiedName": "__type"
 		},
 		"26": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -2046,17 +2277,17 @@
 		"27": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "data"
 		},
 		"28": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "prompt"
+			"qualifiedName": "AiCopilotPluginInstance"
 		},
 		"29": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "AiCopilotPluginInstance.regenerateSelection"
+			"qualifiedName": "AiCopilotPluginInstance.runGeneration"
 		},
 		"30": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -2076,67 +2307,67 @@
 		"33": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "selection"
+			"qualifiedName": "AiCopilotPluginInstance.regenerateSelection"
 		},
 		"34": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "opts"
+			"qualifiedName": "__type"
 		},
 		"35": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.meta"
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
 		},
 		"36": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.register"
-		},
-		"37": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "StudioPlugin.register"
-		},
-		"38": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/plugin.ts",
-			"qualifiedName": "ctx"
-		},
-		"39": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "AiErrorCode"
-		},
-		"40": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "GeneratePageFn"
-		},
-		"41": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
-		},
-		"42": {
-			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
-		},
-		"43": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
 			"qualifiedName": "prompt"
 		},
+		"37": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "selection"
+		},
+		"38": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "opts"
+		},
+		"39": {
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "StudioPlugin.meta"
+		},
+		"40": {
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "StudioPlugin.register"
+		},
+		"41": {
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "StudioPlugin.register"
+		},
+		"42": {
+			"packageName": "@anvilkit/core",
+			"packagePath": "src/types/plugin.ts",
+			"qualifiedName": "ctx"
+		},
+		"43": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "AiErrorCode"
+		},
 		"44": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "ctx"
+			"qualifiedName": "GeneratePageFn"
 		},
 		"45": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "GenerateSectionFn"
+			"qualifiedName": "__type"
 		},
 		"46": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -2146,124 +2377,144 @@
 		"47": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "prompt"
 		},
 		"48": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "prompt"
+			"qualifiedName": "ctx"
 		},
 		"49": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "ctx"
+			"qualifiedName": "GenerateSectionFn"
 		},
 		"50": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "RegenerateSelectionOptions"
+			"qualifiedName": "__type"
 		},
 		"51": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
+		},
+		"52": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "prompt"
+		},
+		"53": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "ctx"
+		},
+		"54": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "RegenerateSelectionOptions"
+		},
+		"55": {
 			"packageName": "@anvilkit/core",
 			"packagePath": "src/types/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.theme"
 		},
-		"52": {
+		"56": {
 			"packageName": "@anvilkit/core",
 			"packagePath": "src/types/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.locale"
 		},
-		"53": {
+		"57": {
 			"packageName": "@anvilkit/core",
 			"packagePath": "src/types/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.allowResize"
 		},
-		"54": {
+		"58": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/types.ts",
 			"qualifiedName": "Fixture"
 		},
-		"55": {
+		"59": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/types.ts",
 			"qualifiedName": "Fixture.prompts"
 		},
-		"56": {
+		"60": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/types.ts",
 			"qualifiedName": "Fixture.ir"
 		},
-		"57": {
+		"61": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/index.ts",
 			"qualifiedName": "allFixtures"
 		},
-		"58": {
+		"62": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/index.ts",
 			"qualifiedName": "matchPromptToFixture"
 		},
-		"59": {
+		"63": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/index.ts",
 			"qualifiedName": "matchPromptToFixture"
 		},
-		"60": {
+		"64": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/fixtures/index.ts",
 			"qualifiedName": "prompt"
 		},
-		"61": {
+		"65": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "CreateMockGeneratePageOptions"
 		},
-		"62": {
+		"66": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "CreateMockGeneratePageOptions.delayMs"
 		},
-		"63": {
+		"67": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "CreateMockGeneratePageOptions.fixtures"
 		},
-		"64": {
+		"68": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "createMockGeneratePage"
 		},
-		"65": {
+		"69": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "createMockGeneratePage"
 		},
-		"66": {
+		"70": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-page.ts",
 			"qualifiedName": "opts"
 		},
-		"67": {
+		"71": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-section.ts",
 			"qualifiedName": "CreateMockGenerateSectionOptions"
 		},
-		"68": {
+		"72": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-section.ts",
 			"qualifiedName": "CreateMockGenerateSectionOptions.delayMs"
 		},
-		"69": {
+		"73": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-section.ts",
 			"qualifiedName": "createMockGenerateSection"
 		},
-		"70": {
+		"74": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-section.ts",
 			"qualifiedName": "createMockGenerateSection"
 		},
-		"71": {
+		"75": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/mock/mock-generate-section.ts",
 			"qualifiedName": "opts"

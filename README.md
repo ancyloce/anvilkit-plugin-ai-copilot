@@ -54,6 +54,18 @@ for the full package catalog and trust-boundary discussion.
 | `react-dom` | `^18.2.0` |
 | `@puckeditor/core` | `^0.21.2` |
 
+## Plugin shape
+
+Unlike sibling plugins (`@anvilkit/plugin-export-html`, etc.) that
+register declarative `exportFormats` / `headerActions` maps, this
+plugin returns two **imperative methods** — `runGeneration(prompt)`
+and `regenerateSelection(prompt, selection)`. The reason: an AI
+copilot is prompt-driven. Host UI code typically renders a textarea
+plus submit button and must `await` the run to drive progress state,
+disable the input mid-generation, and surface errors inline. A
+declarative `aiActions` map would still require a host-side
+`await invoke()` at the call site, so we expose the methods directly.
+
 ## Security model
 
 - The plugin **never sees credentials**. API keys, auth headers, and
@@ -62,6 +74,45 @@ for the full package catalog and trust-boundary discussion.
 - Every LLM response runs through `validateAiOutput` before being
   dispatched.
 - The dispatch is atomic.
+
+### `forwardCurrentData` and `sanitizeCurrentData`
+
+When `forwardCurrentData: true` is set, the plugin includes the entire
+Puck canvas in the context handed to your `generatePage` /
+`generateSection` callback. This materially improves regeneration
+quality (the LLM can see what's already on the page), but it also
+means the full tree — component props, asset URLs, embedded text —
+crosses the boundary into the host's LLM adapter on every prompt.
+
+If any component props can contain PII, signed asset URLs, embedded
+secrets, or internal customer identifiers, pair `forwardCurrentData`
+with the `sanitizeCurrentData` option:
+
+```ts
+createAiCopilotPlugin({
+  puckConfig,
+  generatePage,
+  forwardCurrentData: true,
+  sanitizeCurrentData: (data) => ({
+    ...data,
+    content: data.content.map(stripInternalProps),
+  }),
+});
+
+function stripInternalProps(item) {
+  const safe = {};
+  for (const [key, value] of Object.entries(item.props ?? {})) {
+    // Drop props prefixed with `_` (convention for internal-only
+    // fields) and any known PII keys.
+    if (key.startsWith("_") || key === "email" || key === "phone") continue;
+    safe[key] = value;
+  }
+  return { ...item, props: safe };
+}
+```
+
+`sanitizeCurrentData` runs synchronously on every generation that
+forwards data and defaults to identity. Keep it cheap.
 
 ## License
 

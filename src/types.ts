@@ -7,7 +7,7 @@ import type {
 	PageIR,
 	StudioPlugin,
 } from "@anvilkit/core/types";
-import type { Config as PuckConfig } from "@puckeditor/core";
+import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
 
 /**
  * Host-supplied generation callback used by the AI copilot plugin.
@@ -77,9 +77,28 @@ export interface AiCopilotOptions {
 	/**
 	 * Whether to forward the current Puck data snapshot on each run.
 	 *
-	 * Defaults to `false`.
+	 * Defaults to `false`. **Security note:** when `true`, the entire
+	 * Puck canvas — including component props that may contain PII,
+	 * signed asset URLs, or internal identifiers — is handed to the
+	 * host's `generatePage` / `generateSection` callback, which is
+	 * typically the boundary that ships data to an LLM. Pair with
+	 * {@link sanitizeCurrentData} to strip anything that must not
+	 * leave the application. See README §Security model.
 	 */
 	readonly forwardCurrentData?: boolean;
+
+	/**
+	 * Optional sanitizer applied to the Puck data snapshot before it
+	 * is forwarded to `generatePage` / `generateSection`. Only invoked
+	 * when {@link forwardCurrentData} is `true`. Defaults to identity.
+	 *
+	 * Use this to strip PII, embedded secrets, signed asset URLs, or
+	 * any internal fields that must never reach the LLM. The
+	 * recommended pattern is to clone the data, redact known PII keys
+	 * (e.g. `email`, `phone`), and drop props prefixed with `_`
+	 * (a convention the demo uses for internal-only fields).
+	 */
+	readonly sanitizeCurrentData?: (data: PuckData) => PuckData;
 }
 
 /**
@@ -95,6 +114,24 @@ export interface RegenerateSelectionOptions
 /**
  * Returned plugin instance, including the public `runGeneration()`
  * entry point used by host UI code and tests.
+ *
+ * ## Plugin shape — why imperative rather than declarative
+ *
+ * Sibling plugins like `@anvilkit/plugin-export-html` use a purely
+ * declarative shape: they return an `exportFormats` / `headerActions`
+ * map from `register()` and host UI pulls from it. This plugin
+ * intentionally extends that pattern with two imperative methods —
+ * `runGeneration` and `regenerateSelection` — because the AI copilot
+ * is prompt-driven: host UI code typically renders a textarea + submit
+ * button and must `await` the run to drive progress state, disable
+ * the input mid-generation, and surface errors inline. A declarative
+ * `aiActions` map would still require a host-side `await invoke()` at
+ * the call site, so we expose the imperative methods directly.
+ *
+ * The trade-off is that host UI cannot enumerate copilot capabilities
+ * without instantiating the plugin. This is acceptable because there
+ * is exactly one copilot per host integration today; if multiple
+ * copilots are needed in future, a registry surface will be added.
  */
 export interface AiCopilotPluginInstance extends StudioPlugin {
 	readonly runGeneration: (prompt: string) => Promise<void>;
