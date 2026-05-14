@@ -132,9 +132,7 @@ describe("createAiCopilotPlugin — regenerateSelection", () => {
 		const generateSection = vi.fn().mockResolvedValue({
 			zoneId: "root-zone",
 			nodeIds: ["hero-1"],
-			replacement: [
-				{ id: "x", type: "DoesNotExist", props: { title: "Hi" } },
-			],
+			replacement: [{ id: "x", type: "DoesNotExist", props: { title: "Hi" } }],
 		});
 
 		const plugin = createAiCopilotPlugin({
@@ -306,7 +304,11 @@ describe("createAiCopilotPlugin — regenerateSelection", () => {
 		expect(generateSection).toHaveBeenCalledTimes(1);
 		const [, sectionCtx] = generateSection.mock.calls[0];
 		expect(sectionCtx.zoneKind).toBe("slot");
-		expect(sectionCtx.availableComponents.map((c: { componentName: string }) => c.componentName)).toEqual(["Hero"]);
+		expect(
+			sectionCtx.availableComponents.map(
+				(c: { componentName: string }) => c.componentName,
+			),
+		).toEqual(["Hero"]);
 	});
 
 	it("ignores stale section runs when a newer run is started", async () => {
@@ -398,9 +400,7 @@ describe("applySectionPatch", () => {
 		const next = applySectionPatch(data, {
 			zoneId: "root-zone",
 			nodeIds: ["a", "b"],
-			replacement: [
-				{ id: "merged", type: "Hero", props: { title: "Merged" } },
-			],
+			replacement: [{ id: "merged", type: "Hero", props: { title: "Merged" } }],
 		});
 
 		expect(next.content).toHaveLength(2);
@@ -437,9 +437,7 @@ describe("applySectionPatch", () => {
 	it("rewrites a legacy data.zones entry", () => {
 		const data = {
 			root: { props: {} },
-			content: [
-				{ type: "Hero", props: { id: "parent" } },
-			],
+			content: [{ type: "Hero", props: { id: "parent" } }],
 			zones: {
 				"parent:children": [
 					{ type: "Hero", props: { id: "z1", title: "old" } },
@@ -506,5 +504,90 @@ describe("applySectionPatch", () => {
 				replacement: [{ id: "x", type: "Hero", props: { title: "X" } }],
 			}),
 		).toThrow(/not found/);
+	});
+
+	// --- ST-5 / ST-6 / ST-8 follow-ups ---
+
+	it("rejects malformed zoneId with the structural reason from parseZoneId", () => {
+		const data = makeCanvas();
+		expect(() =>
+			applySectionPatch(data, {
+				zoneId: ":children",
+				nodeIds: ["hero-1"],
+				replacement: [{ id: "x", type: "Hero", props: { title: "X" } }],
+			}),
+		).toThrow(/empty parentId/);
+	});
+
+	it("rejects malformed zoneId 'a::b' with the slotName-contains-colon reason", () => {
+		const data = makeCanvas();
+		expect(() =>
+			applySectionPatch(data, {
+				zoneId: "a::b",
+				nodeIds: ["hero-1"],
+				replacement: [{ id: "x", type: "Hero", props: { title: "X" } }],
+			}),
+		).toThrow(/slotName contains/);
+	});
+
+	it("error message includes a JSON suffix with expected, found, and firstMismatch", () => {
+		const data = {
+			root: { props: {} },
+			content: [
+				{ type: "Hero", props: { id: "a" } },
+				{ type: "Hero", props: { id: "b" } },
+			],
+			zones: {},
+		} as unknown as PuckData;
+
+		try {
+			applySectionPatch(data, {
+				zoneId: "root-zone",
+				nodeIds: ["does-not-exist"],
+				replacement: [{ id: "x", type: "Hero", props: { title: "X" } }],
+			});
+			throw new Error("expected applySectionPatch to throw");
+		} catch (err) {
+			const message = (err as Error).message;
+			expect(message).toMatch(/not found as a contiguous run/);
+			const jsonMatch = message.match(/\{.*\}$/);
+			expect(jsonMatch).not.toBeNull();
+			const payload = JSON.parse((jsonMatch as RegExpMatchArray)[0]) as {
+				expected: string[];
+				found: string[];
+				firstMismatch: number | null;
+			};
+			expect(payload.expected).toEqual(["does-not-exist"]);
+			expect(payload.found).toEqual(["a", "b"]);
+			expect(payload.firstMismatch).toBe(0);
+		}
+	});
+
+	it("error 'found' surface names wrong-type ids when an item has a non-string id", () => {
+		const data = {
+			root: { props: {} },
+			content: [
+				{ type: "Hero", props: { id: 42 } },
+				{ type: "Hero", props: { id: "b" } },
+			],
+			zones: {},
+		} as unknown as PuckData;
+
+		try {
+			applySectionPatch(data, {
+				zoneId: "root-zone",
+				nodeIds: ["a"],
+				replacement: [{ id: "x", type: "Hero", props: { title: "X" } }],
+			});
+			throw new Error("expected applySectionPatch to throw");
+		} catch (err) {
+			const message = (err as Error).message;
+			const jsonMatch = message.match(/\{.*\}$/);
+			expect(jsonMatch).not.toBeNull();
+			const payload = JSON.parse((jsonMatch as RegExpMatchArray)[0]) as {
+				found: string[];
+			};
+			expect(payload.found).toEqual(["<wrong-type:number>", "b"]);
+		}
 	});
 });
