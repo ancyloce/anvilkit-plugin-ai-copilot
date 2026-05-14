@@ -114,6 +114,84 @@ function stripInternalProps(item) {
 `sanitizeCurrentData` runs synchronously on every generation that
 forwards data and defaults to identity. Keep it cheap.
 
+## Observability — `onTrace`
+
+The plugin exposes a single observability hook,
+`onTrace?: (event: AiCopilotTraceEvent) => void`, called synchronously
+at every decision point inside `runGeneration` and `regenerateSelection`.
+It carries only structural metadata — flow (`"page"` | `"section"`),
+the monotonic `generationId`, an error code on failure, and a stage
+discriminant on stale drops. **Forwarded Puck data never flows through
+this channel.**
+
+Event shapes:
+
+| `type` | When it fires | Extra fields |
+| ------ | ------------- | ------------ |
+| `generation-start` | A `runGeneration` / `regenerateSelection` call begins | `promptLength` |
+| `generation-validated` | Validator accepted the host response | — |
+| `generation-dispatched` | `setData` dispatched to the canvas | — |
+| `generation-stale-drop` | A run resolved after a newer run preempted it | `stage` |
+| `generation-failed` | Run terminated with an `AiErrorCode` | `code` |
+
+Throwing from an `onTrace` handler is caught and reported via `ctx.log`;
+a faulty observer never disrupts the generation pipeline.
+
+### Sentry breadcrumbs
+
+```ts
+createAiCopilotPlugin({
+  puckConfig,
+  generatePage,
+  onTrace: (event) => {
+    Sentry.addBreadcrumb({
+      category: "ai-copilot",
+      level: event.type === "generation-failed" ? "error" : "info",
+      message: event.type,
+      data: event,
+    });
+  },
+});
+```
+
+### OpenTelemetry span events
+
+```ts
+const tracer = trace.getTracer("anvilkit");
+createAiCopilotPlugin({
+  puckConfig,
+  generatePage,
+  onTrace: (event) => {
+    trace.getActiveSpan()?.addEvent(`ai-copilot.${event.type}`, { ...event });
+  },
+});
+```
+
+### Local development with `console.debug`
+
+```ts
+createAiCopilotPlugin({
+  puckConfig,
+  generatePage,
+  onTrace: (event) => console.debug("[ai-copilot]", event),
+});
+```
+
+## Runtime config validation
+
+Bad option shapes fail fast at construction with a `[CONFIG_INVALID]`-
+tagged `Error`:
+
+- `generatePage` must be a function
+- `generateSection`, when provided, must be a function
+- `timeoutMs`, when provided, must be a positive finite number
+- `puckConfig` must be a non-null object
+- `sanitizeCurrentData` / `onTrace`, when provided, must be functions
+
+The `CONFIG_INVALID` code is part of the `AiErrorCode` union but is
+surfaced through the synchronous constructor throw rather than the
+`ai-copilot:error` event bus — no Studio context exists yet.
+
 ## License
 
 MIT.
