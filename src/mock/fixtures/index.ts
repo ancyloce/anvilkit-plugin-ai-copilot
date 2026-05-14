@@ -49,13 +49,29 @@ function tokenize(prompt: string): string[] {
 		.filter((token) => token.length > 1 && !STOPWORDS.has(token));
 }
 
-function scorePrompt(prompt: string, fixture: Fixture): number {
-	const promptTokens = new Set(tokenize(prompt));
+// Token sets are computed once per fixture at module load and cached on
+// the closure below. Without this, every `matchPromptToFixture` call
+// retokenized every fixture's prompt list — O(F·P) work on the hot path
+// of every mock generation. (review L2 / MT-6)
+const fixtureTokenIndex: ReadonlyMap<Fixture, ReadonlySet<string>> = new Map(
+	allFixtures.map((fixture) => [
+		fixture,
+		new Set(fixture.prompts.flatMap(tokenize)),
+	]),
+);
+
+function scorePrompt(
+	promptTokens: ReadonlySet<string>,
+	fixture: Fixture,
+): number {
 	if (promptTokens.size === 0) {
 		return 0;
 	}
 
-	const fixtureTokens = new Set(fixture.prompts.flatMap(tokenize));
+	const fixtureTokens = fixtureTokenIndex.get(fixture);
+	if (!fixtureTokens) {
+		return 0;
+	}
 	let score = 0;
 	for (const token of promptTokens) {
 		if (fixtureTokens.has(token)) {
@@ -67,11 +83,14 @@ function scorePrompt(prompt: string, fixture: Fixture): number {
 }
 
 export function matchPromptToFixture(prompt: string): Fixture | undefined {
+	const promptTokens = new Set(tokenize(prompt));
+	if (promptTokens.size === 0) return undefined;
+
 	let bestFixture: Fixture | undefined;
 	let bestScore = 0;
 
 	for (const fixture of allFixtures) {
-		const score = scorePrompt(prompt, fixture);
+		const score = scorePrompt(promptTokens, fixture);
 		if (score > bestScore) {
 			bestFixture = fixture;
 			bestScore = score;
