@@ -443,6 +443,17 @@
 										"kind": "text",
 										"text": "\n(a convention the demo uses for internal-only fields)."
 									}
+								],
+								"blockTags": [
+									{
+										"tag": "@see",
+										"content": [
+											{
+												"kind": "text",
+												"text": "docs/decisions/004-ai-copilot-data-egress.md for the\n     egress-contract decision record."
+											}
+										]
+									}
 								]
 							},
 							"type": {
@@ -638,6 +649,17 @@
 							{
 								"kind": "text",
 								"text": " at\nthe call site, so we expose the imperative methods directly.\n\nThe trade-off is that host UI cannot enumerate copilot capabilities\nwithout instantiating the plugin. This is acceptable because there\nis exactly one copilot per host integration today; if multiple\ncopilots are needed in future, a registry surface will be added."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@see",
+								"content": [
+									{
+										"kind": "text",
+										"text": "docs/decisions/005-ai-copilot-imperative-api.md for the long-form\n     decision record."
+									}
+								]
 							}
 						]
 					},
