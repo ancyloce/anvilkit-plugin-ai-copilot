@@ -23,12 +23,12 @@
  * `reason` string suitable for an error message.
  */
 
+import { ROOT_ZONE_ALIASES } from "./puck-spec.js";
+
 export type ParsedZoneId =
 	| { kind: "root" }
 	| { kind: "slot"; parentId: string; slotName: string }
 	| { kind: "invalid"; reason: string };
-
-const ROOT_ZONE_ALIASES = new Set(["root", "root-zone", ""]);
 
 export function parseZoneId(zoneId: string): ParsedZoneId {
 	if (ROOT_ZONE_ALIASES.has(zoneId)) {

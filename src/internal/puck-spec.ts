@@ -28,6 +28,27 @@ export const DEFAULT_SLOT_NAME = "children";
 export const MAX_TREE_DEPTH = 64;
 
 /**
+ * Canonical id Puck assigns to the top-level root component. Used as
+ * the `parentId` half of a `${parentId}:${slotName}` zone key when
+ * lifting IR children with `slotKind: "zone"` into `data.zones`.
+ */
+export const ROOT_ZONE_ID = "root";
+
+/**
+ * Strings that name the Puck root content array when used as the
+ * `zoneId` half of an `AiSectionPatch`. `"root"` and `"root-zone"`
+ * are the canonical aliases; the empty string is preserved for
+ * compatibility with Puck's historical naming. Centralized here so
+ * the `zone-id.ts` parser, the apply path, and any future consumer
+ * stay aligned (review M1, L3).
+ */
+export const ROOT_ZONE_ALIASES: ReadonlySet<string> = new Set([
+	"root",
+	"root-zone",
+	"",
+]);
+
+/**
  * Structural type guard for a Puck content item. An item must be a
  * plain object with a non-null `props` object. We use the stricter
  * `props !== null` form as the canonical check — historically
