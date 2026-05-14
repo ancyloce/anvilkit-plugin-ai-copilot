@@ -4,6 +4,7 @@ export type {
 	AiCopilotErrorPayload,
 	AiCopilotOptions,
 	AiCopilotPluginInstance,
+	AiCopilotTraceEvent,
 	AiErrorCode,
 	GeneratePageFn,
 	GenerateSectionFn,

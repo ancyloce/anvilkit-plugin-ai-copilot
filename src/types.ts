@@ -38,6 +38,53 @@ export type GenerateSectionFn = (
 ) => Promise<AiSectionPatch>;
 
 /**
+ * Discriminated trace event emitted by {@link AiCopilotOptions.onTrace}
+ * at every decision point inside `runGeneration` and `regenerateSelection`.
+ *
+ * Hosts wire this into Sentry, OpenTelemetry, or `console.debug` to make
+ * the otherwise-opaque concurrency/cancellation behaviour observable in
+ * production. The plugin remains transport-agnostic — the host decides
+ * whether `onTrace` ships to a metrics sink, a log line, or nowhere.
+ *
+ * Every event carries a `flow` ("page" or "section") and a numeric
+ * `generationId` matching the plugin's internal monotonic counter, so
+ * downstream sinks can correlate the lifecycle of a single run.
+ *
+ * @see docs/decisions/004-ai-copilot-data-egress.md for related egress
+ *      considerations — `onTrace` event payloads never include forwarded
+ *      Puck data, only structural metadata.
+ */
+export type AiCopilotTraceEvent =
+	| {
+			readonly type: "generation-start";
+			readonly flow: "page" | "section";
+			readonly generationId: number;
+			readonly promptLength: number;
+	  }
+	| {
+			readonly type: "generation-validated";
+			readonly flow: "page" | "section";
+			readonly generationId: number;
+	  }
+	| {
+			readonly type: "generation-stale-drop";
+			readonly flow: "page" | "section";
+			readonly generationId: number;
+			readonly stage: "after-generate" | "after-validate" | "after-apply";
+	  }
+	| {
+			readonly type: "generation-dispatched";
+			readonly flow: "page" | "section";
+			readonly generationId: number;
+	  }
+	| {
+			readonly type: "generation-failed";
+			readonly flow: "page" | "section";
+			readonly generationId: number;
+			readonly code: AiErrorCode;
+	  };
+
+/**
  * Configuration for {@link createAiCopilotPlugin}.
  */
 export interface AiCopilotOptions {
@@ -102,6 +149,22 @@ export interface AiCopilotOptions {
 	 *      egress-contract decision record.
 	 */
 	readonly sanitizeCurrentData?: (data: PuckData) => PuckData;
+
+	/**
+	 * Optional observability hook. Called synchronously at every
+	 * decision point inside `runGeneration` / `regenerateSelection`
+	 * with a structured {@link AiCopilotTraceEvent}.
+	 *
+	 * Purely additive — defaults to a no-op. The plugin never logs the
+	 * forwarded Puck data through this channel; only structural metadata
+	 * (flow, generationId, error code, etc.) flows through.
+	 *
+	 * Typical wirings: emit to Sentry breadcrumbs, OpenTelemetry spans,
+	 * or `console.debug` during development. Throwing from `onTrace` is
+	 * caught and reported via `ctx.log` so a faulty observer cannot
+	 * break the generation pipeline.
+	 */
+	readonly onTrace?: (event: AiCopilotTraceEvent) => void;
 }
 
 /**
@@ -164,12 +227,30 @@ export interface AiCopilotPluginInstance extends StudioPlugin {
 
 /**
  * Stable error codes emitted by the AI copilot plugin.
+ *
+ * - `VALIDATION_FAILED` — the host's `generatePage` / `generateSection`
+ *   callback returned a payload that failed `validateAiOutput` /
+ *   `validateAiSectionPatch`. Carries an `issues[]` array.
+ * - `TIMEOUT` — the host callback did not resolve within
+ *   {@link AiCopilotOptions.timeoutMs} (default 30 s).
+ * - `GENERATE_FAILED` — the host callback rejected, threw, or was
+ *   missing (e.g. `regenerateSelection` called without a
+ *   `generateSection` configured).
+ * - `APPLY_FAILED` — the post-validation apply step failed (e.g. a
+ *   section patch's `nodeIds` were not contiguous, or the targeted
+ *   zone could not be located in the live Puck data).
+ * - `CONFIG_INVALID` — `createAiCopilotPlugin` was called with options
+ *   that fail runtime structural validation (e.g. a non-function
+ *   `generatePage`, a non-positive `timeoutMs`). Surfaced through the
+ *   constructor's thrown `Error.message` rather than the event bus,
+ *   since no Studio context exists yet.
  */
 export type AiErrorCode =
 	| "VALIDATION_FAILED"
 	| "TIMEOUT"
 	| "GENERATE_FAILED"
-	| "APPLY_FAILED";
+	| "APPLY_FAILED"
+	| "CONFIG_INVALID";
 
 /**
  * Structured error payload emitted on the Studio plugin event bus and

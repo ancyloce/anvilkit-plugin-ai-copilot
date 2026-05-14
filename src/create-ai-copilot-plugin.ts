@@ -9,7 +9,9 @@ import type {
 } from "@anvilkit/core/types";
 import { configToAiContext } from "@anvilkit/schema";
 import { configToAiSectionContext } from "@anvilkit/schema/section";
+import type { Data as PuckData } from "@puckeditor/core";
 import { validateAiOutput } from "@anvilkit/validator";
+import type { ValidationIssue } from "@anvilkit/validator";
 import { validateAiSectionPatch } from "@anvilkit/validator/section";
 
 import { applySectionPatch } from "./apply-section-patch.js";
@@ -19,6 +21,7 @@ import type {
 	AiCopilotErrorPayload,
 	AiCopilotOptions,
 	AiCopilotPluginInstance,
+	AiCopilotTraceEvent,
 	AiErrorCode,
 	RegenerateSelectionOptions,
 } from "./types.js";
@@ -69,6 +72,58 @@ const META = {
 const cachedStateByPlugin = new WeakMap<AiCopilotPluginInstance, CachedState>();
 
 /**
+ * Structural validation of {@link AiCopilotOptions}. Throws synchronously
+ * with a `CONFIG_INVALID`-tagged message when an obviously-bad config is
+ * passed, so misuse fails fast at construction instead of waiting for the
+ * first generation to surface a confusing runtime error.
+ */
+function assertValidOptions(opts: AiCopilotOptions): void {
+	if (typeof opts.generatePage !== "function") {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `generatePage` must be a function",
+		);
+	}
+	if (
+		opts.generateSection !== undefined &&
+		typeof opts.generateSection !== "function"
+	) {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `generateSection`, when provided, must be a function",
+		);
+	}
+	if (
+		opts.timeoutMs !== undefined &&
+		!(Number.isFinite(opts.timeoutMs) && opts.timeoutMs > 0)
+	) {
+		throw new Error(
+			`createAiCopilotPlugin: [CONFIG_INVALID] \`timeoutMs\` must be a positive finite number (got ${String(opts.timeoutMs)})`,
+		);
+	}
+	if (
+		opts.puckConfig === null ||
+		opts.puckConfig === undefined ||
+		typeof opts.puckConfig !== "object"
+	) {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `puckConfig` must be the same Puck config object passed to <Studio />",
+		);
+	}
+	if (
+		opts.sanitizeCurrentData !== undefined &&
+		typeof opts.sanitizeCurrentData !== "function"
+	) {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `sanitizeCurrentData`, when provided, must be a function",
+		);
+	}
+	if (opts.onTrace !== undefined && typeof opts.onTrace !== "function") {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `onTrace`, when provided, must be a function",
+		);
+	}
+}
+
+/**
  * Create the headless AI copilot plugin.
  *
  * The host must pass the same `puckConfig` object it gives to
@@ -78,6 +133,8 @@ const cachedStateByPlugin = new WeakMap<AiCopilotPluginInstance, CachedState>();
 export function createAiCopilotPlugin(
 	opts: AiCopilotOptions,
 ): AiCopilotPluginInstance {
+	assertValidOptions(opts);
+
 	const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT_MS;
 
 	/**
@@ -98,27 +155,126 @@ export function createAiCopilotPlugin(
 	}
 
 	/**
+	 * Safely invoke `opts.onTrace` if configured. Observer failures are
+	 * logged via `ctx.log` and swallowed — a faulty trace sink must never
+	 * disrupt the generation pipeline.
+	 */
+	function trace(ctx: StudioPluginContext, event: AiCopilotTraceEvent): void {
+		if (!opts.onTrace) return;
+		try {
+			opts.onTrace(event);
+		} catch (err) {
+			ctx.log("warn", "ai-copilot: onTrace handler threw", {
+				event: event.type,
+				error: err instanceof Error ? err.message : String(err),
+			});
+		}
+	}
+
+	/**
 	 * Shared error-classification path used by both `runGeneration` and
 	 * `regenerateSelection`. Surfaces `TimeoutError` as `TIMEOUT` and
 	 * everything else as `GENERATE_FAILED`, mapping the message to the
 	 * underlying `Error` or coerced string.
 	 */
-	function reportRunError(ctx: StudioPluginContext, err: unknown): void {
+	function reportRunError(ctx: StudioPluginContext, err: unknown): AiErrorCode {
 		if (err instanceof TimeoutError) {
 			reportError(ctx, {
 				code: "TIMEOUT",
 				message: `AI generation did not respond within ${timeoutMs}ms`,
 			});
-			return;
+			return "TIMEOUT";
 		}
 		reportError(ctx, {
 			code: "GENERATE_FAILED",
 			message: err instanceof Error ? err.message : String(err),
 		});
+		return "GENERATE_FAILED";
+	}
+
+	/**
+	 * Wrap a host callback in the timeout + stale-check pattern used by
+	 * both flows. Returns `{ ok: true, value }` on success, `{ ok: false }`
+	 * when the run was cancelled (stale or destroyed), or `{ ok: false }`
+	 * after surfacing the failure via `reportRunError` + `onTrace`.
+	 *
+	 * Centralizing the pattern keeps `runGeneration` and `regenerateSelection`
+	 * focused on flow-specific concerns (validation, dispatch) instead of
+	 * re-implementing cancellation bookkeeping.
+	 */
+	async function cancellableRun<T>(
+		flow: "page" | "section",
+		generationId: number,
+		ctx: StudioPluginContext,
+		isCurrent: () => boolean,
+		promise: Promise<T>,
+	): Promise<{ ok: true; value: T } | { ok: false }> {
+		try {
+			const value = await withTimeout(promise, timeoutMs);
+			if (!isCurrent()) {
+				trace(ctx, {
+					type: "generation-stale-drop",
+					flow,
+					generationId,
+					stage: "after-generate",
+				});
+				return { ok: false };
+			}
+			return { ok: true, value };
+		} catch (err) {
+			if (!isCurrent()) {
+				trace(ctx, {
+					type: "generation-stale-drop",
+					flow,
+					generationId,
+					stage: "after-generate",
+				});
+				return { ok: false };
+			}
+			const code = reportRunError(ctx, err);
+			trace(ctx, { type: "generation-failed", flow, generationId, code });
+			return { ok: false };
+		}
+	}
+
+	/**
+	 * Atomically replace the entire Puck canvas. Used by the page flow
+	 * after IR validation and conversion succeed.
+	 */
+	function dispatchPageReplace(ctx: StudioPluginContext, data: PuckData): void {
+		ctx.getPuckApi().dispatch({ type: "setData", data });
+	}
+
+	/**
+	 * Filter the validator's mixed-severity issue list down to errors,
+	 * project them onto the {@link AiCopilotErrorPayload} shape, and
+	 * surface a `VALIDATION_FAILED` event. Section flow only — the page
+	 * flow's validator already returns the expected shape.
+	 */
+	function reportSectionValidationFailure(
+		ctx: StudioPluginContext,
+		issues: readonly ValidationIssue[],
+	): void {
+		reportError(ctx, {
+			code: "VALIDATION_FAILED",
+			message: "AI section patch failed validation",
+			issues: issues
+				.filter((i) => i.level === "error")
+				.map((i) => ({
+					path: i.path.join("."),
+					message: `[${i.code}] ${i.message}`,
+					severity: "error" as const,
+				})),
+		});
 	}
 
 	let plugin!: AiCopilotPluginInstance;
 	let latestGenerationId = 0;
+
+	function buildIsCurrent(generationId: number): () => boolean {
+		return () =>
+			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
+	}
 
 	async function runGeneration(prompt: string): Promise<void> {
 		const cached = cachedStateByPlugin.get(plugin);
@@ -128,42 +284,36 @@ export function createAiCopilotPlugin(
 			);
 		}
 		const generationId = ++latestGenerationId;
-		const isCurrentGeneration = () =>
-			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
-
-		let forwardedData;
-		if (opts.forwardCurrentData) {
-			const live = cached.ctx.getData();
-			forwardedData = opts.sanitizeCurrentData
-				? opts.sanitizeCurrentData(live)
-				: live;
-		}
+		const isCurrent = buildIsCurrent(generationId);
+		trace(cached.ctx, {
+			type: "generation-start",
+			flow: "page",
+			generationId,
+			promptLength: prompt.length,
+		});
 
 		const fullContext: AiGenerationContext = {
 			...cached.aiContext,
-			...(opts.forwardCurrentData ? { currentData: forwardedData } : {}),
+			...(opts.forwardCurrentData
+				? {
+						currentData: opts.sanitizeCurrentData
+							? opts.sanitizeCurrentData(cached.ctx.getData())
+							: cached.ctx.getData(),
+					}
+				: {}),
 		};
 
-		let response: PageIR;
-		try {
-			response = await withTimeout(
-				opts.generatePage(prompt, fullContext),
-				timeoutMs,
-			);
-		} catch (err) {
-			if (!isCurrentGeneration()) {
-				return;
-			}
-			reportRunError(cached.ctx, err);
-			return;
-		}
-
-		if (!isCurrentGeneration()) {
-			return;
-		}
+		const generated = await cancellableRun<PageIR>(
+			"page",
+			generationId,
+			cached.ctx,
+			isCurrent,
+			opts.generatePage(prompt, fullContext),
+		);
+		if (!generated.ok) return;
 
 		const validation = validateAiOutput(
-			response,
+			generated.value,
 			cached.aiContext.availableComponents,
 		);
 		if (!validation.valid) {
@@ -172,23 +322,56 @@ export function createAiCopilotPlugin(
 				message: "AI response failed validation",
 				issues: validation.issues,
 			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "page",
+				generationId,
+				code: "VALIDATION_FAILED",
+			});
 			return;
 		}
+		trace(cached.ctx, {
+			type: "generation-validated",
+			flow: "page",
+			generationId,
+		});
 
 		try {
-			const data = irToPuckPatch(response);
-			if (!isCurrentGeneration()) {
+			const data = irToPuckPatch(generated.value);
+			if (!isCurrent()) {
+				trace(cached.ctx, {
+					type: "generation-stale-drop",
+					flow: "page",
+					generationId,
+					stage: "after-validate",
+				});
 				return;
 			}
-			cached.ctx.getPuckApi().dispatch({ type: "setData", data });
+			dispatchPageReplace(cached.ctx, data);
+			trace(cached.ctx, {
+				type: "generation-dispatched",
+				flow: "page",
+				generationId,
+			});
 		} catch (err) {
-			if (!isCurrentGeneration()) {
+			if (!isCurrent()) {
+				trace(cached.ctx, {
+					type: "generation-stale-drop",
+					flow: "page",
+					generationId,
+					stage: "after-apply",
+				});
 				return;
 			}
-
 			reportError(cached.ctx, {
 				code: "APPLY_FAILED",
 				message: err instanceof Error ? err.message : String(err),
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "page",
+				generationId,
+				code: "APPLY_FAILED",
 			});
 		}
 	}
@@ -221,8 +404,13 @@ export function createAiCopilotPlugin(
 		// in-flight section run and vice versa, which matches the
 		// semantics the host UI expects ("most recent intent wins").
 		const generationId = ++latestGenerationId;
-		const isCurrentGeneration = () =>
-			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
+		const isCurrent = buildIsCurrent(generationId);
+		trace(cached.ctx, {
+			type: "generation-start",
+			flow: "section",
+			generationId,
+			promptLength: prompt.length,
+		});
 
 		// Auto-populate `selection.currentNodes` from the live Puck data
 		// when the host omitted them. Hosts driving the plugin from a UI
@@ -252,49 +440,78 @@ export function createAiCopilotPlugin(
 				code: "VALIDATION_FAILED",
 				message: err instanceof Error ? err.message : String(err),
 			});
-			return;
-		}
-
-		let patch: AiSectionPatch;
-		try {
-			patch = await withTimeout(
-				generateSection(prompt, sectionContext),
-				timeoutMs,
-			);
-		} catch (err) {
-			if (!isCurrentGeneration()) return;
-			reportRunError(cached.ctx, err);
-			return;
-		}
-
-		if (!isCurrentGeneration()) return;
-
-		const validation = validateAiSectionPatch(patch, sectionContext);
-		if (!validation.valid) {
-			reportError(cached.ctx, {
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "section",
+				generationId,
 				code: "VALIDATION_FAILED",
-				message: "AI section patch failed validation",
-				issues: validation.issues
-					.filter((i) => i.level === "error")
-					.map((i) => ({
-						path: i.path.join("."),
-						message: `[${i.code}] ${i.message}`,
-						severity: "error" as const,
-					})),
 			});
 			return;
 		}
 
+		const generated = await cancellableRun<AiSectionPatch>(
+			"section",
+			generationId,
+			cached.ctx,
+			isCurrent,
+			generateSection(prompt, sectionContext),
+		);
+		if (!generated.ok) return;
+
+		const validation = validateAiSectionPatch(generated.value, sectionContext);
+		if (!validation.valid) {
+			reportSectionValidationFailure(cached.ctx, validation.issues);
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "section",
+				generationId,
+				code: "VALIDATION_FAILED",
+			});
+			return;
+		}
+		trace(cached.ctx, {
+			type: "generation-validated",
+			flow: "section",
+			generationId,
+		});
+
 		try {
 			const currentData = cached.ctx.getData();
-			const nextData = applySectionPatch(currentData, patch);
-			if (!isCurrentGeneration()) return;
+			const nextData = applySectionPatch(currentData, generated.value);
+			if (!isCurrent()) {
+				trace(cached.ctx, {
+					type: "generation-stale-drop",
+					flow: "section",
+					generationId,
+					stage: "after-validate",
+				});
+				return;
+			}
 			cached.ctx.getPuckApi().dispatch({ type: "setData", data: nextData });
+			trace(cached.ctx, {
+				type: "generation-dispatched",
+				flow: "section",
+				generationId,
+			});
 		} catch (err) {
-			if (!isCurrentGeneration()) return;
+			if (!isCurrent()) {
+				trace(cached.ctx, {
+					type: "generation-stale-drop",
+					flow: "section",
+					generationId,
+					stage: "after-apply",
+				});
+				return;
+			}
 			reportError(cached.ctx, {
 				code: "APPLY_FAILED",
 				message: err instanceof Error ? err.message : String(err),
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "section",
+				generationId,
+				code: "APPLY_FAILED",
 			});
 		}
 	}

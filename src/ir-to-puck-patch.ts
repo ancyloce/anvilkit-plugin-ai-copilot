@@ -1,7 +1,7 @@
 import type { PageIR } from "@anvilkit/core/types";
 import type { Data as PuckData } from "@puckeditor/core";
 
-import { DEFAULT_SLOT_NAME } from "./internal/puck-spec.js";
+import { DEFAULT_SLOT_NAME, ROOT_ZONE_ID } from "./internal/puck-spec.js";
 
 type PuckContentItem = PuckData["content"][number];
 type SlotKind = "slot" | "zone";
@@ -70,7 +70,7 @@ export function irToPuckPatch(ir: PageIR): PuckData {
 		const childContent = nodeToContent(child);
 
 		if (child.slotKind === "zone" && child.slot) {
-			const zoneKey = `root:${child.slot}`;
+			const zoneKey = `${ROOT_ZONE_ID}:${child.slot}`;
 			zones[zoneKey] = [...(zones[zoneKey] ?? []), childContent];
 			continue;
 		}
