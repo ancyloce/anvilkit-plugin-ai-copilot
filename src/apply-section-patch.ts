@@ -33,54 +33,79 @@ import type { Data as PuckData } from "@puckeditor/core";
 import {
 	DEFAULT_SLOT_NAME,
 	getItemId,
+	getItemIdInfo,
 	isPuckContentItem,
 	MAX_TREE_DEPTH,
 	type PuckContentItem,
 	type PuckProps,
 } from "./internal/puck-spec.js";
+import { parseZoneId } from "./internal/zone-id.js";
 
 type PuckZones = Record<string, PuckContentItem[]>;
 
-const ROOT_ZONE_ALIASES = new Set(["root", "root-zone", ""]);
-const ZONE_ID_PATTERN = /^[^:]+:[^:]+$/;
-
-function isRootZone(zoneId: string): boolean {
-	return ROOT_ZONE_ALIASES.has(zoneId);
-}
-
 /**
  * Find the start index of a contiguous run of items whose ids match
- * `expectedIds` in order. Returns `-1` when no such run exists.
+ * `expectedIds` in order, plus the diagnostic context the section-patch
+ * error formatter needs when no such run exists: the ids/types actually
+ * present and the index at which the longest partial match broke off.
+ *
+ * `start === -1` means "no contiguous run found"; in that case
+ * `firstMismatch` is the index of the first expected id that failed to
+ * match anywhere in the longest partial run (or `null` when none of the
+ * expected ids appear at all).
  */
 function findContiguousRun(
 	items: readonly PuckContentItem[],
 	expectedIds: readonly string[],
-): number {
-	if (expectedIds.length === 0) return -1;
+): {
+	start: number;
+	found: readonly string[];
+	firstMismatch: number | null;
+} {
+	const found = collectFoundIds(items);
+	if (expectedIds.length === 0) {
+		return { start: -1, found, firstMismatch: null };
+	}
+	let longestPartial = 0;
+	let mismatchAt: number | null = null;
 	outer: for (let i = 0; i <= items.length - expectedIds.length; i++) {
 		for (let j = 0; j < expectedIds.length; j++) {
 			const item = items[i + j];
 			if (!item || getItemId(item) !== expectedIds[j]) {
+				if (j > longestPartial) {
+					longestPartial = j;
+					mismatchAt = j;
+				} else if (mismatchAt === null && j === 0) {
+					mismatchAt = 0;
+				}
 				continue outer;
 			}
 		}
-		return i;
+		return { start: i, found, firstMismatch: null };
 	}
-	return -1;
+	return { start: -1, found, firstMismatch: mismatchAt };
 }
 
 /**
- * Collect the string ids actually present in a zone, in order. Used to
- * enrich the "nodeIds not found" error so a host UI can surface the
- * diff without reaching for the canvas itself (review M2, M4).
+ * Collect a human-readable label for each item in a zone, in order. An
+ * item with a string `props.id` shows up as the id; one with a
+ * non-string id shows up as `<wrong-type:number>` (etc.); one with no
+ * id at all shows up as `<no-id>`. Used to enrich the "nodeIds not
+ * found" error (review M2, M4).
  */
-function collectPresentIds(items: readonly PuckContentItem[]): string[] {
-	const ids: string[] = [];
+function collectFoundIds(items: readonly PuckContentItem[]): string[] {
+	const labels: string[] = [];
 	for (const item of items) {
-		const id = getItemId(item);
-		if (id) ids.push(id);
+		const info = getItemIdInfo(item);
+		if (info.kind === "ok") {
+			labels.push(info.id);
+		} else if (info.kind === "wrong-type") {
+			labels.push(`<wrong-type:${info.actual}>`);
+		} else {
+			labels.push("<no-id>");
+		}
 	}
-	return ids;
+	return labels;
 }
 
 function nodeToPuckContent(
@@ -217,14 +242,26 @@ function rewriteContentBySlot(
 	});
 }
 
+/**
+ * Build the section-patch "not found" error. The human-readable prefix
+ * preserves the wording that existing tests and host log aggregators
+ * key off; a single-line JSON suffix carries the structured context
+ * (`expected`, `found`, `firstMismatch`) so a log pipeline can parse
+ * the diagnostic without regexing the prose (review M4).
+ */
 function formatNotFoundError(
 	where: string,
 	zoneId: string,
 	expectedIds: readonly string[],
-	presentIds: readonly string[],
+	run: { found: readonly string[]; firstMismatch: number | null },
 ): Error {
+	const suffix = JSON.stringify({
+		expected: expectedIds,
+		found: run.found,
+		firstMismatch: run.firstMismatch,
+	});
 	return new Error(
-		`applySectionPatch: nodeIds [${expectedIds.join(", ")}] not found as a contiguous run in ${where} (zoneId="${zoneId}"). Ids present: [${presentIds.join(", ")}].`,
+		`applySectionPatch: nodeIds [${expectedIds.join(", ")}] not found as a contiguous run in ${where} (zoneId="${zoneId}"). ${suffix}`,
 	);
 }
 
@@ -237,6 +274,13 @@ export function applySectionPatch(
 	currentData: PuckData,
 	patch: AiSectionPatch,
 ): PuckData {
+	const parsed = parseZoneId(patch.zoneId);
+	if (parsed.kind === "invalid") {
+		throw new Error(
+			`applySectionPatch: invalid zoneId format "${patch.zoneId}" — ${parsed.reason}. Expected "root", "root-zone", or "<parentId>:<slotName>".`,
+		);
+	}
+
 	const newZones: PuckZones = currentData.zones
 		? { ...(currentData.zones as PuckZones) }
 		: {};
@@ -245,21 +289,21 @@ export function applySectionPatch(
 		nodeToPuckContent(node, newZones),
 	);
 
-	if (isRootZone(patch.zoneId)) {
+	if (parsed.kind === "root") {
 		const content = (currentData.content ?? []) as readonly PuckContentItem[];
-		const start = findContiguousRun(content, patch.nodeIds);
-		if (start === -1) {
+		const run = findContiguousRun(content, patch.nodeIds);
+		if (run.start === -1) {
 			throw formatNotFoundError(
 				"root content",
 				patch.zoneId,
 				patch.nodeIds,
-				collectPresentIds(content),
+				run,
 			);
 		}
 		const newContent: PuckContentItem[] = [
-			...content.slice(0, start),
+			...content.slice(0, run.start),
 			...replacementContent,
-			...content.slice(start + patch.nodeIds.length),
+			...content.slice(run.start + patch.nodeIds.length),
 		];
 		const { zones: _existingZones, ...rest } = currentData;
 		const next: PuckData = {
@@ -273,19 +317,19 @@ export function applySectionPatch(
 	// Legacy data.zones entry — `${parentId}:${slotName}`.
 	if (currentData.zones && patch.zoneId in currentData.zones) {
 		const items = currentData.zones[patch.zoneId] as PuckContentItem[];
-		const start = findContiguousRun(items, patch.nodeIds);
-		if (start === -1) {
+		const run = findContiguousRun(items, patch.nodeIds);
+		if (run.start === -1) {
 			throw formatNotFoundError(
 				`zone "${patch.zoneId}"`,
 				patch.zoneId,
 				patch.nodeIds,
-				collectPresentIds(items),
+				run,
 			);
 		}
 		newZones[patch.zoneId] = [
-			...items.slice(0, start),
+			...items.slice(0, run.start),
 			...replacementContent,
-			...items.slice(start + patch.nodeIds.length),
+			...items.slice(run.start + patch.nodeIds.length),
 		];
 		const { zones: _existingZones, ...rest } = currentData;
 		const next: PuckData = {
@@ -296,56 +340,46 @@ export function applySectionPatch(
 	}
 
 	// Modern slot zone — same `${parentId}:${slotName}` format, but the
-	// data lives inside the parent component's own props. Reject empty
-	// prefix / empty suffix / extra colons up front so we surface a
-	// structural error instead of a vague "zone not found" (review M1).
-	if (ZONE_ID_PATTERN.test(patch.zoneId)) {
-		const colonIndex = patch.zoneId.indexOf(":");
-		const parentId = patch.zoneId.slice(0, colonIndex);
-		const slotName = patch.zoneId.slice(colonIndex + 1);
-		const visited = { found: false };
-		let notFound: Error | null = null;
-		const newContent = rewriteContentBySlot(
-			(currentData.content ?? []) as readonly PuckContentItem[],
-			parentId,
-			slotName,
-			(items) => {
-				const start = findContiguousRun(items, patch.nodeIds);
-				if (start === -1) {
-					notFound = formatNotFoundError(
-						`slot "${patch.zoneId}"`,
-						patch.zoneId,
-						patch.nodeIds,
-						collectPresentIds(items),
-					);
-					return items as PuckContentItem[];
-				}
-				return [
-					...items.slice(0, start),
-					...replacementContent,
-					...items.slice(start + patch.nodeIds.length),
-				];
-			},
-			visited,
-			0,
-			new WeakSet<PuckContentItem>(),
-		);
-		if (notFound) throw notFound;
-		if (visited.found) {
-			const { zones: _existingZones, ...rest } = currentData;
-			const next: PuckData = {
-				...rest,
-				content: newContent,
-				...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
-			};
-			return next;
-		}
-		throw new Error(
-			`applySectionPatch: zone "${patch.zoneId}" not found in current Puck data.`,
-		);
+	// data lives inside the parent component's own props.
+	const { parentId, slotName } = parsed;
+	const visited = { found: false };
+	let notFound: Error | null = null;
+	const newContent = rewriteContentBySlot(
+		(currentData.content ?? []) as readonly PuckContentItem[],
+		parentId,
+		slotName,
+		(items) => {
+			const run = findContiguousRun(items, patch.nodeIds);
+			if (run.start === -1) {
+				notFound = formatNotFoundError(
+					`slot "${patch.zoneId}"`,
+					patch.zoneId,
+					patch.nodeIds,
+					run,
+				);
+				return items as PuckContentItem[];
+			}
+			return [
+				...items.slice(0, run.start),
+				...replacementContent,
+				...items.slice(run.start + patch.nodeIds.length),
+			];
+		},
+		visited,
+		0,
+		new WeakSet<PuckContentItem>(),
+	);
+	if (notFound) throw notFound;
+	if (visited.found) {
+		const { zones: _existingZones, ...rest } = currentData;
+		const next: PuckData = {
+			...rest,
+			content: newContent,
+			...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
+		};
+		return next;
 	}
-
 	throw new Error(
-		`applySectionPatch: invalid zoneId format "${patch.zoneId}" — expected "root", "root-zone", or "<parentId>:<slotName>".`,
+		`applySectionPatch: zone "${patch.zoneId}" not found in current Puck data.`,
 	);
 }

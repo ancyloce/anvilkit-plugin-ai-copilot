@@ -97,6 +97,9 @@ export interface AiCopilotOptions {
 	 * recommended pattern is to clone the data, redact known PII keys
 	 * (e.g. `email`, `phone`), and drop props prefixed with `_`
 	 * (a convention the demo uses for internal-only fields).
+	 *
+	 * @see docs/decisions/004-ai-copilot-data-egress.md for the
+	 *      egress-contract decision record.
 	 */
 	readonly sanitizeCurrentData?: (data: PuckData) => PuckData;
 }
@@ -132,6 +135,9 @@ export interface RegenerateSelectionOptions
  * without instantiating the plugin. This is acceptable because there
  * is exactly one copilot per host integration today; if multiple
  * copilots are needed in future, a registry surface will be added.
+ *
+ * @see docs/decisions/005-ai-copilot-imperative-api.md for the long-form
+ *      decision record.
  */
 export interface AiCopilotPluginInstance extends StudioPlugin {
 	readonly runGeneration: (prompt: string) => Promise<void>;
