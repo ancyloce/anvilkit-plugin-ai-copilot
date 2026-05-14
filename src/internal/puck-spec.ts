@@ -45,14 +45,32 @@ export function isPuckContentItem(value: unknown): value is PuckContentItem {
 }
 
 /**
+ * Discriminated read of a Puck item's `props.id`. Distinguishes between
+ * "props block is missing or the id key isn't set" and "the id key is
+ * present but the wrong type", so callers (specifically the section-patch
+ * error formatter) can name the actual id types they encountered instead
+ * of just reporting "not found" (review M2, M4).
+ */
+export type ItemIdInfo =
+	| { kind: "ok"; id: string }
+	| { kind: "missing" }
+	| { kind: "wrong-type"; actual: string };
+
+export function getItemIdInfo(item: PuckContentItem): ItemIdInfo {
+	const props = (item as { props?: PuckProps }).props;
+	if (!props) return { kind: "missing" };
+	if (!("id" in props)) return { kind: "missing" };
+	const id = props.id;
+	if (typeof id === "string") return { kind: "ok", id };
+	return { kind: "wrong-type", actual: id === null ? "null" : typeof id };
+}
+
+/**
  * Read a Puck item's string `props.id`, or `undefined` if absent or
- * non-string. Non-string ids are silently treated as missing — error
- * reporters at the call site are responsible for surfacing what *was*
- * present when a lookup fails (see review M2, M4).
+ * non-string. Thin wrapper over {@link getItemIdInfo} for read sites
+ * that don't need to discriminate.
  */
 export function getItemId(item: PuckContentItem): string | undefined {
-	const props = (item as { props?: PuckProps }).props;
-	if (!props) return undefined;
-	const id = props.id;
-	return typeof id === "string" ? id : undefined;
+	const info = getItemIdInfo(item);
+	return info.kind === "ok" ? info.id : undefined;
 }
