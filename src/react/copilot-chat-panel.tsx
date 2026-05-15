@@ -118,9 +118,13 @@ export function CopilotChatPanel(
 
 	return (
 		<Card
+			size="sm"
 			data-slot="copilot-chat-panel"
 			data-mode={isSectionMode ? "section" : "page"}
-			className={cn("gap-3", className)}
+			className={cn(
+				"min-h-0 flex-1 gap-2 rounded-none bg-transparent shadow-none ring-0",
+				className,
+			)}
 		>
 			<CardHeader className="items-center">
 				<div
@@ -149,11 +153,11 @@ export function CopilotChatPanel(
 					</span>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-col gap-3">
+			<CardContent className="flex flex-1 flex-col gap-2">
 				<div
 					ref={threadRef}
 					data-testid="copilot-thread"
-					className="flex max-h-[420px] min-h-[160px] flex-col gap-3 overflow-y-auto"
+					className="flex max-h-[360px] min-h-[96px] flex-1 flex-col gap-2 overflow-y-auto"
 				>
 					{isEmpty ? (
 						<motion.p

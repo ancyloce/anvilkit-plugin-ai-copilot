@@ -242,7 +242,12 @@ export function createAiCopilotPlugin(
 	 * after IR validation and conversion succeed.
 	 */
 	function dispatchPageReplace(ctx: StudioPluginContext, data: PuckData): void {
-		ctx.getPuckApi().dispatch({ type: "setData", data });
+		// Functional `setData` form: Puck's reducer only logs the
+		// "`setData` is expensive" advisory when `action.data` is a
+		// plain object. Passing the next snapshot as a thunk takes the
+		// non-warning branch while replacing the canvas identically (a
+		// full-page regeneration has no more-atomic equivalent).
+		ctx.getPuckApi().dispatch({ type: "setData", data: () => data });
 	}
 
 	/**
@@ -487,7 +492,9 @@ export function createAiCopilotPlugin(
 				});
 				return;
 			}
-			cached.ctx.getPuckApi().dispatch({ type: "setData", data: nextData });
+			cached.ctx
+				.getPuckApi()
+				.dispatch({ type: "setData", data: () => nextData });
 			trace(cached.ctx, {
 				type: "generation-dispatched",
 				flow: "section",
