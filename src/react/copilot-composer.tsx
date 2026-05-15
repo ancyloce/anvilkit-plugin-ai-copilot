@@ -49,7 +49,7 @@ export function CopilotComposer({
 	return (
 		<div
 			data-slot="copilot-composer"
-			className="border-t border-border bg-transparent px-0 pt-2"
+			className="border-t border-border bg-transparent px-2 pt-2"
 		>
 			<Textarea
 				id="ai-prompt-panel-input"
@@ -60,9 +60,8 @@ export function CopilotComposer({
 				disabled={disabled || pending}
 				onChange={(event) => onPromptChange(event.target.value)}
 				onKeyDown={handleKeyDown}
-				className="max-h-36 min-h-[52px] resize-none rounded-none border-0 bg-transparent px-1 py-0.5 focus-visible:ring-0 dark:bg-transparent"
 			/>
-			<div className="mt-1.5 flex items-center gap-2">
+			<div className="mt-2 flex items-center gap-2">
 				{onAttach ? (
 					<MotionButton asChild hoverScale={1.05} tapScale={0.92}>
 						<Button
