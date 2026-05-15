@@ -50,6 +50,7 @@ export default defineConfig({
 			"react-dom",
 			"motion",
 			"motion/react",
+			"lucide-react",
 		],
 	},
 	plugins: [pluginReact()],
