@@ -4,7 +4,7 @@ import type {
 	AiPromptPanelIssue,
 	AiPromptPanelSelection,
 } from "@anvilkit/ui";
-import { Card, CardContent, CardHeader } from "@anvilkit/ui";
+import { Card, CardContent, CardHeader, ScrollArea } from "@anvilkit/ui";
 import { GradientText } from "@anvilkit/ui/components/animate-ui/primitives/texts/gradient";
 import { ShimmeringText } from "@anvilkit/ui/components/animate-ui/primitives/texts/shimmering";
 import { cn } from "@anvilkit/ui/lib/utils";
@@ -97,10 +97,9 @@ export function CopilotChatPanel(
 		warnIssues.length > 0 ||
 		sectionHandlerMissing;
 
-	const threadRef = useRef<HTMLDivElement>(null);
+	const endRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		const node = threadRef.current;
-		if (node) node.scrollTop = node.scrollHeight;
+		endRef.current?.scrollIntoView({ block: "end" });
 	}, [messages, toolCalls]);
 
 	function handleSubmit(): void {
@@ -152,46 +151,48 @@ export function CopilotChatPanel(
 					</span>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-1 p-0 flex-col gap-2">
-				<div
-					ref={threadRef}
+			<CardContent className="flex min-h-0 flex-1 flex-col gap-2 p-0">
+				<ScrollArea
 					data-testid="copilot-thread"
-					className="flex max-h-[360px] min-h-[96px] px-2 flex-1 flex-col gap-2 overflow-y-auto"
+					className="min-h-0 flex-1"
 				>
-					{isEmpty ? (
-						<motion.p
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 0.2 }}
-							className="m-auto max-w-[80%] text-center text-sm text-muted-foreground"
-						>
-							{emptyDescription}
-						</motion.p>
-					) : null}
-					<AnimatePresence initial={false} mode="popLayout">
-						{messages.map((message) => (
-							<CopilotMessageBubble
-								key={message.id}
-								message={message}
-							/>
-						))}
-					</AnimatePresence>
-					{toolCalls.length > 0 ? (
-						<div
-							data-testid="copilot-tool-calls"
-							className="flex flex-col"
-						>
-							<AnimatePresence initial={false}>
-								{toolCalls.map((toolCall) => (
-									<CopilotToolCallRow
-										key={toolCall.id}
-										toolCall={toolCall}
-									/>
-								))}
-							</AnimatePresence>
-						</div>
-					) : null}
-				</div>
+					<div className="flex min-h-full flex-col gap-2 px-2">
+						{isEmpty ? (
+							<motion.p
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.2 }}
+								className="m-auto max-w-[80%] text-center text-sm text-muted-foreground"
+							>
+								{emptyDescription}
+							</motion.p>
+						) : null}
+						<AnimatePresence initial={false} mode="popLayout">
+							{messages.map((message) => (
+								<CopilotMessageBubble
+									key={message.id}
+									message={message}
+								/>
+							))}
+						</AnimatePresence>
+						{toolCalls.length > 0 ? (
+							<div
+								data-testid="copilot-tool-calls"
+								className="flex flex-col"
+							>
+								<AnimatePresence initial={false}>
+									{toolCalls.map((toolCall) => (
+										<CopilotToolCallRow
+											key={toolCall.id}
+											toolCall={toolCall}
+										/>
+									))}
+								</AnimatePresence>
+							</div>
+						) : null}
+						<div ref={endRef} aria-hidden />
+					</div>
+				</ScrollArea>
 
 				<AnimatePresence initial={false}>
 					{hasDiagnostics ? (
