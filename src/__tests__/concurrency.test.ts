@@ -19,8 +19,23 @@ import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
+import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 
 const studioConfig = StudioConfigSchema.parse({});
+
+/**
+ * Resolve the (functional) `setData` payload of the Nth dispatch call.
+ * The plugin's thunks ignore `previous`, so the prev arg is immaterial.
+ */
+function setDataPayload(
+	dispatch: { mock: { calls: ReadonlyArray<ReadonlyArray<unknown>> } },
+	call = 0,
+): PuckData {
+	const action = dispatch.mock.calls[call][0] as {
+		data: PuckData | ((previous: PuckData) => PuckData);
+	};
+	return unwrapSetData(action.data, {} as PuckData);
+}
 
 function makePuckConfig(): PuckConfig {
 	return {
@@ -50,11 +65,16 @@ function makeCtx(
 	return {
 		getData: () => current,
 		getPuckApi: vi.fn(() => ({
-			dispatch: vi.fn((action: { type: string; data: PuckData }) => {
-				if (action.type === "setData") {
-					current = action.data;
-				}
-			}),
+			dispatch: vi.fn(
+				(action: {
+					type: string;
+					data: PuckData | ((previous: PuckData) => PuckData);
+				}) => {
+					if (action.type === "setData") {
+						current = unwrapSetData(action.data, current);
+					}
+				},
+			),
 		})) as unknown as StudioPluginContext["getPuckApi"],
 		studioConfig,
 		log: vi.fn(),
@@ -144,18 +164,14 @@ describe("createAiCopilotPlugin — concurrency", () => {
 		second.resolve(makeValidIr("Second"));
 		await secondRun;
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
-			"Second",
-		);
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Second");
 
 		// Now first resolves — but its generationId is stale, so the
 		// dispatch must be dropped.
 		first.resolve(makeValidIr("First"));
 		await firstRun;
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
-			"Second",
-		);
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Second");
 	});
 
 	it("mid-flight destroy: in-flight run does not dispatch or reportError after onDestroy", async () => {
@@ -241,9 +257,7 @@ describe("createAiCopilotPlugin — concurrency", () => {
 		await plugin.regenerateSelection("section prompt", heroSelection);
 
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
-			"Section",
-		);
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Section");
 
 		// Resolve the page run — its dispatch must now be dropped because
 		// the section run advanced `latestGenerationId`.
@@ -251,9 +265,7 @@ describe("createAiCopilotPlugin — concurrency", () => {
 		await pageRun;
 
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
-			"Section",
-		);
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Section");
 	});
 
 	it("page-section interleave: section-run started first is cancelled by a later page-run", async () => {
@@ -281,13 +293,13 @@ describe("createAiCopilotPlugin — concurrency", () => {
 		await plugin.runGeneration("page prompt");
 
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe("Page");
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Page");
 
 		sectionPending.resolve(validHeroPatch("Section"));
 		await sectionRun;
 
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe("Page");
+		expect(setDataPayload(dispatch).content[0].props.title).toBe("Page");
 	});
 
 	it("sanitizeCurrentData runs on each forwarded snapshot", async () => {

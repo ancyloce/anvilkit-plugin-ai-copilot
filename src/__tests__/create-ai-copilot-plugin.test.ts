@@ -1,10 +1,11 @@
 import { compilePlugins, StudioConfigSchema } from "@anvilkit/core";
 import type { PageIR, StudioPluginContext } from "@anvilkit/core/types";
 import * as schema from "@anvilkit/schema";
-import type { Config as PuckConfig } from "@puckeditor/core";
+import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
+import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 
 const studioConfig = StudioConfigSchema.parse({});
 
@@ -227,9 +228,10 @@ describe("createAiCopilotPlugin", () => {
 		second.resolve(makeValidIr("Second"));
 		await secondRun;
 		expect(dispatch).toHaveBeenCalledTimes(1);
-		expect(dispatch.mock.calls[0][0].data.content[0].props.title).toBe(
-			"Second",
-		);
+		expect(
+			unwrapSetData(dispatch.mock.calls[0][0].data, {} as PuckData).content[0]
+				.props.title,
+		).toBe("Second");
 
 		first.resolve(makeValidIr("First"));
 		await firstRun;

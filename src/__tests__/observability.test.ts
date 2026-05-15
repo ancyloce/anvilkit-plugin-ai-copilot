@@ -20,6 +20,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
 import type { AiCopilotTraceEvent } from "../types.js";
+import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 
 const studioConfig = StudioConfigSchema.parse({});
 
@@ -51,11 +52,16 @@ function makeCtx(
 	return {
 		getData: () => current,
 		getPuckApi: vi.fn(() => ({
-			dispatch: vi.fn((action: { type: string; data: PuckData }) => {
-				if (action.type === "setData") {
-					current = action.data;
-				}
-			}),
+			dispatch: vi.fn(
+				(action: {
+					type: string;
+					data: PuckData | ((previous: PuckData) => PuckData);
+				}) => {
+					if (action.type === "setData") {
+						current = unwrapSetData(action.data, current);
+					}
+				},
+			),
 		})) as unknown as StudioPluginContext["getPuckApi"],
 		studioConfig,
 		log: vi.fn(),

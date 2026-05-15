@@ -15,10 +15,11 @@
  */
 import { StudioConfigSchema } from "@anvilkit/core";
 import type { PageIR, StudioPluginContext } from "@anvilkit/core/types";
-import type { Config as PuckConfig } from "@puckeditor/core";
+import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
+import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 
 const studioConfig = StudioConfigSchema.parse({});
 
@@ -525,9 +526,15 @@ describe("AI copilot — prompt-injection-shaped responses", () => {
 		// Both are acceptable; the forbidden outcome is the nested
 		// `destroy: true` ending up in a dispatched action.
 		if (dispatch.mock.calls.length > 0) {
-			const first = dispatch.mock.calls[0][0] as { type: string };
+			const first = dispatch.mock.calls[0][0] as {
+				type: string;
+				data: PuckData | ((previous: PuckData) => PuckData);
+			};
 			expect(first.type).toBe("setData");
-			const payload = JSON.stringify(dispatch.mock.calls);
+			// Resolve the functional `setData` payload before
+			// stringifying — a thunk would be dropped by JSON.stringify,
+			// making the `destroy` check vacuously pass.
+			const payload = JSON.stringify(unwrapSetData(first.data, {} as PuckData));
 			expect(payload).not.toContain("destroy");
 		} else {
 			expectRejectedWith(ctx, dispatch, "VALIDATION_FAILED");

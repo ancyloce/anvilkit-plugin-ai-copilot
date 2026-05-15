@@ -42,6 +42,7 @@ import {
 import { describe, expect, it, vi } from "vitest";
 
 import { createAiCopilotPlugin } from "../create-ai-copilot-plugin.js";
+import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 
 const studioConfig = StudioConfigSchema.parse({});
 
@@ -79,11 +80,16 @@ function makeCtx(initial: PuckData): {
 	dispatch: ReturnType<typeof vi.fn>;
 } {
 	let current = initial;
-	const dispatch = vi.fn((action: { type: string; data: PuckData }) => {
-		if (action.type === "setData") {
-			current = action.data;
-		}
-	});
+	const dispatch = vi.fn(
+		(action: {
+			type: string;
+			data: PuckData | ((previous: PuckData) => PuckData);
+		}) => {
+			if (action.type === "setData") {
+				current = unwrapSetData(action.data, current);
+			}
+		},
+	);
 	const ctx: StudioPluginContext = {
 		getData: () => current,
 		getPuckApi: vi.fn(() => ({
