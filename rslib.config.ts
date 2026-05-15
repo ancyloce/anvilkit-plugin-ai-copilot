@@ -1,3 +1,4 @@
+import { pluginReact } from "@rsbuild/plugin-react";
 import { defineConfig } from "@rslib/core";
 
 /**
@@ -51,4 +52,5 @@ export default defineConfig({
 			"motion/react",
 		],
 	},
+	plugins: [pluginReact()],
 });

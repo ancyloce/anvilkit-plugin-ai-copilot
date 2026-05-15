@@ -95,6 +95,7 @@
 		"@anvilkit/ui": "workspace:*",
 		"@anvilkit/vitest-config": "workspace:*",
 		"@puckeditor/core": "^0.21.2",
+		"@rsbuild/plugin-react": "^1.4.6",
 		"@rslib/core": "^0.20.1",
 		"@types/node": "^22.15.3",
 		"esbuild": "^0.25.12",
