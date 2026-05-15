@@ -26,6 +26,16 @@
 				"types": "./dist/mock/index.d.cts",
 				"default": "./dist/mock/index.cjs"
 			}
+		},
+		"./react": {
+			"import": {
+				"types": "./dist/react/index.d.ts",
+				"default": "./dist/react/index.js"
+			},
+			"require": {
+				"types": "./dist/react/index.d.cts",
+				"default": "./dist/react/index.cjs"
+			}
 		}
 	},
 	"files": [
@@ -37,11 +47,15 @@
 		"access": "public"
 	},
 	"peerDependencies": {
+		"@anvilkit/ui": "workspace:*",
 		"@puckeditor/core": "^0.21.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"peerDependenciesMeta": {
+		"@anvilkit/ui": {
+			"optional": true
+		},
 		"react": {
 			"optional": false
 		},
@@ -68,7 +82,7 @@
 		"test:watch": "vitest",
 		"publint": "publint",
 		"check:publint": "publint",
-		"check:circular": "madge --circular --extensions ts src/",
+		"check:circular": "madge --circular --extensions ts,tsx src/",
 		"check:peer-deps": "node ./scripts/check-peer-deps.mjs",
 		"check:bundle-budget": "node ./scripts/check-bundle-budget.mjs",
 		"check:api-snapshot": "node ./scripts/check-api-snapshot.mjs",
@@ -78,6 +92,7 @@
 	"devDependencies": {
 		"@anvilkit/biome-config": "workspace:*",
 		"@anvilkit/typescript-config": "workspace:*",
+		"@anvilkit/ui": "workspace:*",
 		"@anvilkit/vitest-config": "workspace:*",
 		"@puckeditor/core": "^0.21.2",
 		"@rslib/core": "^0.20.1",

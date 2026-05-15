@@ -1,5 +1,5 @@
 {
-	"extends": "@anvilkit/typescript-config/base.json",
+	"extends": "@anvilkit/typescript-config/react-library.json",
 	"compilerOptions": {
 		"baseUrl": ".",
 		"ignoreDeprecations": "6.0",
@@ -12,12 +12,14 @@
 		"useDefineForClassFields": true,
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src/**/*.ts"],
+	"include": ["src/**/*.ts", "src/**/*.tsx"],
 	"exclude": [
 		"node_modules",
 		"dist",
 		"src/**/*.test.ts",
+		"src/**/*.test.tsx",
 		"src/**/*.spec.ts",
+		"src/**/*.spec.tsx",
 		"src/**/__tests__/**"
 	]
 }

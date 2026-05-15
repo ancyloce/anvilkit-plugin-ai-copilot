@@ -43,6 +43,7 @@ function main() {
 		"--entryPoints",
 		"./src/index.ts",
 		"./src/mock/index.ts",
+		"./src/react/index.ts",
 		"--tsconfig",
 		"./tsconfig.json",
 		"--logLevel",

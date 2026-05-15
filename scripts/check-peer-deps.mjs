@@ -9,6 +9,10 @@ const __dirname = dirname(__filename);
 const PACKAGE_ROOT = resolve(__dirname, "..");
 const PACKAGE_JSON = resolve(PACKAGE_ROOT, "package.json");
 const REQUIRED_PEERS = ["react", "react-dom", "@puckeditor/core"];
+// Peers that gate an optional subpath export (e.g. `./react`). They must
+// be declared with `peerDependenciesMeta[name].optional === true` so a
+// headless-only consumer can install the package without resolving them.
+const OPTIONAL_PEERS = ["@anvilkit/ui"];
 
 async function main() {
 	const pkg = JSON.parse(await readFile(PACKAGE_JSON, "utf8"));
@@ -25,7 +29,9 @@ async function main() {
 	);
 	const missingPeerMeta = Object.keys(peerDependencies).filter((name) => {
 		const meta = peerDependenciesMeta[name];
-		return !meta || meta.optional !== false;
+		if (!meta) return true;
+		const expectedOptional = OPTIONAL_PEERS.includes(name);
+		return meta.optional !== expectedOptional;
 	});
 	const leakedToDependencies = REQUIRED_PEERS.filter((name) => name in dependencies);
 
@@ -67,7 +73,8 @@ async function main() {
 			`  Missing or invalid peerDependenciesMeta: ${missingPeerMeta.join(", ")}`,
 		);
 		console.error(
-			'  Every peer dependency must have "peerDependenciesMeta": { "<name>": { "optional": false } }.',
+			'  Required peers must be declared "optional": false; optional peers ' +
+				`(${OPTIONAL_PEERS.join(", ") || "none"}) must be declared "optional": true.`,
 		);
 		console.error("");
 	}

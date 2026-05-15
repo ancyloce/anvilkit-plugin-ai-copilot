@@ -14,8 +14,8 @@ export default defineConfig({
 	source: {
 		entry: {
 			index: [
-				"./src/**/*.ts",
-				"!./src/**/*.{test,spec}.ts",
+				"./src/**/*.{ts,tsx}",
+				"!./src/**/*.{test,spec}.{ts,tsx}",
 				"!./src/**/__tests__/**",
 			],
 		},
@@ -37,15 +37,18 @@ export default defineConfig({
 		},
 	],
 	output: {
-		target: "node",
+		target: "web",
 		externals: [
 			"@anvilkit/core",
 			"@anvilkit/schema",
 			"@anvilkit/validator",
 			"@anvilkit/utils",
+			"@anvilkit/ui",
 			"@puckeditor/core",
 			"react",
 			"react-dom",
+			"motion",
+			"motion/react",
 		],
 	},
 });
