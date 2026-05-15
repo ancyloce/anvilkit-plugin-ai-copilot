@@ -1,5 +1,16 @@
 # @anvilkit/plugin-ai-copilot
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @anvilkit/core@0.1.2
+  - @anvilkit/schema@0.1.2
+  - @anvilkit/validator@0.1.2
+  - @anvilkit/utils@0.1.2
+  - @anvilkit/ui@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

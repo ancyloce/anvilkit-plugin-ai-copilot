@@ -1,6 +1,6 @@
 {
 	"name": "@anvilkit/plugin-ai-copilot",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Headless AI copilot plugin for Anvilkit Studio (Puck-native page builder).",
 	"type": "module",
 	"main": "./dist/index.cjs",
