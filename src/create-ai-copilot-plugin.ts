@@ -245,8 +245,15 @@ export function createAiCopilotPlugin(
 		// Functional `setData` form: Puck's reducer only logs the
 		// "`setData` is expensive" advisory when `action.data` is a
 		// plain object. Passing the next snapshot as a thunk takes the
-		// non-warning branch while replacing the canvas identically (a
-		// full-page regeneration has no more-atomic equivalent).
+		// non-warning branch.
+		//
+		// NOTE: both `setData` forms shallow-merge the payload over the
+		// existing `state.data` — neither is a true replace. Replace
+		// semantics depend on `irToPuckPatch` returning a *complete*
+		// snapshot (explicit `zones`, `root.props`) so the shallow merge
+		// overwrites every top-level key. Without that, stale ghost
+		// zones survive into the collab outbound IR and AI-generated
+		// pages fail to sync to other collaborators.
 		ctx.getPuckApi().dispatch({ type: "setData", data: () => data });
 	}
 

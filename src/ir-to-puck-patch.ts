@@ -83,14 +83,19 @@ export function irToPuckPatch(ir: PageIR): PuckData {
 		content.push(childContent);
 	}
 
-	const root: Record<string, unknown> = {};
-	if (Object.keys(rootProps).length > 0) {
-		root.props = rootProps;
-	}
-
+	// Return a *complete* Puck `Data` snapshot. Puck's `setData` reducer
+	// (both object and functional forms) shallow-merges the payload over
+	// the existing `state.data` and `walkAppState` re-emits any
+	// `state.data.zones` it finds. A page generation is a full replace
+	// with no prior state to preserve, so `zones` must be materialized
+	// (empty `{}` when none) to overwrite stale ghost zones from the
+	// pre-generation page, and `root` must always carry its `props`
+	// wrapper. Omitting either lets the collab outbound IR carry ghost
+	// zones / a stale root, which is why AI-generated pages failed to
+	// sync to other collaborators.
 	return {
-		root,
+		root: { props: rootProps },
 		content,
-		...(Object.keys(zones).length > 0 ? { zones } : {}),
+		zones,
 	} as PuckData;
 }

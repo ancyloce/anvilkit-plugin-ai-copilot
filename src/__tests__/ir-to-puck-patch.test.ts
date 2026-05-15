@@ -38,7 +38,7 @@ describe("irToPuckPatch", () => {
 		]);
 
 		expect(irToPuckPatch(ir)).toEqual({
-			root: {},
+			root: { props: {} },
 			content: [
 				{
 					type: "Layout",
@@ -54,6 +54,7 @@ describe("irToPuckPatch", () => {
 					},
 				},
 			],
+			zones: {},
 		} satisfies PuckData);
 	});
 
@@ -83,7 +84,7 @@ describe("irToPuckPatch", () => {
 		]);
 
 		expect(irToPuckPatch(ir)).toEqual({
-			root: {},
+			root: { props: {} },
 			content: [
 				{
 					type: "Layout",
@@ -94,6 +95,7 @@ describe("irToPuckPatch", () => {
 					},
 				},
 			],
+			zones: {},
 		} satisfies PuckData);
 	});
 
@@ -125,7 +127,7 @@ describe("irToPuckPatch", () => {
 		]);
 
 		expect(irToPuckPatch(ir)).toEqual({
-			root: {},
+			root: { props: {} },
 			content: [
 				{
 					type: "Layout",
@@ -148,6 +150,7 @@ describe("irToPuckPatch", () => {
 					},
 				},
 			],
+			zones: {},
 		} satisfies PuckData);
 	});
 
@@ -170,7 +173,7 @@ describe("irToPuckPatch", () => {
 		]);
 
 		expect(irToPuckPatch(ir)).toEqual({
-			root: {},
+			root: { props: {} },
 			content: [
 				{
 					type: "LegacyLayout",
@@ -183,5 +186,59 @@ describe("irToPuckPatch", () => {
 				],
 			},
 		} satisfies PuckData);
+	});
+
+	// Regression — AI-generated pages failed to sync to collaborators
+	// because a flat page omitted the `zones` key and emitted `root: {}`.
+	// Puck's `setData` shallow-merges, so the omitted keys let stale
+	// ghost zones / a stale root survive into the collab outbound IR.
+	// The patch must be a complete, replace-safe snapshot.
+	it("always returns an explicit empty zones key for a flat page", () => {
+		const ir = page([
+			{ id: "hero-1", type: "Hero", props: { headline: "Hi" } },
+		]);
+
+		const result = irToPuckPatch(ir);
+
+		expect("zones" in result).toBe(true);
+		expect(result.zones).toEqual({});
+		expect(result).toEqual({
+			root: { props: {} },
+			content: [{ type: "Hero", props: { id: "hero-1", headline: "Hi" } }],
+			zones: {},
+		} satisfies PuckData);
+	});
+
+	it("always returns root.props even when the IR root has no props", () => {
+		const ir: PageIR = {
+			version: "1",
+			root: { id: "root", type: "__root__", props: {}, children: [] },
+			assets: [],
+			metadata: {},
+		};
+
+		const result = irToPuckPatch(ir);
+
+		expect(result.root).toEqual({ props: {} });
+		expect(result.zones).toEqual({});
+	});
+
+	it("preserves root props on the props wrapper", () => {
+		const ir: PageIR = {
+			version: "1",
+			root: {
+				id: "root",
+				type: "__root__",
+				props: { title: "My Page" },
+				children: [{ id: "hero-1", type: "Hero", props: {} }],
+			},
+			assets: [],
+			metadata: {},
+		};
+
+		const result = irToPuckPatch(ir);
+
+		expect(result.root).toEqual({ props: { title: "My Page" } });
+		expect(result.zones).toEqual({});
 	});
 });

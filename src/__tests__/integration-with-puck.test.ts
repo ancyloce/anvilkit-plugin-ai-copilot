@@ -221,6 +221,87 @@ describe("plugin-ai-copilot — Puck data integration", () => {
 		expect(ids).not.toContain("hero-1");
 	});
 
+	// Regression: AI-generated pages were not syncing to other
+	// collaborators. `irToPuckPatch` omitted the `zones` key for a flat
+	// page; Puck's `setData` reducer *shallow-merges* the payload over
+	// `state.data` (and `walkAppState` re-emits `state.data.zones`), so
+	// stale ghost zones from the pre-generation page survived into the
+	// data Puck's `onChange` reported. The collab plugin then converted
+	// that corrupted data to IR and broadcast it, so peers never saw
+	// the generated components. This test reproduces Puck's real
+	// shallow-merge (the shared `makeCtx` harness does not) and asserts
+	// the merged outbound data is a clean replace with no ghost zones.
+	it("runGeneration replaces stale zones so collab outbound data has no ghost zones", async () => {
+		const config = makePuckConfig();
+
+		// Pre-generation page with a populated zones map (e.g. a prior
+		// generation that used a legacy zone). `content` references the
+		// ghost parent id; the zone holds a ghost child.
+		const initial = {
+			root: { props: { title: "Old page" } },
+			content: [{ type: "Hero", props: { id: "ghost-1", title: "Ghost" } }],
+			zones: {
+				"ghost-1:body": [
+					{ type: "Pricing", props: { id: "ghost-child", title: "Ghost" } },
+				],
+			},
+		} as unknown as PuckData;
+
+		// Capture the raw dispatched payload (thunk or object) so we can
+		// apply Puck's *actual* reducer semantics ourselves.
+		let captured: PuckData | ((previous: PuckData) => PuckData) | undefined;
+		const dispatch = vi.fn(
+			(action: {
+				type: string;
+				data: PuckData | ((previous: PuckData) => PuckData);
+			}) => {
+				if (action.type === "setData") captured = action.data;
+			},
+		);
+		const ctx: StudioPluginContext = {
+			getData: () => initial,
+			getPuckApi: vi.fn(() => ({
+				dispatch,
+			})) as unknown as StudioPluginContext["getPuckApi"],
+			studioConfig,
+			log: vi.fn(),
+			emit: vi.fn(),
+			registerAssetResolver: vi.fn(),
+		};
+
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn().mockResolvedValue(makePageIr("Fresh page")),
+			puckConfig: config,
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.runGeneration("rewrite the page");
+
+		expect(dispatch).toHaveBeenCalledTimes(1);
+		expect(captured).toBeDefined();
+
+		// Mirror Puck's `setDataAction`: shallow top-level merge of the
+		// resolved payload over the previous data.
+		const resolved = unwrapSetData(
+			captured as PuckData | ((previous: PuckData) => PuckData),
+			initial,
+		);
+		const merged = { ...initial, ...resolved } as PuckData;
+
+		// The generated components are present and Puck can walk them.
+		const visited = visitWithPuck(merged, config);
+		const ids = visited.map((v) => v.id);
+		expect(ids).toContain("hero-new");
+		expect(ids).toContain("pricing-new");
+
+		// No ghost zone survived the merge — this is the collab fix.
+		expect(merged.zones).toEqual({});
+		expect(ids).not.toContain("ghost-child");
+
+		// Root is fully replaced, not shallow-merged with the old root.
+		expect(merged.root).toEqual({ props: {} });
+	});
+
 	it("modern slot zone dispatch preserves the parent and walks nested children", async () => {
 		const config = {
 			components: {

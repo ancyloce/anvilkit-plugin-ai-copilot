@@ -99,7 +99,17 @@ export function CopilotChatPanel(
 
 	const endRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		endRef.current?.scrollIntoView({ block: "end" });
+		const end = endRef.current;
+		if (!end) return;
+		// Scroll only the chat thread's own viewport. `scrollIntoView`
+		// would scroll every scrollable ancestor up to the window,
+		// dragging the whole editor page along with it.
+		const viewport = end.closest<HTMLElement>(
+			'[data-slot="scroll-area-viewport"]',
+		);
+		if (viewport) {
+			viewport.scrollTop = viewport.scrollHeight;
+		}
 	}, [messages, toolCalls]);
 
 	function handleSubmit(): void {

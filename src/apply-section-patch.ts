@@ -306,10 +306,14 @@ export function applySectionPatch(
 			...content.slice(run.start + patch.nodeIds.length),
 		];
 		const { zones: _existingZones, ...rest } = currentData;
+		// `zones` is always materialized (empty `{}` when the patch
+		// emptied the last zone). Puck's `setData` shallow-merges and
+		// re-emits a stale `state.data.zones`, so a conditionally
+		// omitted key would leave ghost zones in the broadcast IR.
 		const next: PuckData = {
 			...rest,
 			content: newContent,
-			...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
+			zones: newZones,
 		};
 		return next;
 	}
@@ -372,10 +376,14 @@ export function applySectionPatch(
 	if (notFound) throw notFound;
 	if (visited.found) {
 		const { zones: _existingZones, ...rest } = currentData;
+		// `zones` is always materialized (empty `{}` when the patch
+		// emptied the last zone). Puck's `setData` shallow-merges and
+		// re-emits a stale `state.data.zones`, so a conditionally
+		// omitted key would leave ghost zones in the broadcast IR.
 		const next: PuckData = {
 			...rest,
 			content: newContent,
-			...(Object.keys(newZones).length > 0 ? { zones: newZones } : {}),
+			zones: newZones,
 		};
 		return next;
 	}
