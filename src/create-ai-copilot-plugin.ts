@@ -14,6 +14,7 @@ import { validateAiOutput } from "@anvilkit/validator";
 import type { ValidationIssue } from "@anvilkit/validator";
 import { validateAiSectionPatch } from "@anvilkit/validator/section";
 
+import packageJson from "../package.json";
 import { applySectionPatch } from "./apply-section-patch.js";
 import { findCurrentNodes } from "./internal/find-current-nodes.js";
 import { irToPuckPatch } from "./ir-to-puck-patch.js";
@@ -63,7 +64,9 @@ async function withTimeout<T>(
 const META = {
 	id: "anvilkit-plugin-ai-copilot",
 	name: "AI Copilot",
-	version: "0.1.0-alpha.0",
+	// Derived from package.json so a Changesets bump can never drift the
+	// runtime metadata; the metadata-drift test guards regressions.
+	version: packageJson.version,
 	coreVersion: "^0.1.0-alpha",
 	description:
 		"Headless AI copilot - generate pages from natural-language prompts via a host-supplied callback.",
