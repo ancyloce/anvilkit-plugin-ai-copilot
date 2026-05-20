@@ -43,9 +43,9 @@ export const ROOT_ZONE_ID = "root";
  * stay aligned (review M1, L3).
  */
 export const ROOT_ZONE_ALIASES: ReadonlySet<string> = new Set([
-	"root",
-	"root-zone",
-	"",
+  "root",
+  "root-zone",
+  "",
 ]);
 
 /**
@@ -56,13 +56,13 @@ export const ROOT_ZONE_ALIASES: ReadonlySet<string> = new Set([
  * since the rest of the code reads `props.id`.
  */
 export function isPuckContentItem(value: unknown): value is PuckContentItem {
-	return (
-		typeof value === "object" &&
-		value !== null &&
-		"props" in (value as object) &&
-		typeof (value as { props: unknown }).props === "object" &&
-		(value as { props: unknown }).props !== null
-	);
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "props" in (value as object) &&
+    typeof (value as { props: unknown }).props === "object" &&
+    (value as { props: unknown }).props !== null
+  );
 }
 
 /**
@@ -73,17 +73,17 @@ export function isPuckContentItem(value: unknown): value is PuckContentItem {
  * of just reporting "not found" (review M2, M4).
  */
 export type ItemIdInfo =
-	| { kind: "ok"; id: string }
-	| { kind: "missing" }
-	| { kind: "wrong-type"; actual: string };
+  | { kind: "ok"; id: string }
+  | { kind: "missing" }
+  | { kind: "wrong-type"; actual: string };
 
 export function getItemIdInfo(item: PuckContentItem): ItemIdInfo {
-	const props = (item as { props?: PuckProps }).props;
-	if (!props) return { kind: "missing" };
-	if (!("id" in props)) return { kind: "missing" };
-	const id = props.id;
-	if (typeof id === "string") return { kind: "ok", id };
-	return { kind: "wrong-type", actual: id === null ? "null" : typeof id };
+  const props = (item as { props?: PuckProps }).props;
+  if (!props) return { kind: "missing" };
+  if (!("id" in props)) return { kind: "missing" };
+  const id = props.id;
+  if (typeof id === "string") return { kind: "ok", id };
+  return { kind: "wrong-type", actual: id === null ? "null" : typeof id };
 }
 
 /**
@@ -92,6 +92,6 @@ export function getItemIdInfo(item: PuckContentItem): ItemIdInfo {
  * that don't need to discriminate.
  */
 export function getItemId(item: PuckContentItem): string | undefined {
-	const info = getItemIdInfo(item);
-	return info.kind === "ok" ? info.id : undefined;
+  const info = getItemIdInfo(item);
+  return info.kind === "ok" ? info.id : undefined;
 }
