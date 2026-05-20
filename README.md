@@ -325,4 +325,4 @@ The mock generators emit `PageIR` documents shaped against the demo component ca
 
 ### Architecture context
 
-See [`docs/ai-context/anvilkit-architecture.md`](../../../docs/ai-context/anvilkit-architecture.md) for the full package catalog and trust-boundary discussion. The AI generation flow runs entirely through this plugin boundary — `@anvilkit/core` exposes no first-party AI primitives beyond the `AiGenerationContext` types.
+See the `anvilkit-architecture` AI-context doc on the Anvilkit docs site for the full package catalog and trust-boundary discussion. The AI generation flow runs entirely through this plugin boundary — `@anvilkit/core` exposes no first-party AI primitives beyond the `AiGenerationContext` types.
