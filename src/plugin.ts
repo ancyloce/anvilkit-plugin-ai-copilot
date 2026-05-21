@@ -18,7 +18,7 @@ import config from "../meta/config.json";
 import packageJson from "../package.json";
 import { applySectionPatch } from "./patchs/apply-section-patch.js";
 import { findCurrentNodes } from "./internal/find-current-nodes.js";
-import { irToPuckPatch } from "./patchs/ir-to-puck-patch.jsatch.js";
+import { irToPuckPatch } from "./patchs/ir-to-puck-patch.js";
 import type {
 	AiCopilotErrorPayload,
 	AiCopilotOptions,
