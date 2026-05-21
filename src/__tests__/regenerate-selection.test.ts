@@ -7,7 +7,7 @@ import type {
 import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { applySectionPatch } from "../apply-section-patch.js";
+import { applySectionPatch } from "../patchs/apply-section-patch.js";
 import { createAiCopilotPlugin } from "../plugin.js";
 import { unwrapSetData } from "./fixtures/unwrap-set-data.js";
 

@@ -2,7 +2,7 @@ import type { PageIR } from "@anvilkit/core/types";
 import type { Data as PuckData } from "@puckeditor/core";
 import { describe, expect, it } from "vitest";
 
-import { irToPuckPatch } from "../ir-to-puck-patch.js";
+import { irToPuckPatch } from "../patchs/ir-to-puck-patch.js";
 
 function page(children: PageIR["root"]["children"]): PageIR {
   return {

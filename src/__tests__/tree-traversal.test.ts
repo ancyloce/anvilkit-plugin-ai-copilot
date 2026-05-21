@@ -10,7 +10,7 @@ import type { AiSectionPatch } from "@anvilkit/core/types";
 import type { Data as PuckData } from "@puckeditor/core";
 import { describe, expect, it } from "vitest";
 
-import { applySectionPatch } from "../apply-section-patch.js";
+import { applySectionPatch } from "../patchs/apply-section-patch.js";
 import { findCurrentNodes } from "../internal/find-current-nodes.js";
 
 const MAX_TREE_DEPTH = 64;
