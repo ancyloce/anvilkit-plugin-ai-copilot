@@ -1,5 +1,5 @@
 export { applySectionPatch } from "./apply-section-patch.js";
-export { createAiCopilotPlugin } from "./create-ai-copilot-plugin.js";
+export { createAiCopilotPlugin } from "./plugin.js";
 export type {
   AiCopilotErrorPayload,
   AiCopilotOptions,
