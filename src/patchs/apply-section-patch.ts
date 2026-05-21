@@ -38,8 +38,8 @@ import {
   MAX_TREE_DEPTH,
   type PuckContentItem,
   type PuckProps,
-} from "./internal/puck-spec.js";
-import { parseZoneId } from "./internal/zone-id.js";
+} from "../internal/puck-spec.js";
+import { parseZoneId } from "../internal/zone-id.js";
 
 type PuckZones = Record<string, PuckContentItem[]>;
 

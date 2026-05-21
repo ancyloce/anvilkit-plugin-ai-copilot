@@ -5597,182 +5597,182 @@
 		},
 		"8": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/create-ai-copilot-plugin.ts",
+			"packagePath": "src/plugin.ts",
 			"qualifiedName": "createAiCopilotPlugin"
 		},
 		"9": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/create-ai-copilot-plugin.ts",
+			"packagePath": "src/plugin.ts",
 			"qualifiedName": "createAiCopilotPlugin"
 		},
 		"10": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/create-ai-copilot-plugin.ts",
+			"packagePath": "src/plugin.ts",
 			"qualifiedName": "opts"
 		},
 		"11": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotErrorPayload"
 		},
 		"12": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotErrorPayload.code"
 		},
 		"13": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotErrorPayload.message"
 		},
 		"14": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotErrorPayload.issues"
 		},
 		"15": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"16": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.path"
 		},
 		"17": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.message"
 		},
 		"18": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.severity"
 		},
 		"19": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions"
 		},
 		"20": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.generatePage"
 		},
 		"21": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.generateSection"
 		},
 		"22": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.puckConfig"
 		},
 		"23": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.timeoutMs"
 		},
 		"24": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.forwardCurrentData"
 		},
 		"25": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.sanitizeCurrentData"
 		},
 		"26": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"27": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"28": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "data"
 		},
 		"29": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotOptions.onTrace"
 		},
 		"30": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"31": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"32": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "event"
 		},
 		"33": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotPluginInstance"
 		},
 		"34": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotPluginInstance.runGeneration"
 		},
 		"35": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"36": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"37": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "prompt"
 		},
 		"38": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotPluginInstance.regenerateSelection"
 		},
 		"39": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"40": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"41": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "prompt"
 		},
 		"42": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "selection"
 		},
 		"43": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "opts"
 		},
 		"44": {
@@ -5797,182 +5797,182 @@
 		},
 		"48": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiCopilotTraceEvent"
 		},
 		"49": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"50": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.type"
 		},
 		"51": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.flow"
 		},
 		"52": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.generationId"
 		},
 		"53": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.promptLength"
 		},
 		"54": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"55": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.type"
 		},
 		"56": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.flow"
 		},
 		"57": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.generationId"
 		},
 		"58": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"59": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.type"
 		},
 		"60": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.flow"
 		},
 		"61": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.generationId"
 		},
 		"62": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.stage"
 		},
 		"63": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"64": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.type"
 		},
 		"65": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.flow"
 		},
 		"66": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.generationId"
 		},
 		"67": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"68": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.type"
 		},
 		"69": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.flow"
 		},
 		"70": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.generationId"
 		},
 		"71": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type.code"
 		},
 		"72": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "AiErrorCode"
 		},
 		"73": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "GeneratePageFn"
 		},
 		"74": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"75": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"76": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "prompt"
 		},
 		"77": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "ctx"
 		},
 		"78": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "GenerateSectionFn"
 		},
 		"79": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"80": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"81": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "prompt"
 		},
 		"82": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "ctx"
 		},
 		"83": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/types.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "RegenerateSelectionOptions"
 		},
 		"84": {

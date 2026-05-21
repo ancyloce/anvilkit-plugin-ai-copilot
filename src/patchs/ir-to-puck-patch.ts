@@ -1,7 +1,7 @@
 import type { PageIR } from "@anvilkit/core/types";
 import type { Data as PuckData } from "@puckeditor/core";
 
-import { DEFAULT_SLOT_NAME, ROOT_ZONE_ID } from "./internal/puck-spec.js";
+import { DEFAULT_SLOT_NAME, ROOT_ZONE_ID } from "../internal/puck-spec.js";
 
 type PuckContentItem = PuckData["content"][number];
 type SlotKind = "slot" | "zone";

@@ -3,7 +3,7 @@
 import type { AiPromptPanelSelection } from "@anvilkit/ui";
 import type { ReactElement } from "react";
 
-import type { AiCopilotPluginInstance } from "../types.js";
+import type { AiCopilotPluginInstance } from "../types/types.js";
 import { CopilotChatPanel } from "./copilot-chat-panel.js";
 import type { CopilotModel } from "./copilot-model-menu.js";
 import { useAiCopilot } from "./use-ai-copilot.js";
