@@ -12,8 +12,8 @@ import type { Data as PuckData } from "@puckeditor/core";
 type SetDataPayload = PuckData | ((previous: PuckData) => PuckData);
 
 export function unwrapSetData(
-  data: SetDataPayload,
-  previous: PuckData,
+	data: SetDataPayload,
+	previous: PuckData,
 ): PuckData {
-  return typeof data === "function" ? data(previous) : data;
+	return typeof data === "function" ? data(previous) : data;
 }

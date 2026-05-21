@@ -35,9 +35,9 @@ import type {
 } from "@anvilkit/core/types";
 import {
 	migrate,
-	walkTree,
 	type Config as PuckConfig,
 	type Data as PuckData,
+	walkTree,
 } from "@puckeditor/core";
 import { describe, expect, it, vi } from "vitest";
 

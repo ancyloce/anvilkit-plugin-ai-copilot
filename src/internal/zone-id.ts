@@ -26,41 +26,41 @@
 import { ROOT_ZONE_ALIASES } from "./puck-spec.js";
 
 export type ParsedZoneId =
-  | { kind: "root" }
-  | { kind: "slot"; parentId: string; slotName: string }
-  | { kind: "invalid"; reason: string };
+	| { kind: "root" }
+	| { kind: "slot"; parentId: string; slotName: string }
+	| { kind: "invalid"; reason: string };
 
 export function parseZoneId(zoneId: string): ParsedZoneId {
-  if (ROOT_ZONE_ALIASES.has(zoneId)) {
-    return { kind: "root" };
-  }
+	if (ROOT_ZONE_ALIASES.has(zoneId)) {
+		return { kind: "root" };
+	}
 
-  const colonIndex = zoneId.indexOf(":");
-  if (colonIndex === -1) {
-    return {
-      kind: "invalid",
-      reason: `missing ":" separator (expected "<parentId>:<slotName>")`,
-    };
-  }
+	const colonIndex = zoneId.indexOf(":");
+	if (colonIndex === -1) {
+		return {
+			kind: "invalid",
+			reason: `missing ":" separator (expected "<parentId>:<slotName>")`,
+		};
+	}
 
-  const parentId = zoneId.slice(0, colonIndex);
-  const slotName = zoneId.slice(colonIndex + 1);
+	const parentId = zoneId.slice(0, colonIndex);
+	const slotName = zoneId.slice(colonIndex + 1);
 
-  if (parentId === "") {
-    return { kind: "invalid", reason: 'empty parentId before ":"' };
-  }
-  if (slotName === "") {
-    return { kind: "invalid", reason: 'empty slotName after ":"' };
-  }
-  if (slotName.includes(":")) {
-    // Catches `a::b` and `a:b:c`. Puck slot names are simple
-    // identifiers; an extra `:` is almost certainly a malformed
-    // patch from upstream rather than a legitimate slot name.
-    return {
-      kind: "invalid",
-      reason: `slotName contains ":" (got "${slotName}")`,
-    };
-  }
+	if (parentId === "") {
+		return { kind: "invalid", reason: 'empty parentId before ":"' };
+	}
+	if (slotName === "") {
+		return { kind: "invalid", reason: 'empty slotName after ":"' };
+	}
+	if (slotName.includes(":")) {
+		// Catches `a::b` and `a:b:c`. Puck slot names are simple
+		// identifiers; an extra `:` is almost certainly a malformed
+		// patch from upstream rather than a legitimate slot name.
+		return {
+			kind: "invalid",
+			reason: `slotName contains ":" (got "${slotName}")`,
+		};
+	}
 
-  return { kind: "slot", parentId, slotName };
+	return { kind: "slot", parentId, slotName };
 }

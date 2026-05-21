@@ -9,15 +9,15 @@ import type {
 } from "@anvilkit/core/types";
 import { configToAiContext } from "@anvilkit/schema";
 import { configToAiSectionContext } from "@anvilkit/schema/section";
-import type { Data as PuckData } from "@puckeditor/core";
-import { validateAiOutput } from "@anvilkit/validator";
 import type { ValidationIssue } from "@anvilkit/validator";
+import { validateAiOutput } from "@anvilkit/validator";
 import { validateAiSectionPatch } from "@anvilkit/validator/section";
+import type { Data as PuckData } from "@puckeditor/core";
 
 import config from "../meta/config.json";
 import packageJson from "../package.json";
-import { applySectionPatch } from "./patchs/apply-section-patch.js";
 import { findCurrentNodes } from "./internal/find-current-nodes.js";
+import { applySectionPatch } from "./patchs/apply-section-patch.js";
 import { irToPuckPatch } from "./patchs/ir-to-puck-patch.js";
 import type {
 	AiCopilotErrorPayload,

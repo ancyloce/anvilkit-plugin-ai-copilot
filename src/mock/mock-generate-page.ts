@@ -1,8 +1,8 @@
 import type { PageIR } from "@anvilkit/core/types";
 
 import type { GeneratePageFn } from "../types/types.js";
-import { allFixtures, matchPromptToFixture } from "./fixtures/index.js";
 import type { Fixture } from "./fixtures/index.js";
+import { allFixtures, matchPromptToFixture } from "./fixtures/index.js";
 
 const STOPWORDS = new Set([
 	"a",

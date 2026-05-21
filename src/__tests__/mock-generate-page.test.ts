@@ -1,14 +1,12 @@
-import type { GeneratePageFn } from "../types/types.js";
-
 import { configToAiContext } from "@anvilkit/schema";
 import { afterEach, describe, expect, it, vi } from "vitest";
-
-import { demoConfig } from "./fixtures/demo-config.js";
 import {
 	allFixtures,
 	createMockGeneratePage,
 	matchPromptToFixture,
 } from "../mock/index.js";
+import type { GeneratePageFn } from "../types/types.js";
+import { demoConfig } from "./fixtures/demo-config.js";
 
 const generationCtx = configToAiContext(demoConfig);
 

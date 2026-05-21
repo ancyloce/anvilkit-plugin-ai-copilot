@@ -12,46 +12,46 @@ import { defineConfig } from "@rslib/core";
  * generation.
  */
 export default defineConfig({
-  source: {
-    entry: {
-      index: [
-        "./src/**/*.{ts,tsx}",
-        "!./src/**/*.{test,spec}.{ts,tsx}",
-        "!./src/**/__tests__/**",
-      ],
-    },
-  },
-  lib: [
-    {
-      bundle: false,
-      dts: {
-        autoExtension: true,
-      },
-      format: "esm",
-    },
-    {
-      bundle: false,
-      dts: {
-        autoExtension: true,
-      },
-      format: "cjs",
-    },
-  ],
-  output: {
-    target: "web",
-    externals: [
-      "@anvilkit/core",
-      "@anvilkit/schema",
-      "@anvilkit/validator",
-      "@anvilkit/utils",
-      "@anvilkit/ui",
-      "@puckeditor/core",
-      "react",
-      "react-dom",
-      "motion",
-      "motion/react",
-      "lucide-react",
-    ],
-  },
-  plugins: [pluginReact()],
+	source: {
+		entry: {
+			index: [
+				"./src/**/*.{ts,tsx}",
+				"!./src/**/*.{test,spec}.{ts,tsx}",
+				"!./src/**/__tests__/**",
+			],
+		},
+	},
+	lib: [
+		{
+			bundle: false,
+			dts: {
+				autoExtension: true,
+			},
+			format: "esm",
+		},
+		{
+			bundle: false,
+			dts: {
+				autoExtension: true,
+			},
+			format: "cjs",
+		},
+	],
+	output: {
+		target: "web",
+		externals: [
+			"@anvilkit/core",
+			"@anvilkit/schema",
+			"@anvilkit/validator",
+			"@anvilkit/utils",
+			"@anvilkit/ui",
+			"@puckeditor/core",
+			"react",
+			"react-dom",
+			"motion",
+			"motion/react",
+			"lucide-react",
+		],
+	},
+	plugins: [pluginReact()],
 });
