@@ -13,6 +13,8 @@ import type { ValidationIssue } from "@anvilkit/validator";
 import { validateAiOutput } from "@anvilkit/validator";
 import { validateAiSectionPatch } from "@anvilkit/validator/section";
 import type { Data as PuckData } from "@puckeditor/core";
+import { Sparkles } from "lucide-react";
+import { createElement } from "react";
 
 import config from "../meta/config.json";
 import packageJson from "../package.json";
@@ -67,6 +69,7 @@ async function withTimeout<T>(
 const META = {
 	...config,
 	version: packageJson.version,
+	icon: createElement(Sparkles),
 } as const;
 
 const cachedStateByPlugin = new WeakMap<AiCopilotPluginInstance, CachedState>();
