@@ -5577,22 +5577,22 @@
 		},
 		"4": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/apply-section-patch.ts",
+			"packagePath": "src/patchs/apply-section-patch.ts",
 			"qualifiedName": "applySectionPatch"
 		},
 		"5": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/apply-section-patch.ts",
+			"packagePath": "src/patchs/apply-section-patch.ts",
 			"qualifiedName": "applySectionPatch"
 		},
 		"6": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/apply-section-patch.ts",
+			"packagePath": "src/patchs/apply-section-patch.ts",
 			"qualifiedName": "currentData"
 		},
 		"7": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/apply-section-patch.ts",
+			"packagePath": "src/patchs/apply-section-patch.ts",
 			"qualifiedName": "patch"
 		},
 		"8": {
