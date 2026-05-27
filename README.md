@@ -1,6 +1,6 @@
 # @anvilkit/plugin-ai-copilot
 
-> **Alpha (`0.1.3`).** API may change before `1.0`. The plugin sits behind the host's LLM adapter — no credentials or model identifiers cross the plugin boundary.
+> **Alpha (`0.1.4`).** API may change before `1.0`. The plugin sits behind the host's LLM adapter — no credentials or model identifiers cross the plugin boundary.
 
 Headless AI copilot for Anvilkit Studio. The plugin caches a per-session `AiGenerationContext` derived from the host's Puck config, calls a host-supplied `generatePage(prompt, ctx)` (and optionally `generateSection`), validates the response with `@anvilkit/validator`, and dispatches the result atomically via `setData`. React UI primitives ship under `/react`; deterministic mock generators ship under `/mock` for tests and demos.
 
@@ -129,13 +129,12 @@ Emitted on the `ai-copilot:error` event bus.
 
 ```ts
 function applySectionPatch(
-  current: PuckData,
+  currentData: PuckData,
   patch: AiSectionPatch,
-  selection: AiSectionSelection,
 ): PuckData;
 ```
 
-Converts an `AiSectionPatch` into a Puck-compatible `setData` payload, validating contiguity and zone location.
+Converts an `AiSectionPatch` into a Puck-compatible `setData` payload, validating contiguity and zone location. The patch's `zoneId` (e.g., `"root"`, `"root-zone"`, or `"<parentId>:<slotName>"`) determines where the replacement nodes land — no separate `selection` argument is required.
 
 ### React API (`./react`)
 
