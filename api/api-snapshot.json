@@ -1429,17 +1429,14 @@
 								]
 							},
 							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "literal",
-										"value": "light"
-									},
-									{
-										"type": "literal",
-										"value": "dark"
-									}
-								]
+								"type": "reference",
+								"target": {
+									"packageName": "@anvilkit/core",
+									"packagePath": "src/types/ai.ts",
+									"qualifiedName": "AiThemeHint"
+								},
+								"name": "AiThemeHint",
+								"package": "@anvilkit/core"
 							},
 							"inheritedFrom": {
 								"type": "reference",
