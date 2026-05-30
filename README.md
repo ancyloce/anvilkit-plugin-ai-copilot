@@ -10,7 +10,7 @@ Headless AI copilot for Anvilkit Studio. The plugin caches a per-session `AiGene
 pnpm add @anvilkit/plugin-ai-copilot @anvilkit/core react react-dom @puckeditor/core
 ```
 
-Non-optional peers: `react ^18.2.0`, `react-dom ^18.2.0`, `@puckeditor/core ^0.21.2`. `@anvilkit/ui` is an optional peer — install it if you use the React components.
+Non-optional peers: `react >=19.0.0`, `react-dom >=19.0.0`, `@puckeditor/core ^0.21.2`. `@anvilkit/ui` is an optional peer — install it if you use the React components.
 
 Subpath imports:
 
