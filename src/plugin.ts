@@ -149,9 +149,10 @@ export function createAiCopilotPlugin(
 	function reportError(
 		ctx: StudioPluginContext,
 		payload: AiCopilotErrorPayload,
+		level: Parameters<StudioPluginContext["log"]>[0] = "error",
 	): void {
 		ctx.emit("ai-copilot:error", payload);
-		ctx.log("error", payload.message, {
+		ctx.log(level, payload.message, {
 			code: payload.code satisfies AiErrorCode,
 			...(payload.issues ? { issues: payload.issues } : {}),
 		});
@@ -427,20 +428,54 @@ export function createAiCopilotPlugin(
 			promptLength: prompt.length,
 		});
 
+		// Resolve the selection against the *live* Puck canvas before
+		// spending an LLM round-trip. A selection can go stale between the
+		// moment the host captured it and now: the page was swapped, the
+		// node was deleted, or a prior page-generation replaced the whole
+		// canvas (e.g. the demo's multi-page sidebar swapping to a
+		// Hero-less layout). When the selected ids are no longer present,
+		// `applySectionPatch` would later throw a low-level "not a
+		// contiguous run" error; intercepting it here turns an expected,
+		// recoverable condition into one clean, actionable message instead
+		// of a scary console.error plus a wasted generation call.
+		const liveNodes = findCurrentNodes(cached.ctx.getData(), selection.nodeIds);
+		const presentIds = new Set(liveNodes.map((node) => node.id));
+		const missingIds = selection.nodeIds.filter((id) => !presentIds.has(id));
+		if (missingIds.length > 0) {
+			const noun = missingIds.length === 1 ? "node" : "nodes";
+			const verb = missingIds.length === 1 ? "is" : "are";
+			// Logged at `warn`, not `error`: a stale selection is a normal,
+			// user-recoverable condition, not a code fault. Surfacing it as a
+			// console.error trips the Next.js dev error overlay for something
+			// the user fixes simply by reselecting. The host still receives
+			// the structured `ai-copilot:error` event for inline UI.
+			reportError(
+				cached.ctx,
+				{
+					code: "APPLY_FAILED",
+					message: `Regenerate selection: the selected ${noun} [${missingIds.join(
+						", ",
+					)}] ${verb} no longer on the canvas. Reselect a section and try again.`,
+				},
+				"warn",
+			);
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "section",
+				generationId,
+				code: "APPLY_FAILED",
+			});
+			return;
+		}
+
 		// Auto-populate `selection.currentNodes` from the live Puck data
 		// when the host omitted them. Hosts driving the plugin from a UI
-		// shouldn't have to re-walk Puck's tree just to pass an LLM
-		// prompt the "before" content — the plugin already needs to read
-		// the data for `applySectionPatch`, so reusing it here is free.
+		// shouldn't have to re-walk Puck's tree just to pass an LLM prompt
+		// the "before" content — we already walked it for the staleness
+		// check above, so reuse the result.
 		const enrichedSelection: AiSectionSelection =
 			selection.currentNodes === undefined
-				? {
-						...selection,
-						currentNodes: findCurrentNodes(
-							cached.ctx.getData(),
-							selection.nodeIds,
-						),
-					}
+				? { ...selection, currentNodes: liveNodes }
 				: selection;
 
 		let sectionContext: AiSectionContext;

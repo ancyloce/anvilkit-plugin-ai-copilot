@@ -259,6 +259,47 @@ describe("createAiCopilotPlugin — regenerateSelection", () => {
 		);
 	});
 
+	it("short-circuits a stale selection before calling generateSection and warns (not errors)", async () => {
+		const ctx = makeCtx();
+		// canvas has hero-1 + pricing-1; `ghost-node` was deleted / swapped away.
+		const generateSection = vi.fn();
+
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn(),
+			generateSection,
+			puckConfig: makePuckConfig(),
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.regenerateSelection("rewrite the ghost", {
+			zoneId: "root-zone",
+			nodeIds: ["hero-1", "ghost-node"],
+		});
+
+		// No LLM round-trip is wasted on a selection that no longer exists.
+		expect(generateSection).not.toHaveBeenCalled();
+		// Surfaced on the event bus for inline host UI…
+		expect(ctx.emit).toHaveBeenCalledWith(
+			"ai-copilot:error",
+			expect.objectContaining({
+				code: "APPLY_FAILED",
+				message: expect.stringContaining("ghost-node"),
+			}),
+		);
+		// …but logged at `warn`, not `error`, so a recoverable stale
+		// selection does not trip the Next.js dev console-error overlay.
+		expect(ctx.log).toHaveBeenCalledWith(
+			"warn",
+			expect.stringContaining("ghost-node"),
+			expect.objectContaining({ code: "APPLY_FAILED" }),
+		);
+		expect(ctx.log).not.toHaveBeenCalledWith(
+			"error",
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
 	it("does not affect the existing runGeneration flow", async () => {
 		const ctx = makeCtx();
 		const dispatch = vi.fn();
