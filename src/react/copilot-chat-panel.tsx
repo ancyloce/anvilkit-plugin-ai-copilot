@@ -1,5 +1,6 @@
 "use client";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { AiPromptPanelIssue, AiPromptPanelSelection } from "@anvilkit/ui";
 import { Card, CardContent, CardHeader, ScrollArea } from "@anvilkit/ui";
 import { GradientText } from "@anvilkit/ui/components/animate-ui/primitives/texts/gradient";
@@ -73,11 +74,17 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
     selectedModelId,
     onModelChange,
     onAttach,
-    brandName = "Claude Cowork",
-    placeholder = "Reply...",
-    emptyDescription = "Describe the page you want — the AI copilot will generate a full canvas.",
+    brandName,
+    placeholder,
+    emptyDescription,
     className,
   } = props;
+
+  const msg = useMsg();
+  // Localizable defaults from the `aiCopilot.*` catalog; host props still win.
+  const brandText = brandName ?? msg("aiCopilot.chat.brand");
+  const placeholderText = placeholder ?? msg("aiCopilot.composer.placeholder");
+  const emptyText = emptyDescription ?? msg("aiCopilot.chat.emptyDescription");
 
   const isSectionMode = !!selection && selection.nodeIds.length > 0;
   const sectionHandlerMissing = isSectionMode && !onRegenerate;
@@ -135,14 +142,14 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
           <span className="font-heading text-base font-medium">
             {isPending ? (
               <ShimmeringText
-                text={brandName}
+                text={brandText}
                 duration={1.4}
                 color="var(--muted-foreground)"
                 shimmeringColor="var(--foreground)"
               />
             ) : (
               <GradientText
-                text={brandName}
+                text={brandText}
                 gradient={BRAND_GRADIENT}
                 transition={BRAND_SWEEP}
               />
@@ -160,7 +167,7 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
                 transition={{ duration: 0.2 }}
                 className="m-auto max-w-[80%] text-center text-sm text-muted-foreground"
               >
-                {emptyDescription}
+                {emptyText}
               </motion.p>
             ) : null}
             <AnimatePresence initial={false} mode="popLayout">
@@ -254,7 +261,7 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
           onSubmit={handleSubmit}
           pending={isPending}
           disabled={sectionHandlerMissing}
-          placeholder={placeholder}
+          placeholder={placeholderText}
           onAttach={onAttach}
           models={models}
           selectedModelId={selectedModelId}

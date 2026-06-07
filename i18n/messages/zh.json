@@ -1,0 +1,12 @@
+{
+	"aiCopilot.chat.brand": "Claude Cowork",
+	"aiCopilot.chat.emptyDescription": "描述你想要的页面 —— AI 副驾将生成完整画布。",
+	"aiCopilot.composer.placeholder": "回复…",
+	"aiCopilot.composer.addAttachment": "添加附件",
+	"aiCopilot.composer.sendMessage": "发送消息",
+	"aiCopilot.tool.generatePage": "生成页面",
+	"aiCopilot.tool.regenerateSelection": "重新生成所选内容",
+	"aiCopilot.tool.generationTrace": "生成跟踪",
+	"aiCopilot.message.generatedPage": "已在画布上生成页面。",
+	"aiCopilot.message.regeneratedSection": "已重新生成所选区块。"
+}

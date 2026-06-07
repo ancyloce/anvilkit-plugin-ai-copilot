@@ -18,6 +18,7 @@ import { createElement } from "react";
 
 import config from "../meta/config.json";
 import packageJson from "../package.json";
+import { AI_COPILOT_ENTRY } from "./i18n/entry.js";
 import { findCurrentNodes } from "./internal/find-current-nodes.js";
 import { applySectionPatch } from "./patchs/apply-section-patch.js";
 import { irToPuckPatch } from "./patchs/ir-to-puck-patch.js";
@@ -570,7 +571,15 @@ export function createAiCopilotPlugin(
 
 	plugin = {
 		meta: META,
-		register(_ctx) {
+		register(ctx) {
+			// Contribute the `aiCopilot` catalog so the host-mounted copilot UI
+			// resolves `useMsg("aiCopilot.*")` in-chrome (defaults; the
+			// component label props still override per-mount). The live
+			// <Studio> ctx always provides `registerMessages`; the guard mirrors
+			// this package's many hand-rolled minimal test contexts.
+			if (typeof ctx.registerMessages === "function") {
+				ctx.registerMessages(AI_COPILOT_ENTRY);
+			}
 			const registration: StudioPluginRegistration = {
 				meta: META,
 				hooks: {

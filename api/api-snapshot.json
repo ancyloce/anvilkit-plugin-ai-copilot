@@ -2921,14 +2921,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 108,
+					"id": 113,
 					"name": "AiCopilotPanelProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 111,
+							"id": 116,
 							"name": "brandName",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2950,7 +2950,7 @@
 							}
 						},
 						{
-							"id": 119,
+							"id": 124,
 							"name": "className",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2964,7 +2964,7 @@
 							}
 						},
 						{
-							"id": 115,
+							"id": 120,
 							"name": "defaultModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2986,7 +2986,7 @@
 							}
 						},
 						{
-							"id": 113,
+							"id": 118,
 							"name": "emptyDescription",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3008,7 +3008,7 @@
 							}
 						},
 						{
-							"id": 114,
+							"id": 119,
 							"name": "models",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3039,7 +3039,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 192,
+										"target": 197,
 										"name": "CopilotModel",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -3047,7 +3047,7 @@
 							}
 						},
 						{
-							"id": 116,
+							"id": 121,
 							"name": "onAttach",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3066,14 +3066,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 117,
+									"id": 122,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 118,
+											"id": 123,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
@@ -3088,7 +3088,7 @@
 							}
 						},
 						{
-							"id": 112,
+							"id": 117,
 							"name": "placeholder",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3110,7 +3110,7 @@
 							}
 						},
 						{
-							"id": 109,
+							"id": 114,
 							"name": "plugin",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3157,7 +3157,7 @@
 							}
 						},
 						{
-							"id": 110,
+							"id": 115,
 							"name": "selection",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3214,28 +3214,28 @@
 						{
 							"title": "Properties",
 							"children": [
-								111,
-								119,
-								115,
-								113,
-								114,
 								116,
-								112,
-								109,
-								110
+								124,
+								120,
+								118,
+								119,
+								121,
+								117,
+								114,
+								115
 							]
 						}
 					]
 				},
 				{
-					"id": 123,
+					"id": 128,
 					"name": "CopilotChatPanelProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 152,
+							"id": 157,
 							"name": "brandName",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3249,7 +3249,7 @@
 							}
 						},
 						{
-							"id": 155,
+							"id": 160,
 							"name": "className",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3263,7 +3263,7 @@
 							}
 						},
 						{
-							"id": 154,
+							"id": 159,
 							"name": "emptyDescription",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3277,7 +3277,7 @@
 							}
 						},
 						{
-							"id": 140,
+							"id": 145,
 							"name": "issues",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3304,7 +3304,7 @@
 							}
 						},
 						{
-							"id": 141,
+							"id": 146,
 							"name": "messages",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3318,7 +3318,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 180,
+										"target": 185,
 										"name": "CopilotMessage",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -3326,7 +3326,7 @@
 							}
 						},
 						{
-							"id": 143,
+							"id": 148,
 							"name": "models",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3349,7 +3349,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 192,
+										"target": 197,
 										"name": "CopilotModel",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -3357,7 +3357,7 @@
 							}
 						},
 						{
-							"id": 149,
+							"id": 154,
 							"name": "onAttach",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3368,14 +3368,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 150,
+									"id": 155,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 151,
+											"id": 156,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
@@ -3390,7 +3390,7 @@
 							}
 						},
 						{
-							"id": 129,
+							"id": 134,
 							"name": "onGenerate",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3400,21 +3400,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 130,
+									"id": 135,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 131,
+											"id": 136,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 132,
+													"id": 137,
 													"name": "prompt",
 													"variant": "param",
 													"kind": 32768,
@@ -3435,7 +3435,7 @@
 							}
 						},
 						{
-							"id": 145,
+							"id": 150,
 							"name": "onModelChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3446,21 +3446,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 146,
+									"id": 151,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 147,
+											"id": 152,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 148,
+													"id": 153,
 													"name": "id",
 													"variant": "param",
 													"kind": 32768,
@@ -3481,7 +3481,7 @@
 							}
 						},
 						{
-							"id": 125,
+							"id": 130,
 							"name": "onPromptChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3491,21 +3491,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 126,
+									"id": 131,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 127,
+											"id": 132,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 128,
+													"id": 133,
 													"name": "next",
 													"variant": "param",
 													"kind": 32768,
@@ -3526,7 +3526,7 @@
 							}
 						},
 						{
-							"id": 133,
+							"id": 138,
 							"name": "onRegenerate",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3537,21 +3537,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 134,
+									"id": 139,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 135,
+											"id": 140,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 136,
+													"id": 141,
 													"name": "prompt",
 													"variant": "param",
 													"kind": 32768,
@@ -3562,7 +3562,7 @@
 													}
 												},
 												{
-													"id": 137,
+													"id": 142,
 													"name": "selection",
 													"variant": "param",
 													"kind": 32768,
@@ -3589,7 +3589,7 @@
 							}
 						},
 						{
-							"id": 153,
+							"id": 158,
 							"name": "placeholder",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3603,7 +3603,7 @@
 							}
 						},
 						{
-							"id": 124,
+							"id": 129,
 							"name": "prompt",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3616,7 +3616,7 @@
 							}
 						},
 						{
-							"id": 144,
+							"id": 149,
 							"name": "selectedModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3630,7 +3630,7 @@
 							}
 						},
 						{
-							"id": 138,
+							"id": 143,
 							"name": "selection",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3659,7 +3659,7 @@
 							}
 						},
 						{
-							"id": 139,
+							"id": 144,
 							"name": "status",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3682,7 +3682,7 @@
 							}
 						},
 						{
-							"id": 142,
+							"id": 147,
 							"name": "toolCalls",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3705,7 +3705,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 207,
+										"target": 212,
 										"name": "CopilotToolCall",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -3717,36 +3717,36 @@
 						{
 							"title": "Properties",
 							"children": [
-								152,
-								155,
-								154,
-								140,
-								141,
-								143,
-								149,
-								129,
+								157,
+								160,
+								159,
 								145,
-								125,
-								133,
-								153,
-								124,
-								144,
+								146,
+								148,
+								154,
+								134,
+								150,
+								130,
 								138,
-								139,
-								142
+								158,
+								129,
+								149,
+								143,
+								144,
+								147
 							]
 						}
 					]
 				},
 				{
-					"id": 159,
+					"id": 164,
 					"name": "CopilotComposerProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 168,
+							"id": 173,
 							"name": "disabled",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3760,7 +3760,7 @@
 							}
 						},
 						{
-							"id": 174,
+							"id": 179,
 							"name": "models",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3775,7 +3775,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 192,
+										"target": 197,
 										"name": "CopilotModel",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -3783,7 +3783,7 @@
 							}
 						},
 						{
-							"id": 171,
+							"id": 176,
 							"name": "onAttach",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3802,14 +3802,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 172,
+									"id": 177,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 173,
+											"id": 178,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
@@ -3824,7 +3824,7 @@
 							}
 						},
 						{
-							"id": 176,
+							"id": 181,
 							"name": "onModelChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3835,21 +3835,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 177,
+									"id": 182,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 178,
+											"id": 183,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 179,
+													"id": 184,
 													"name": "id",
 													"variant": "param",
 													"kind": 32768,
@@ -3870,7 +3870,7 @@
 							}
 						},
 						{
-							"id": 161,
+							"id": 166,
 							"name": "onPromptChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3880,21 +3880,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 162,
+									"id": 167,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 163,
+											"id": 168,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 164,
+													"id": 169,
 													"name": "next",
 													"variant": "param",
 													"kind": 32768,
@@ -3915,7 +3915,7 @@
 							}
 						},
 						{
-							"id": 165,
+							"id": 170,
 							"name": "onSubmit",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3925,14 +3925,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 166,
+									"id": 171,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 167,
+											"id": 172,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
@@ -3947,7 +3947,7 @@
 							}
 						},
 						{
-							"id": 169,
+							"id": 174,
 							"name": "pending",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3961,7 +3961,7 @@
 							}
 						},
 						{
-							"id": 170,
+							"id": 175,
 							"name": "placeholder",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3975,7 +3975,7 @@
 							}
 						},
 						{
-							"id": 160,
+							"id": 165,
 							"name": "prompt",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3988,7 +3988,7 @@
 							}
 						},
 						{
-							"id": 175,
+							"id": 180,
 							"name": "selectedModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4006,29 +4006,29 @@
 						{
 							"title": "Properties",
 							"children": [
-								168,
-								174,
-								171,
+								173,
+								179,
 								176,
-								161,
-								165,
-								169,
+								181,
+								166,
 								170,
-								160,
-								175
+								174,
+								175,
+								165,
+								180
 							]
 						}
 					]
 				},
 				{
-					"id": 180,
+					"id": 185,
 					"name": "CopilotMessage",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 181,
+							"id": 186,
 							"name": "id",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4041,7 +4041,7 @@
 							}
 						},
 						{
-							"id": 182,
+							"id": 187,
 							"name": "role",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4050,13 +4050,13 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 191,
+								"target": 196,
 								"name": "CopilotMessageRole",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
 						},
 						{
-							"id": 185,
+							"id": 190,
 							"name": "streaming",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4070,7 +4070,7 @@
 							}
 						},
 						{
-							"id": 183,
+							"id": 188,
 							"name": "text",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4083,7 +4083,7 @@
 							}
 						},
 						{
-							"id": 184,
+							"id": 189,
 							"name": "variant",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4096,11 +4096,11 @@
 								"types": [
 									{
 										"type": "literal",
-										"value": "error"
+										"value": "default"
 									},
 									{
 										"type": "literal",
-										"value": "default"
+										"value": "error"
 									}
 								]
 							}
@@ -4110,24 +4110,24 @@
 						{
 							"title": "Properties",
 							"children": [
-								181,
-								182,
-								185,
-								183,
-								184
+								186,
+								187,
+								190,
+								188,
+								189
 							]
 						}
 					]
 				},
 				{
-					"id": 189,
+					"id": 194,
 					"name": "CopilotMessageBubbleProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 190,
+							"id": 195,
 							"name": "message",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4136,7 +4136,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 180,
+								"target": 185,
 								"name": "CopilotMessage",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -4146,20 +4146,20 @@
 						{
 							"title": "Properties",
 							"children": [
-								190
+								195
 							]
 						}
 					]
 				},
 				{
-					"id": 192,
+					"id": 197,
 					"name": "CopilotModel",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 195,
+							"id": 200,
 							"name": "description",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4173,7 +4173,7 @@
 							}
 						},
 						{
-							"id": 193,
+							"id": 198,
 							"name": "id",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4186,7 +4186,7 @@
 							}
 						},
 						{
-							"id": 194,
+							"id": 199,
 							"name": "label",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4203,22 +4203,22 @@
 						{
 							"title": "Properties",
 							"children": [
-								195,
-								193,
-								194
+								200,
+								198,
+								199
 							]
 						}
 					]
 				},
 				{
-					"id": 199,
+					"id": 204,
 					"name": "CopilotModelMenuProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 206,
+							"id": 211,
 							"name": "disabled",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4232,7 +4232,7 @@
 							}
 						},
 						{
-							"id": 200,
+							"id": 205,
 							"name": "models",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4246,7 +4246,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 192,
+										"target": 197,
 										"name": "CopilotModel",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -4254,7 +4254,7 @@
 							}
 						},
 						{
-							"id": 202,
+							"id": 207,
 							"name": "onModelChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4265,21 +4265,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 203,
+									"id": 208,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 204,
+											"id": 209,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 205,
+													"id": 210,
 													"name": "id",
 													"variant": "param",
 													"kind": 32768,
@@ -4300,7 +4300,7 @@
 							}
 						},
 						{
-							"id": 201,
+							"id": 206,
 							"name": "selectedModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4318,23 +4318,23 @@
 						{
 							"title": "Properties",
 							"children": [
-								206,
-								200,
-								202,
-								201
+								211,
+								205,
+								207,
+								206
 							]
 						}
 					]
 				},
 				{
-					"id": 207,
+					"id": 212,
 					"name": "CopilotToolCall",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 212,
+							"id": 217,
 							"name": "detail",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4356,7 +4356,7 @@
 							}
 						},
 						{
-							"id": 209,
+							"id": 214,
 							"name": "eyebrow",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4377,7 +4377,7 @@
 							}
 						},
 						{
-							"id": 208,
+							"id": 213,
 							"name": "id",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4398,7 +4398,7 @@
 							}
 						},
 						{
-							"id": 210,
+							"id": 215,
 							"name": "label",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4419,7 +4419,7 @@
 							}
 						},
 						{
-							"id": 211,
+							"id": 216,
 							"name": "status",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4428,7 +4428,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 218,
+								"target": 223,
 								"name": "CopilotToolCallStatus",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -4438,24 +4438,24 @@
 						{
 							"title": "Properties",
 							"children": [
-								212,
-								209,
-								208,
-								210,
-								211
+								217,
+								214,
+								213,
+								215,
+								216
 							]
 						}
 					]
 				},
 				{
-					"id": 216,
+					"id": 221,
 					"name": "CopilotToolCallRowProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 217,
+							"id": 222,
 							"name": "toolCall",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4464,7 +4464,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"target": 207,
+								"target": 212,
 								"name": "CopilotToolCall",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -4474,20 +4474,20 @@
 						{
 							"title": "Properties",
 							"children": [
-								217
+								222
 							]
 						}
 					]
 				},
 				{
-					"id": 219,
+					"id": 224,
 					"name": "UseAiCopilotOptions",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 220,
+							"id": 225,
 							"name": "defaultModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4509,7 +4509,7 @@
 							}
 						},
 						{
-							"id": 221,
+							"id": 226,
 							"name": "onTrace",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4537,7 +4537,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "UseAiCopilotResult.pushTrace",
-										"target": 250
+										"target": 255
 									},
 									{
 										"kind": "text",
@@ -4548,21 +4548,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 222,
+									"id": 227,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 223,
+											"id": 228,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 224,
+													"id": 229,
 													"name": "event",
 													"variant": "param",
 													"kind": 32768,
@@ -4589,21 +4589,21 @@
 						{
 							"title": "Properties",
 							"children": [
-								220,
-								221
+								225,
+								226
 							]
 						}
 					]
 				},
 				{
-					"id": 225,
+					"id": 230,
 					"name": "UseAiCopilotResult",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 232,
+							"id": 237,
 							"name": "error",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4625,7 +4625,7 @@
 							}
 						},
 						{
-							"id": 233,
+							"id": 238,
 							"name": "issues",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4651,7 +4651,7 @@
 							}
 						},
 						{
-							"id": 243,
+							"id": 248,
 							"name": "messages",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4665,7 +4665,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 180,
+										"target": 185,
 										"name": "CopilotMessage",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -4673,7 +4673,7 @@
 							}
 						},
 						{
-							"id": 234,
+							"id": 239,
 							"name": "onGenerate",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4683,21 +4683,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 235,
+									"id": 240,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 236,
+											"id": 241,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 237,
+													"id": 242,
 													"name": "trimmed",
 													"variant": "param",
 													"kind": 32768,
@@ -4718,7 +4718,7 @@
 							}
 						},
 						{
-							"id": 246,
+							"id": 251,
 							"name": "onModelChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4728,21 +4728,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 247,
+									"id": 252,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 248,
+											"id": 253,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 249,
+													"id": 254,
 													"name": "id",
 													"variant": "param",
 													"kind": 32768,
@@ -4763,7 +4763,7 @@
 							}
 						},
 						{
-							"id": 227,
+							"id": 232,
 							"name": "onPromptChange",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4773,21 +4773,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 228,
+									"id": 233,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 229,
+											"id": 234,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 230,
+													"id": 235,
 													"name": "next",
 													"variant": "param",
 													"kind": 32768,
@@ -4808,7 +4808,7 @@
 							}
 						},
 						{
-							"id": 238,
+							"id": 243,
 							"name": "onRegenerate",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4818,21 +4818,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 239,
+									"id": 244,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 240,
+											"id": 245,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 241,
+													"id": 246,
 													"name": "trimmed",
 													"variant": "param",
 													"kind": 32768,
@@ -4843,7 +4843,7 @@
 													}
 												},
 												{
-													"id": 242,
+													"id": 247,
 													"name": "selection",
 													"variant": "param",
 													"kind": 32768,
@@ -4870,7 +4870,7 @@
 							}
 						},
 						{
-							"id": 226,
+							"id": 231,
 							"name": "prompt",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4883,7 +4883,7 @@
 							}
 						},
 						{
-							"id": 250,
+							"id": 255,
 							"name": "pushTrace",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4913,21 +4913,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 251,
+									"id": 256,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"signatures": [
 										{
-											"id": 252,
+											"id": 257,
 											"name": "__type",
 											"variant": "signature",
 											"kind": 4096,
 											"flags": {},
 											"parameters": [
 												{
-													"id": 253,
+													"id": 258,
 													"name": "event",
 													"variant": "param",
 													"kind": 32768,
@@ -4950,7 +4950,7 @@
 							}
 						},
 						{
-							"id": 245,
+							"id": 250,
 							"name": "selectedModelId",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4972,7 +4972,7 @@
 							}
 						},
 						{
-							"id": 231,
+							"id": 236,
 							"name": "status",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4994,7 +4994,7 @@
 							}
 						},
 						{
-							"id": 244,
+							"id": 249,
 							"name": "toolCalls",
 							"variant": "declaration",
 							"kind": 1024,
@@ -5008,7 +5008,7 @@
 									"type": "array",
 									"elementType": {
 										"type": "reference",
-										"target": 207,
+										"target": 212,
 										"name": "CopilotToolCall",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5020,24 +5020,24 @@
 						{
 							"title": "Properties",
 							"children": [
-								232,
-								233,
-								243,
-								234,
-								246,
-								227,
+								237,
 								238,
-								226,
-								250,
-								245,
+								248,
+								239,
+								251,
+								232,
+								243,
 								231,
-								244
+								255,
+								250,
+								236,
+								249
 							]
 						}
 					]
 				},
 				{
-					"id": 191,
+					"id": 196,
 					"name": "CopilotMessageRole",
 					"variant": "declaration",
 					"kind": 2097152,
@@ -5057,7 +5057,7 @@
 					}
 				},
 				{
-					"id": 218,
+					"id": 223,
 					"name": "CopilotToolCallStatus",
 					"variant": "declaration",
 					"kind": 2097152,
@@ -5086,13 +5086,89 @@
 				},
 				{
 					"id": 105,
-					"name": "AiCopilotPanel",
+					"name": "AiCopilotI18nProvider",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
 							"id": 106,
+							"name": "AiCopilotI18nProvider",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"parameters": [
+								{
+									"id": 107,
+									"name": "__namedParameters",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 108,
+											"name": "__type",
+											"variant": "declaration",
+											"kind": 65536,
+											"flags": {},
+											"children": [
+												{
+													"id": 109,
+													"name": "children",
+													"variant": "declaration",
+													"kind": 1024,
+													"flags": {
+														"isReadonly": true
+													},
+													"type": {
+														"type": "reference",
+														"target": {
+															"packageName": "@types/react",
+															"packagePath": "index.d.ts",
+															"qualifiedName": "React.ReactNode"
+														},
+														"name": "ReactNode",
+														"package": "@types/react",
+														"qualifiedName": "React.ReactNode"
+													}
+												}
+											],
+											"groups": [
+												{
+													"title": "Properties",
+													"children": [
+														109
+													]
+												}
+											]
+										}
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "@types/react",
+									"packagePath": "index.d.ts",
+									"qualifiedName": "React.ReactNode"
+								},
+								"name": "ReactNode",
+								"package": "@types/react",
+								"qualifiedName": "React.ReactNode"
+							}
+						}
+					]
+				},
+				{
+					"id": 110,
+					"name": "AiCopilotPanel",
+					"variant": "declaration",
+					"kind": 64,
+					"flags": {},
+					"signatures": [
+						{
+							"id": 111,
 							"name": "AiCopilotPanel",
 							"variant": "signature",
 							"kind": 4096,
@@ -5125,14 +5201,14 @@
 							},
 							"parameters": [
 								{
-									"id": 107,
+									"id": 112,
 									"name": "__namedParameters",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 108,
+										"target": 113,
 										"name": "AiCopilotPanelProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5153,28 +5229,28 @@
 					]
 				},
 				{
-					"id": 120,
+					"id": 125,
 					"name": "CopilotChatPanel",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 121,
+							"id": 126,
 							"name": "CopilotChatPanel",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 122,
+									"id": 127,
 									"name": "props",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 123,
+										"target": 128,
 										"name": "CopilotChatPanelProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5195,28 +5271,28 @@
 					]
 				},
 				{
-					"id": 156,
+					"id": 161,
 					"name": "CopilotComposer",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 157,
+							"id": 162,
 							"name": "CopilotComposer",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 158,
+									"id": 163,
 									"name": "__namedParameters",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 159,
+										"target": 164,
 										"name": "CopilotComposerProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5237,28 +5313,28 @@
 					]
 				},
 				{
-					"id": 186,
+					"id": 191,
 					"name": "CopilotMessageBubble",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 187,
+							"id": 192,
 							"name": "CopilotMessageBubble",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 188,
+									"id": 193,
 									"name": "__namedParameters",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 189,
+										"target": 194,
 										"name": "CopilotMessageBubbleProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5279,28 +5355,28 @@
 					]
 				},
 				{
-					"id": 196,
+					"id": 201,
 					"name": "CopilotModelMenu",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 197,
+							"id": 202,
 							"name": "CopilotModelMenu",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 198,
+									"id": 203,
 									"name": "__namedParameters",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 199,
+										"target": 204,
 										"name": "CopilotModelMenuProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5362,28 +5438,28 @@
 					]
 				},
 				{
-					"id": 213,
+					"id": 218,
 					"name": "CopilotToolCallRow",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 214,
+							"id": 219,
 							"name": "CopilotToolCallRow",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 215,
+									"id": 220,
 									"name": "__namedParameters",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 216,
+										"target": 221,
 										"name": "CopilotToolCallRowProps",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5404,14 +5480,14 @@
 					]
 				},
 				{
-					"id": 254,
+					"id": 259,
 					"name": "useAiCopilot",
 					"variant": "declaration",
 					"kind": 64,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 255,
+							"id": 260,
 							"name": "useAiCopilot",
 							"variant": "signature",
 							"kind": 4096,
@@ -5426,7 +5502,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "CopilotChatPanel",
-										"target": 120
+										"target": 125
 									},
 									{
 										"kind": "text",
@@ -5468,7 +5544,7 @@
 							},
 							"parameters": [
 								{
-									"id": 256,
+									"id": 261,
 									"name": "plugin",
 									"variant": "param",
 									"kind": 32768,
@@ -5481,7 +5557,7 @@
 									}
 								},
 								{
-									"id": 257,
+									"id": 262,
 									"name": "options",
 									"variant": "param",
 									"kind": 32768,
@@ -5490,7 +5566,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 219,
+										"target": 224,
 										"name": "UseAiCopilotOptions",
 										"package": "@anvilkit/plugin-ai-copilot"
 									}
@@ -5498,7 +5574,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 225,
+								"target": 230,
 								"name": "UseAiCopilotResult",
 								"package": "@anvilkit/plugin-ai-copilot"
 							}
@@ -5510,36 +5586,37 @@
 				{
 					"title": "Interfaces",
 					"children": [
-						108,
-						123,
-						159,
-						180,
-						189,
-						192,
-						199,
-						207,
-						216,
-						219,
-						225
+						113,
+						128,
+						164,
+						185,
+						194,
+						197,
+						204,
+						212,
+						221,
+						224,
+						230
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						191,
-						218
+						196,
+						223
 					]
 				},
 				{
 					"title": "Functions",
 					"children": [
 						105,
-						120,
-						156,
-						186,
-						196,
-						213,
-						254
+						110,
+						125,
+						161,
+						191,
+						201,
+						218,
+						259
 					]
 				}
 			]
@@ -6079,133 +6156,133 @@
 		},
 		"105": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanel"
+			"packagePath": "src/i18n/provider.tsx",
+			"qualifiedName": "AiCopilotI18nProvider"
 		},
 		"106": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanel"
+			"packagePath": "src/i18n/provider.tsx",
+			"qualifiedName": "AiCopilotI18nProvider"
 		},
 		"107": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"packagePath": "src/i18n/provider.tsx",
 			"qualifiedName": "__0"
 		},
 		"108": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps"
+			"packagePath": "src/i18n/provider.tsx",
+			"qualifiedName": "__type"
 		},
 		"109": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.plugin"
+			"packagePath": "src/i18n/provider.tsx",
+			"qualifiedName": "__type.children"
 		},
 		"110": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.selection"
+			"qualifiedName": "AiCopilotPanel"
 		},
 		"111": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.brandName"
+			"qualifiedName": "AiCopilotPanel"
 		},
 		"112": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.placeholder"
+			"qualifiedName": "__0"
 		},
 		"113": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.emptyDescription"
+			"qualifiedName": "AiCopilotPanelProps"
 		},
 		"114": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.models"
+			"qualifiedName": "AiCopilotPanelProps.plugin"
 		},
 		"115": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.defaultModelId"
+			"qualifiedName": "AiCopilotPanelProps.selection"
 		},
 		"116": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.onAttach"
+			"qualifiedName": "AiCopilotPanelProps.brandName"
 		},
 		"117": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiCopilotPanelProps.placeholder"
 		},
 		"118": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "AiCopilotPanelProps.emptyDescription"
 		},
 		"119": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/ai-copilot-panel.tsx",
-			"qualifiedName": "AiCopilotPanelProps.className"
+			"qualifiedName": "AiCopilotPanelProps.models"
 		},
 		"120": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanel"
+			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"qualifiedName": "AiCopilotPanelProps.defaultModelId"
 		},
 		"121": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanel"
+			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"qualifiedName": "AiCopilotPanelProps.onAttach"
 		},
 		"122": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "props"
+			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"qualifiedName": "__type"
 		},
 		"123": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps"
+			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"qualifiedName": "__type"
 		},
 		"124": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.prompt"
+			"packagePath": "src/react/ai-copilot-panel.tsx",
+			"qualifiedName": "AiCopilotPanelProps.className"
 		},
 		"125": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.onPromptChange"
+			"qualifiedName": "CopilotChatPanel"
 		},
 		"126": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanel"
 		},
 		"127": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "props"
 		},
 		"128": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "next"
+			"qualifiedName": "CopilotChatPanelProps"
 		},
 		"129": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.onGenerate"
+			"qualifiedName": "CopilotChatPanelProps.prompt"
 		},
 		"130": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanelProps.onPromptChange"
 		},
 		"131": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6215,17 +6292,17 @@
 		"132": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "prompt"
+			"qualifiedName": "__type"
 		},
 		"133": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.onRegenerate"
+			"qualifiedName": "next"
 		},
 		"134": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanelProps.onGenerate"
 		},
 		"135": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6235,77 +6312,77 @@
 		"136": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "prompt"
+			"qualifiedName": "__type"
 		},
 		"137": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "selection"
+			"qualifiedName": "prompt"
 		},
 		"138": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.selection"
+			"qualifiedName": "CopilotChatPanelProps.onRegenerate"
 		},
 		"139": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.status"
+			"qualifiedName": "__type"
 		},
 		"140": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.issues"
+			"qualifiedName": "__type"
 		},
 		"141": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.messages"
+			"qualifiedName": "prompt"
 		},
 		"142": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.toolCalls"
+			"qualifiedName": "selection"
 		},
 		"143": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.models"
+			"qualifiedName": "CopilotChatPanelProps.selection"
 		},
 		"144": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.selectedModelId"
+			"qualifiedName": "CopilotChatPanelProps.status"
 		},
 		"145": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.onModelChange"
+			"qualifiedName": "CopilotChatPanelProps.issues"
 		},
 		"146": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanelProps.messages"
 		},
 		"147": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanelProps.toolCalls"
 		},
 		"148": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "id"
+			"qualifiedName": "CopilotChatPanelProps.models"
 		},
 		"149": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.onAttach"
+			"qualifiedName": "CopilotChatPanelProps.selectedModelId"
 		},
 		"150": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotChatPanelProps.onModelChange"
 		},
 		"151": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6315,77 +6392,77 @@
 		"152": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.brandName"
+			"qualifiedName": "__type"
 		},
 		"153": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.placeholder"
+			"qualifiedName": "id"
 		},
 		"154": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.emptyDescription"
+			"qualifiedName": "CopilotChatPanelProps.onAttach"
 		},
 		"155": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-chat-panel.tsx",
-			"qualifiedName": "CopilotChatPanelProps.className"
+			"qualifiedName": "__type"
 		},
 		"156": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposer"
+			"packagePath": "src/react/copilot-chat-panel.tsx",
+			"qualifiedName": "__type"
 		},
 		"157": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposer"
+			"packagePath": "src/react/copilot-chat-panel.tsx",
+			"qualifiedName": "CopilotChatPanelProps.brandName"
 		},
 		"158": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "__0"
+			"packagePath": "src/react/copilot-chat-panel.tsx",
+			"qualifiedName": "CopilotChatPanelProps.placeholder"
 		},
 		"159": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps"
+			"packagePath": "src/react/copilot-chat-panel.tsx",
+			"qualifiedName": "CopilotChatPanelProps.emptyDescription"
 		},
 		"160": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.prompt"
+			"packagePath": "src/react/copilot-chat-panel.tsx",
+			"qualifiedName": "CopilotChatPanelProps.className"
 		},
 		"161": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.onPromptChange"
+			"qualifiedName": "CopilotComposer"
 		},
 		"162": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotComposer"
 		},
 		"163": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "__0"
 		},
 		"164": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "next"
+			"qualifiedName": "CopilotComposerProps"
 		},
 		"165": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.onSubmit"
+			"qualifiedName": "CopilotComposerProps.prompt"
 		},
 		"166": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotComposerProps.onPromptChange"
 		},
 		"167": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6395,22 +6472,22 @@
 		"168": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.disabled"
+			"qualifiedName": "__type"
 		},
 		"169": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.pending"
+			"qualifiedName": "next"
 		},
 		"170": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.placeholder"
+			"qualifiedName": "CopilotComposerProps.onSubmit"
 		},
 		"171": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.onAttach"
+			"qualifiedName": "__type"
 		},
 		"172": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6420,22 +6497,22 @@
 		"173": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotComposerProps.disabled"
 		},
 		"174": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.models"
+			"qualifiedName": "CopilotComposerProps.pending"
 		},
 		"175": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.selectedModelId"
+			"qualifiedName": "CopilotComposerProps.placeholder"
 		},
 		"176": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "CopilotComposerProps.onModelChange"
+			"qualifiedName": "CopilotComposerProps.onAttach"
 		},
 		"177": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6450,247 +6527,247 @@
 		"179": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-composer.tsx",
-			"qualifiedName": "id"
+			"qualifiedName": "CopilotComposerProps.models"
 		},
 		"180": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage"
+			"packagePath": "src/react/copilot-composer.tsx",
+			"qualifiedName": "CopilotComposerProps.selectedModelId"
 		},
 		"181": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage.id"
+			"packagePath": "src/react/copilot-composer.tsx",
+			"qualifiedName": "CopilotComposerProps.onModelChange"
 		},
 		"182": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage.role"
+			"packagePath": "src/react/copilot-composer.tsx",
+			"qualifiedName": "__type"
 		},
 		"183": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage.text"
+			"packagePath": "src/react/copilot-composer.tsx",
+			"qualifiedName": "__type"
 		},
 		"184": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage.variant"
+			"packagePath": "src/react/copilot-composer.tsx",
+			"qualifiedName": "id"
 		},
 		"185": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessage.streaming"
+			"qualifiedName": "CopilotMessage"
 		},
 		"186": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessageBubble"
+			"qualifiedName": "CopilotMessage.id"
 		},
 		"187": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessageBubble"
+			"qualifiedName": "CopilotMessage.role"
 		},
 		"188": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "__0"
+			"qualifiedName": "CopilotMessage.text"
 		},
 		"189": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessageBubbleProps"
+			"qualifiedName": "CopilotMessage.variant"
 		},
 		"190": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessageBubbleProps.message"
+			"qualifiedName": "CopilotMessage.streaming"
 		},
 		"191": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-message-bubble.tsx",
-			"qualifiedName": "CopilotMessageRole"
+			"qualifiedName": "CopilotMessageBubble"
 		},
 		"192": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModel"
+			"packagePath": "src/react/copilot-message-bubble.tsx",
+			"qualifiedName": "CopilotMessageBubble"
 		},
 		"193": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModel.id"
+			"packagePath": "src/react/copilot-message-bubble.tsx",
+			"qualifiedName": "__0"
 		},
 		"194": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModel.label"
+			"packagePath": "src/react/copilot-message-bubble.tsx",
+			"qualifiedName": "CopilotMessageBubbleProps"
 		},
 		"195": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModel.description"
+			"packagePath": "src/react/copilot-message-bubble.tsx",
+			"qualifiedName": "CopilotMessageBubbleProps.message"
 		},
 		"196": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenu"
+			"packagePath": "src/react/copilot-message-bubble.tsx",
+			"qualifiedName": "CopilotMessageRole"
 		},
 		"197": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenu"
+			"qualifiedName": "CopilotModel"
 		},
 		"198": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "__0"
+			"qualifiedName": "CopilotModel.id"
 		},
 		"199": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenuProps"
+			"qualifiedName": "CopilotModel.label"
 		},
 		"200": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenuProps.models"
+			"qualifiedName": "CopilotModel.description"
 		},
 		"201": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenuProps.selectedModelId"
+			"qualifiedName": "CopilotModelMenu"
 		},
 		"202": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenuProps.onModelChange"
+			"qualifiedName": "CopilotModelMenu"
 		},
 		"203": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "__0"
 		},
 		"204": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "__type"
+			"qualifiedName": "CopilotModelMenuProps"
 		},
 		"205": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "id"
+			"qualifiedName": "CopilotModelMenuProps.models"
 		},
 		"206": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-model-menu.tsx",
-			"qualifiedName": "CopilotModelMenuProps.disabled"
+			"qualifiedName": "CopilotModelMenuProps.selectedModelId"
 		},
 		"207": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall"
+			"packagePath": "src/react/copilot-model-menu.tsx",
+			"qualifiedName": "CopilotModelMenuProps.onModelChange"
 		},
 		"208": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall.id"
+			"packagePath": "src/react/copilot-model-menu.tsx",
+			"qualifiedName": "__type"
 		},
 		"209": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall.eyebrow"
+			"packagePath": "src/react/copilot-model-menu.tsx",
+			"qualifiedName": "__type"
 		},
 		"210": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall.label"
+			"packagePath": "src/react/copilot-model-menu.tsx",
+			"qualifiedName": "id"
 		},
 		"211": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall.status"
+			"packagePath": "src/react/copilot-model-menu.tsx",
+			"qualifiedName": "CopilotModelMenuProps.disabled"
 		},
 		"212": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCall.detail"
+			"qualifiedName": "CopilotToolCall"
 		},
 		"213": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCallRow"
+			"qualifiedName": "CopilotToolCall.id"
 		},
 		"214": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCallRow"
+			"qualifiedName": "CopilotToolCall.eyebrow"
 		},
 		"215": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "__0"
+			"qualifiedName": "CopilotToolCall.label"
 		},
 		"216": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCallRowProps"
+			"qualifiedName": "CopilotToolCall.status"
 		},
 		"217": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCallRowProps.toolCall"
+			"qualifiedName": "CopilotToolCall.detail"
 		},
 		"218": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/copilot-tool-call-row.tsx",
-			"qualifiedName": "CopilotToolCallStatus"
+			"qualifiedName": "CopilotToolCallRow"
 		},
 		"219": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotOptions"
+			"packagePath": "src/react/copilot-tool-call-row.tsx",
+			"qualifiedName": "CopilotToolCallRow"
 		},
 		"220": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotOptions.defaultModelId"
+			"packagePath": "src/react/copilot-tool-call-row.tsx",
+			"qualifiedName": "__0"
 		},
 		"221": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotOptions.onTrace"
+			"packagePath": "src/react/copilot-tool-call-row.tsx",
+			"qualifiedName": "CopilotToolCallRowProps"
 		},
 		"222": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"packagePath": "src/react/copilot-tool-call-row.tsx",
+			"qualifiedName": "CopilotToolCallRowProps.toolCall"
 		},
 		"223": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
-			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"packagePath": "src/react/copilot-tool-call-row.tsx",
+			"qualifiedName": "CopilotToolCallStatus"
 		},
 		"224": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "event"
+			"qualifiedName": "UseAiCopilotOptions"
 		},
 		"225": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult"
+			"qualifiedName": "UseAiCopilotOptions.defaultModelId"
 		},
 		"226": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.prompt"
+			"qualifiedName": "UseAiCopilotOptions.onTrace"
 		},
 		"227": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.onPromptChange"
+			"qualifiedName": "__type"
 		},
 		"228": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6700,57 +6777,57 @@
 		"229": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "event"
 		},
 		"230": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "next"
+			"qualifiedName": "UseAiCopilotResult"
 		},
 		"231": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.status"
+			"qualifiedName": "UseAiCopilotResult.prompt"
 		},
 		"232": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.error"
+			"qualifiedName": "UseAiCopilotResult.onPromptChange"
 		},
 		"233": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.issues"
+			"qualifiedName": "__type"
 		},
 		"234": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.onGenerate"
+			"qualifiedName": "__type"
 		},
 		"235": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "next"
 		},
 		"236": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "UseAiCopilotResult.status"
 		},
 		"237": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "trimmed"
+			"qualifiedName": "UseAiCopilotResult.error"
 		},
 		"238": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.onRegenerate"
+			"qualifiedName": "UseAiCopilotResult.issues"
 		},
 		"239": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "UseAiCopilotResult.onGenerate"
 		},
 		"240": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6760,57 +6837,57 @@
 		"241": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "trimmed"
+			"qualifiedName": "__type"
 		},
 		"242": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "selection"
+			"qualifiedName": "trimmed"
 		},
 		"243": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.messages"
+			"qualifiedName": "UseAiCopilotResult.onRegenerate"
 		},
 		"244": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.toolCalls"
+			"qualifiedName": "__type"
 		},
 		"245": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.selectedModelId"
+			"qualifiedName": "__type"
 		},
 		"246": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.onModelChange"
+			"qualifiedName": "trimmed"
 		},
 		"247": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "selection"
 		},
 		"248": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "UseAiCopilotResult.messages"
 		},
 		"249": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "id"
+			"qualifiedName": "UseAiCopilotResult.toolCalls"
 		},
 		"250": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "UseAiCopilotResult.pushTrace"
+			"qualifiedName": "UseAiCopilotResult.selectedModelId"
 		},
 		"251": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "UseAiCopilotResult.onModelChange"
 		},
 		"252": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
@@ -6820,24 +6897,49 @@
 		"253": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "event"
+			"qualifiedName": "__type"
 		},
 		"254": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "useAiCopilot"
+			"qualifiedName": "id"
 		},
 		"255": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "useAiCopilot"
+			"qualifiedName": "UseAiCopilotResult.pushTrace"
 		},
 		"256": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
-			"qualifiedName": "plugin"
+			"qualifiedName": "__type"
 		},
 		"257": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/react/use-ai-copilot.ts",
+			"qualifiedName": "__type"
+		},
+		"258": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/react/use-ai-copilot.ts",
+			"qualifiedName": "event"
+		},
+		"259": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/react/use-ai-copilot.ts",
+			"qualifiedName": "useAiCopilot"
+		},
+		"260": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/react/use-ai-copilot.ts",
+			"qualifiedName": "useAiCopilot"
+		},
+		"261": {
+			"packageName": "@anvilkit/plugin-ai-copilot",
+			"packagePath": "src/react/use-ai-copilot.ts",
+			"qualifiedName": "plugin"
+		},
+		"262": {
 			"packageName": "@anvilkit/plugin-ai-copilot",
 			"packagePath": "src/react/use-ai-copilot.ts",
 			"qualifiedName": "options"

@@ -1,3 +1,4 @@
+export { AiCopilotI18nProvider } from "../i18n/provider.js";
 export {
 	AiCopilotPanel,
 	type AiCopilotPanelProps,

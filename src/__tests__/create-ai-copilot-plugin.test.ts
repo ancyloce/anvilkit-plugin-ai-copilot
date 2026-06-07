@@ -35,6 +35,7 @@ function makeCtx(
 		log: vi.fn(),
 		emit: vi.fn(),
 		registerAssetResolver: vi.fn(),
+		registerMessages: vi.fn(),
 		...overrides,
 	};
 }

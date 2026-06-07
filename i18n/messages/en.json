@@ -1,0 +1,12 @@
+{
+	"aiCopilot.chat.brand": "Claude Cowork",
+	"aiCopilot.chat.emptyDescription": "Describe the page you want — the AI copilot will generate a full canvas.",
+	"aiCopilot.composer.placeholder": "Reply...",
+	"aiCopilot.composer.addAttachment": "Add attachment",
+	"aiCopilot.composer.sendMessage": "Send message",
+	"aiCopilot.tool.generatePage": "Generate page",
+	"aiCopilot.tool.regenerateSelection": "Regenerate selection",
+	"aiCopilot.tool.generationTrace": "GENERATION TRACE",
+	"aiCopilot.message.generatedPage": "Generated the page on the canvas.",
+	"aiCopilot.message.regeneratedSection": "Regenerated the selected section."
+}

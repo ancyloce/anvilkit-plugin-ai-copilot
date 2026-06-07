@@ -1,8 +1,12 @@
 "use client";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { AiSectionSelection } from "@anvilkit/core/types";
 import type { AiPromptPanelIssue, AiPromptPanelSelection } from "@anvilkit/ui";
 import { useCallback, useRef, useState } from "react";
+
+/** The `useMsg()` resolver shape, threaded into the trace→tool-call mapper. */
+type Msg = (key: string, fallback?: string) => string;
 
 import type {
 	AiCopilotPluginInstance,
@@ -59,13 +63,16 @@ export interface UseAiCopilotResult {
 function traceToToolCall(
 	event: AiCopilotTraceEvent,
 	previous: CopilotToolCall | undefined,
+	msg: Msg,
 ): CopilotToolCall {
 	const id = `${event.flow}-${event.generationId}`;
 	const label =
-		event.flow === "page" ? "Generate page" : "Regenerate selection";
+		event.flow === "page"
+			? msg("aiCopilot.tool.generatePage")
+			: msg("aiCopilot.tool.regenerateSelection");
 	const base: CopilotToolCall = previous ?? {
 		id,
-		eyebrow: "GENERATION TRACE",
+		eyebrow: msg("aiCopilot.tool.generationTrace"),
 		label,
 		status: "running",
 	};
@@ -110,6 +117,7 @@ export function useAiCopilot(
 	const [selectedModelId, setSelectedModelId] = useState<string | undefined>(
 		options?.defaultModelId,
 	);
+	const msg = useMsg();
 
 	const idCounter = useRef(0);
 	const nextId = useCallback((kind: string): string => {
@@ -120,18 +128,21 @@ export function useAiCopilot(
 	const onTraceRef = useRef(options?.onTrace);
 	onTraceRef.current = options?.onTrace;
 
-	const pushTrace = useCallback((event: AiCopilotTraceEvent): void => {
-		onTraceRef.current?.(event);
-		setToolCalls((prev) => {
-			const id = `${event.flow}-${event.generationId}`;
-			const existing = prev.find((call) => call.id === id);
-			const next = traceToToolCall(event, existing);
-			if (existing) {
-				return prev.map((call) => (call.id === id ? next : call));
-			}
-			return [...prev, next];
-		});
-	}, []);
+	const pushTrace = useCallback(
+		(event: AiCopilotTraceEvent): void => {
+			onTraceRef.current?.(event);
+			setToolCalls((prev) => {
+				const id = `${event.flow}-${event.generationId}`;
+				const existing = prev.find((call) => call.id === id);
+				const next = traceToToolCall(event, existing, msg);
+				if (existing) {
+					return prev.map((call) => (call.id === id ? next : call));
+				}
+				return [...prev, next];
+			});
+		},
+		[msg],
+	);
 
 	const pushMessage = useCallback(
 		(message: Omit<CopilotMessage, "id">): void => {
@@ -154,7 +165,7 @@ export function useAiCopilot(
 				.then(() => {
 					pushMessage({
 						role: "assistant",
-						text: "Generated the page on the canvas.",
+						text: msg("aiCopilot.message.generatedPage"),
 					});
 				})
 				.catch((err: unknown) => {
@@ -166,7 +177,7 @@ export function useAiCopilot(
 					setStatus("idle");
 				});
 		},
-		[plugin, pushMessage],
+		[msg, plugin, pushMessage],
 	);
 
 	const onRegenerate = useCallback(
@@ -184,7 +195,7 @@ export function useAiCopilot(
 				.then(() => {
 					pushMessage({
 						role: "assistant",
-						text: "Regenerated the selected section.",
+						text: msg("aiCopilot.message.regeneratedSection"),
 					});
 				})
 				.catch((err: unknown) => {
@@ -196,7 +207,7 @@ export function useAiCopilot(
 					setStatus("idle");
 				});
 		},
-		[plugin, pushMessage],
+		[msg, plugin, pushMessage],
 	);
 
 	const onModelChange = useCallback((id: string): void => {

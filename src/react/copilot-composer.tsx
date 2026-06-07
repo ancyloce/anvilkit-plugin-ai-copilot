@@ -1,5 +1,6 @@
 "use client";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import { Button, Ripple, Textarea } from "@anvilkit/ui";
 import { Button as MotionButton } from "@anvilkit/ui/components/animate-ui/primitives/buttons/button";
 import { cn } from "@anvilkit/ui/lib/utils";
@@ -28,12 +29,14 @@ export function CopilotComposer({
   onSubmit,
   disabled = false,
   pending = false,
-  placeholder = "Reply...",
+  placeholder,
   onAttach,
   models,
   selectedModelId,
   onModelChange,
 }: CopilotComposerProps): ReactElement {
+  const msg = useMsg();
+  const resolvedPlaceholder = placeholder ?? msg("aiCopilot.composer.placeholder");
   const submitDisabled = disabled || pending || prompt.trim().length === 0;
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>): void {
@@ -52,7 +55,7 @@ export function CopilotComposer({
         id="ai-prompt-panel-input"
         data-testid="ai-prompt-panel-input"
         value={prompt}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         rows={2}
         disabled={disabled || pending}
         onChange={(event) => onPromptChange(event.target.value)}
@@ -65,7 +68,7 @@ export function CopilotComposer({
               type="button"
               variant="ghost"
               size="icon"
-              aria-label="Add attachment"
+              aria-label={msg("aiCopilot.composer.addAttachment")}
               data-testid="copilot-attach"
               disabled={disabled || pending}
               onClick={onAttach}
@@ -92,7 +95,7 @@ export function CopilotComposer({
             <Button
               type="button"
               size="icon"
-              aria-label="Send message"
+              aria-label={msg("aiCopilot.composer.sendMessage")}
               data-testid="ai-prompt-panel-submit"
               disabled={submitDisabled}
               onClick={onSubmit}
