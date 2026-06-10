@@ -1,0 +1,12 @@
+{
+	"aiCopilot.chat.brand": "Claude Cowork",
+	"aiCopilot.chat.emptyDescription": "원하는 페이지를 설명하세요 — AI 코파일럿이 전체 캔버스를 생성합니다.",
+	"aiCopilot.composer.placeholder": "답장...",
+	"aiCopilot.composer.addAttachment": "첨부 추가",
+	"aiCopilot.composer.sendMessage": "메시지 보내기",
+	"aiCopilot.tool.generatePage": "페이지 생성",
+	"aiCopilot.tool.regenerateSelection": "선택 영역 재생성",
+	"aiCopilot.tool.generationTrace": "생성 트레이스",
+	"aiCopilot.message.generatedPage": "캔버스에 페이지를 생성했습니다.",
+	"aiCopilot.message.regeneratedSection": "선택한 섹션을 재생성했습니다."
+}

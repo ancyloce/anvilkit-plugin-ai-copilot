@@ -1,0 +1,12 @@
+{
+	"aiCopilot.chat.brand": "Claude Cowork",
+	"aiCopilot.chat.emptyDescription": "作りたいページを説明してください — AI コパイロットがキャンバス全体を生成します。",
+	"aiCopilot.composer.placeholder": "返信...",
+	"aiCopilot.composer.addAttachment": "添付を追加",
+	"aiCopilot.composer.sendMessage": "メッセージを送信",
+	"aiCopilot.tool.generatePage": "ページを生成",
+	"aiCopilot.tool.regenerateSelection": "選択範囲を再生成",
+	"aiCopilot.tool.generationTrace": "生成トレース",
+	"aiCopilot.message.generatedPage": "キャンバスにページを生成しました。",
+	"aiCopilot.message.regeneratedSection": "選択したセクションを再生成しました。"
+}
