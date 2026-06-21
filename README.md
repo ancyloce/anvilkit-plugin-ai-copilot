@@ -1,6 +1,6 @@
 # @anvilkit/plugin-ai-copilot
 
-> **Alpha (`0.1.4`).** API may change before `1.0`. The plugin sits behind the host's LLM adapter — no credentials or model identifiers cross the plugin boundary.
+> **Alpha (`0.1.8`).** API may change before `1.0`. The plugin sits behind the host's LLM adapter — no credentials or model identifiers cross the plugin boundary.
 
 Headless AI copilot for Anvilkit Studio. The plugin caches a per-session `AiGenerationContext` derived from the host's Puck config, calls a host-supplied `generatePage(prompt, ctx)` (and optionally `generateSection`), validates the response with `@anvilkit/validator`, and dispatches the result atomically via `setData`. React UI primitives ship under `/react`; deterministic mock generators ship under `/mock` for tests and demos.
 
