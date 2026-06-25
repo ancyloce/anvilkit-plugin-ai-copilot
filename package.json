@@ -101,7 +101,7 @@
 		"@rslib/core": "^0.23.0",
 		"@types/node": "^26.0.0",
 		"esbuild": "^0.28.0",
-		"lucide-react": "^1.16.0",
+		"lucide-react": "^1.21.0",
 		"madge": "^8.0.0",
 		"motion": "^12.38.0",
 		"publint": "^0.3.21",
