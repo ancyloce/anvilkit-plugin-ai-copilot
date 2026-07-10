@@ -790,7 +790,7 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "StudioPluginMeta",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
+										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts"
 									},
 									{
 										"kind": "text",
@@ -807,7 +807,7 @@
 								},
 								"name": "StudioPluginMeta",
 								"package": "@anvilkit/core",
-								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
+								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts"
 							},
 							"inheritedFrom": {
 								"type": "reference",
@@ -1089,7 +1089,7 @@
 														"kind": "inline-tag",
 														"tag": "@link",
 														"text": "StudioPluginContext",
-														"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
+														"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts"
 													},
 													{
 														"kind": "text",
@@ -1118,7 +1118,7 @@
 												],
 												"name": "StudioPluginContext",
 												"package": "@anvilkit/core",
-												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/plugin.ts"
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts"
 											}
 										}
 									],
