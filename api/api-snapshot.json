@@ -833,7 +833,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionContext"
+										}
 									},
 									{
 										"kind": "text",
@@ -843,7 +847,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionSelection",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionSelection"
+										}
 									},
 									{
 										"kind": "text",
@@ -921,13 +929,12 @@
 													"type": {
 														"type": "reference",
 														"target": {
-															"packageName": "@anvilkit/core",
-															"packagePath": "src/types/ai-section.ts",
+															"packageName": "@anvilkit/contracts",
+															"packagePath": "src/ai-section.ts",
 															"qualifiedName": "AiSectionSelection"
 														},
 														"name": "AiSectionSelection",
-														"package": "@anvilkit/core",
-														"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+														"package": "@anvilkit/contracts"
 													}
 												},
 												{
@@ -1247,7 +1254,11 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "ConfigToAiSectionContextOptions",
-								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+								"target": {
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ai-section.ts",
+									"qualifiedName": "ConfigToAiSectionContextOptions"
+								}
 							},
 							{
 								"kind": "text",
@@ -1292,7 +1303,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.allowResize",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionContext.allowResize"
+										}
 									},
 									{
 										"kind": "text",
@@ -1302,7 +1317,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionPatch",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionPatch"
+										}
 									},
 									{
 										"kind": "text",
@@ -1320,7 +1339,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionSelection.nodeIds",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionSelection.nodeIds"
+										}
 									},
 									{
 										"kind": "text",
@@ -1366,7 +1389,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.locale",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionContext.locale"
+										}
 									},
 									{
 										"kind": "text",
@@ -1420,7 +1447,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionContext.theme",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionContext.theme"
+										}
 									},
 									{
 										"kind": "text",
@@ -1431,12 +1462,12 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ai.ts",
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ai.ts",
 									"qualifiedName": "AiThemeHint"
 								},
 								"name": "AiThemeHint",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/contracts"
 							},
 							"inheritedFrom": {
 								"type": "reference",
@@ -1459,13 +1490,12 @@
 						{
 							"type": "reference",
 							"target": {
-								"packageName": "@anvilkit/core",
-								"packagePath": "src/types/ai-section.ts",
+								"packageName": "@anvilkit/contracts",
+								"packagePath": "src/ai-section.ts",
 								"qualifiedName": "ConfigToAiSectionContextOptions"
 							},
 							"name": "ConfigToAiSectionContextOptions",
-							"package": "@anvilkit/core",
-							"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+							"package": "@anvilkit/contracts"
 						}
 					]
 				},
@@ -2209,12 +2239,12 @@
 											"type": {
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ai.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ai.ts",
 													"qualifiedName": "AiGenerationContext"
 												},
 												"name": "AiGenerationContext",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/contracts"
 											}
 										}
 									],
@@ -2229,12 +2259,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ir.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ir.ts",
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/contracts"
 											}
 										],
 										"name": "Promise",
@@ -2261,7 +2291,11 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "AiSectionContext",
-								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+								"target": {
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ai-section.ts",
+									"qualifiedName": "AiSectionContext"
+								}
 							},
 							{
 								"kind": "text",
@@ -2271,7 +2305,11 @@
 								"kind": "inline-tag",
 								"tag": "@link",
 								"text": "AiSectionPatch",
-								"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+								"target": {
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ai-section.ts",
+									"qualifiedName": "AiSectionPatch"
+								}
 							},
 							{
 								"kind": "text",
@@ -2349,13 +2387,12 @@
 											"type": {
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ai-section.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ai-section.ts",
 													"qualifiedName": "AiSectionContext"
 												},
 												"name": "AiSectionContext",
-												"package": "@anvilkit/core",
-												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+												"package": "@anvilkit/contracts"
 											}
 										}
 									],
@@ -2370,13 +2407,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ai-section.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ai-section.ts",
 													"qualifiedName": "AiSectionPatch"
 												},
 												"name": "AiSectionPatch",
-												"package": "@anvilkit/core",
-												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+												"package": "@anvilkit/contracts"
 											}
 										],
 										"name": "Promise",
@@ -2410,7 +2446,11 @@
 										"kind": "inline-tag",
 										"tag": "@link",
 										"text": "AiSectionPatch",
-										"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"target": {
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
+											"qualifiedName": "AiSectionPatch"
+										}
 									},
 									{
 										"kind": "text",
@@ -2453,13 +2493,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ai-section.ts",
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ai-section.ts",
 											"qualifiedName": "AiSectionPatch"
 										},
 										"name": "AiSectionPatch",
-										"package": "@anvilkit/core",
-										"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/core/src/types/ai.ts"
+										"package": "@anvilkit/contracts"
 									}
 								}
 							],
@@ -2709,12 +2748,12 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ir.ts",
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ir.ts",
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/contracts"
 							}
 						},
 						{
@@ -6050,18 +6089,18 @@
 			"qualifiedName": "RegenerateSelectionOptions"
 		},
 		"84": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/ai-section.ts",
+			"packageName": "@anvilkit/contracts",
+			"packagePath": "src/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.theme"
 		},
 		"85": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/ai-section.ts",
+			"packageName": "@anvilkit/contracts",
+			"packagePath": "src/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.locale"
 		},
 		"86": {
-			"packageName": "@anvilkit/core",
-			"packagePath": "src/types/ai-section.ts",
+			"packageName": "@anvilkit/contracts",
+			"packagePath": "src/ai-section.ts",
 			"qualifiedName": "ConfigToAiSectionContextOptions.allowResize"
 		},
 		"87": {
