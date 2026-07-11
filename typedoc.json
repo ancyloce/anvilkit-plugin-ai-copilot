@@ -2,17 +2,19 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"extends": ["../../../../typedoc.base.json"],
 	"externalSymbolLinkMappings": {
+		"@anvilkit/contracts": {
+			"AiSectionPatch": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionContext": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionContext.theme": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionContext.locale": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionContext.allowResize": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionSelection": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"AiSectionSelection.nodeIds": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts",
+			"ConfigToAiSectionContextOptions": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ai-section.ts"
+		},
 		"@anvilkit/core": {
-			"AiSectionPatch": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionContext": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionContext.theme": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionContext.locale": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionContext.allowResize": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionSelection": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
-			"AiSectionSelection.nodeIds": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts",
 			"StudioPluginMeta": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts",
-			"StudioPluginContext": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin.ts",
-			"ConfigToAiSectionContextOptions": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/ai.ts"
+			"StudioPluginContext": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/runtime/core/src/types/plugin-context.ts"
 		}
 	}
 }
