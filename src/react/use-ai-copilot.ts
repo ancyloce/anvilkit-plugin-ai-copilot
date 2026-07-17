@@ -3,7 +3,7 @@
 import { useMsg } from "@anvilkit/core/i18n";
 import type { AiSectionSelection } from "@anvilkit/core/types";
 import type { AiPromptPanelIssue, AiPromptPanelSelection } from "@anvilkit/ui";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /** The `useMsg()` resolver shape, threaded into the trace→tool-call mapper. */
 type Msg = (key: string, fallback?: string) => string;
@@ -126,7 +126,9 @@ export function useAiCopilot(
 	}, []);
 
 	const onTraceRef = useRef(options?.onTrace);
-	onTraceRef.current = options?.onTrace;
+	useEffect(() => {
+		onTraceRef.current = options?.onTrace;
+	}, [options?.onTrace]);
 
 	const pushTrace = useCallback(
 		(event: AiCopilotTraceEvent): void => {

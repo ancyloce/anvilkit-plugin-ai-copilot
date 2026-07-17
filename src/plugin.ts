@@ -275,13 +275,17 @@ export function createAiCopilotPlugin(
 		reportError(ctx, {
 			code: "VALIDATION_FAILED",
 			message: "AI section patch failed validation",
-			issues: issues
-				.filter((i) => i.level === "error")
-				.map((i) => ({
-					path: i.path.join("."),
-					message: `[${i.code}] ${i.message}`,
-					severity: "error" as const,
-				})),
+			issues: issues.flatMap((issue) =>
+				issue.level === "error"
+					? [
+							{
+								path: issue.path.join("."),
+								message: `[${issue.code}] ${issue.message}`,
+								severity: "error" as const,
+							},
+						]
+					: [],
+			),
 		});
 	}
 

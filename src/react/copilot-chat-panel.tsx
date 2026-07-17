@@ -7,7 +7,7 @@ import { GradientText } from "@anvilkit/ui/components/animate-ui/primitives/text
 import { ShimmeringText } from "@anvilkit/ui/components/animate-ui/primitives/texts/shimmering";
 import { cn } from "@anvilkit/ui/lib/utils";
 import { Sparkles } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useEffect, useRef } from "react";
 import type { ReactElement } from "react";
 
@@ -33,6 +33,7 @@ const BRAND_SWEEP = {
   repeat: Number.POSITIVE_INFINITY,
   ease: "linear",
 } as const;
+const EMPTY_TOOL_CALLS: readonly CopilotToolCall[] = [];
 
 export interface CopilotChatPanelProps {
   readonly prompt: string;
@@ -69,7 +70,7 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
     status = "idle",
     issues,
     messages,
-    toolCalls = [],
+    toolCalls = EMPTY_TOOL_CALLS,
     models,
     selectedModelId,
     onModelChange,
@@ -125,7 +126,8 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
   const isEmpty = messages.length === 0 && toolCalls.length === 0;
 
   return (
-    <Card
+    <MotionConfig reducedMotion="user">
+      <Card
       data-slot="copilot-chat-panel"
       data-mode={isSectionMode ? "section" : "page"}
       className={cn(
@@ -219,9 +221,9 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
                     data-testid="copilot-error-issues"
                     className="flex list-disc flex-col gap-1 pl-5 text-destructive"
                   >
-                    {errorIssues.map((issue, index) => (
+                    {errorIssues.map((issue) => (
                       <li
-                        key={`${issue.path}:${index}`}
+                        key={`${issue.severity}:${issue.path}:${issue.message}`}
                         className="break-words"
                       >
                         <span className="font-mono text-xs">
@@ -237,9 +239,9 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
                     data-testid="copilot-warn-issues"
                     className="flex list-disc flex-col gap-1 pl-5 text-muted-foreground"
                   >
-                    {warnIssues.map((issue, index) => (
+                    {warnIssues.map((issue) => (
                       <li
-                        key={`${issue.path}:${index}`}
+                        key={`${issue.severity}:${issue.path}:${issue.message}`}
                         className="break-words"
                       >
                         <span className="font-mono text-xs">
@@ -268,6 +270,7 @@ export function CopilotChatPanel(props: CopilotChatPanelProps): ReactElement {
           onModelChange={onModelChange}
         />
       </CardContent>
-    </Card>
+      </Card>
+    </MotionConfig>
   );
 }
