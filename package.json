@@ -104,9 +104,9 @@
 		"lucide-react": "^1.21.0",
 		"madge": "^8.0.0",
 		"motion": "^12.42.2",
-		"publint": "^0.3.21",
-		"react": "^19.2.7",
-		"react-dom": "^19.2.7",
+		"publint": "^0.3.22",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
 		"typedoc": "^0.28.20",
 		"typescript": "7.0.2",
 		"vitest": "^4.1.10"
