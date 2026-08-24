@@ -4,6 +4,7 @@ import type {
 	AiSectionPatch,
 	AiSectionSelection,
 	ConfigToAiSectionContextOptions,
+	EditorIntent,
 	PageIR,
 	StudioPlugin,
 } from "@anvilkit/core/types";
@@ -38,15 +39,29 @@ export type GenerateSectionFn = (
 ) => Promise<AiSectionPatch>;
 
 /**
+ * Host-supplied non-structural refinement callback.
+ *
+ * The host owns the untrusted-output gate and returns only the frozen
+ * `EditorIntent` vocabulary. The plugin resolves each member
+ * immediately through Core's editor API; insert/move operations remain in
+ * the existing section-regeneration flow rather than extending this type.
+ */
+export type RefineSelectionFn = (
+	prompt: string,
+	ctx: AiSectionContext,
+) => Promise<readonly EditorIntent[]>;
+
+/**
  * Discriminated trace event emitted by {@link AiCopilotOptions.onTrace}
- * at every decision point inside `runGeneration` and `regenerateSelection`.
+ * at every decision point inside `runGeneration`, `regenerateSelection`,
+ * and `refineSelection`.
  *
  * Hosts wire this into Sentry, OpenTelemetry, or `console.debug` to make
  * the otherwise-opaque concurrency/cancellation behaviour observable in
  * production. The plugin remains transport-agnostic — the host decides
  * whether `onTrace` ships to a metrics sink, a log line, or nowhere.
  *
- * Every event carries a `flow` ("page" or "section") and a numeric
+ * Every event carries a `flow` ("page", "section", or "refine") and a numeric
  * `generationId` matching the plugin's internal monotonic counter, so
  * downstream sinks can correlate the lifecycle of a single run.
  *
@@ -57,29 +72,29 @@ export type GenerateSectionFn = (
 export type AiCopilotTraceEvent =
 	| {
 			readonly type: "generation-start";
-			readonly flow: "page" | "section";
+			readonly flow: "page" | "section" | "refine";
 			readonly generationId: number;
 			readonly promptLength: number;
 	  }
 	| {
 			readonly type: "generation-validated";
-			readonly flow: "page" | "section";
+			readonly flow: "page" | "section" | "refine";
 			readonly generationId: number;
 	  }
 	| {
 			readonly type: "generation-stale-drop";
-			readonly flow: "page" | "section";
+			readonly flow: "page" | "section" | "refine";
 			readonly generationId: number;
 			readonly stage: "after-generate" | "after-validate" | "after-apply";
 	  }
 	| {
 			readonly type: "generation-dispatched";
-			readonly flow: "page" | "section";
+			readonly flow: "page" | "section" | "refine";
 			readonly generationId: number;
 	  }
 	| {
 			readonly type: "generation-failed";
-			readonly flow: "page" | "section";
+			readonly flow: "page" | "section" | "refine";
 			readonly generationId: number;
 			readonly code: AiErrorCode;
 	  };
@@ -105,6 +120,14 @@ export interface AiCopilotOptions {
 	 * keep their `1.0.0` integration unchanged.
 	 */
 	readonly generateSection?: GenerateSectionFn;
+
+	/**
+	 * Host-owned non-structural refinement callback. The host validates raw
+	 * provider output before returning intents; the plugin then applies one
+	 * intent per Core editor commit. Optional for hosts without visual-editor
+	 * refinement enabled.
+	 */
+	readonly refineSelection?: RefineSelectionFn;
 
 	/**
 	 * The same Puck config object the host passes to `<Studio />`.
@@ -151,8 +174,8 @@ export interface AiCopilotOptions {
 	readonly sanitizeCurrentData?: (data: PuckData) => PuckData;
 
 	/**
-	 * Optional observability hook. Called synchronously at every
-	 * decision point inside `runGeneration` / `regenerateSelection`
+	 * Optional observability hook. Called synchronously at every decision point
+	 * inside `runGeneration` / `regenerateSelection` / `refineSelection`
 	 * with a structured {@link AiCopilotTraceEvent}.
 	 *
 	 * Purely additive — defaults to a no-op. The plugin never logs the
@@ -175,6 +198,10 @@ export interface AiCopilotOptions {
  * sees without reaching for a separate API.
  */
 export interface RegenerateSelectionOptions
+	extends ConfigToAiSectionContextOptions {}
+
+/** Per-call environment hints for non-structural refinement. */
+export interface RefineSelectionOptions
 	extends ConfigToAiSectionContextOptions {}
 
 /**
@@ -222,6 +249,17 @@ export interface AiCopilotPluginInstance extends StudioPlugin {
 		prompt: string,
 		selection: AiSectionSelection,
 		opts?: RegenerateSelectionOptions,
+	) => Promise<void>;
+	/**
+	 * Apply a gated non-structural refinement to the selected nodes. Every
+	 * intent is resolved independently, producing at most one history entry;
+	 * rejected outcomes are surfaced as `APPLY_FAILED` without aborting later
+	 * intents in the same batch.
+	 */
+	readonly refineSelection: (
+		prompt: string,
+		selection: AiSectionSelection,
+		opts?: RefineSelectionOptions,
 	) => Promise<void>;
 }
 

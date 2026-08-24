@@ -8,5 +8,7 @@ export type {
 	AiErrorCode,
 	GeneratePageFn,
 	GenerateSectionFn,
+	RefineSelectionFn,
+	RefineSelectionOptions,
 	RegenerateSelectionOptions,
 } from "./types/types.js";

@@ -2,6 +2,7 @@ import { StudioConfigSchema } from "@anvilkit/core";
 import type {
 	AiSectionPatch,
 	AiSectionSelection,
+	EditorApi,
 	StudioPluginContext,
 } from "@anvilkit/core/types";
 import type { Config as PuckConfig, Data as PuckData } from "@puckeditor/core";
@@ -70,6 +71,23 @@ function makeCtx(
 		registerAssetResolver: vi.fn(),
 		...overrides,
 	};
+}
+
+function makeEditorApi(nodeIds: readonly string[]): {
+	readonly api: EditorApi;
+	readonly annotation: ReturnType<typeof vi.fn>;
+	readonly deleteNodes: ReturnType<typeof vi.fn>;
+} {
+	const annotation = vi.fn(() => ({ status: "committed", errors: [] }));
+	const deleteNodes = vi.fn(() => ({ status: "committed", errors: [] }));
+	const api = {
+		readDocument: vi.fn(() => ({
+			nodes: new Map(nodeIds.map((nodeId) => [nodeId, {}])),
+		})),
+		subscribe: vi.fn(() => vi.fn()),
+		commit: { annotation, deleteNodes },
+	} as unknown as EditorApi;
+	return { api, annotation, deleteNodes };
 }
 
 async function initPlugin(
@@ -419,6 +437,109 @@ describe("createAiCopilotPlugin — regenerateSelection", () => {
 		expect(serialized).not.toMatch(/api[_-]?key/i);
 		expect(serialized).not.toMatch(/authorization/i);
 		expect(serialized).not.toMatch(/bearer/i);
+	});
+});
+
+describe("createAiCopilotPlugin — refineSelection", () => {
+	it("resolves each gated intent as one independent editor commit", async () => {
+		const editor = makeEditorApi(["hero-1", "pricing-1"]);
+		const ctx = makeCtx(makeCanvas(), {
+			editor: {
+				editor: editor.api,
+			} as unknown as StudioPluginContext["editor"],
+		});
+		const refineSelection = vi.fn().mockResolvedValue([
+			{ kind: "rename-node", nodeId: "hero-1", name: "Focused hero" },
+			{ kind: "delete-nodes", nodeIds: ["pricing-1"] },
+		]);
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn(),
+			refineSelection,
+			puckConfig: makePuckConfig(),
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.refineSelection("tighten this section", {
+			zoneId: "root-zone",
+			nodeIds: ["hero-1", "pricing-1"],
+		});
+
+		expect(refineSelection).toHaveBeenCalledTimes(1);
+		expect(editor.annotation).toHaveBeenCalledTimes(1);
+		expect(editor.annotation).toHaveBeenCalledWith({
+			kind: "rename",
+			nodeId: "hero-1",
+			name: "Focused hero",
+		});
+		expect(editor.deleteNodes).toHaveBeenCalledTimes(1);
+		expect(editor.deleteNodes).toHaveBeenCalledWith(["pricing-1"]);
+	});
+
+	it("surfaces a stale per-intent rejection and continues the batch", async () => {
+		// Puck still contains both selected nodes, but the editor projection has
+		// already lost pricing-1 by apply time — the post-generation race.
+		const editor = makeEditorApi(["hero-1"]);
+		const ctx = makeCtx(makeCanvas(), {
+			editor: {
+				editor: editor.api,
+			} as unknown as StudioPluginContext["editor"],
+		});
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn(),
+			refineSelection: vi.fn().mockResolvedValue([
+				{ kind: "rename-node", nodeId: "pricing-1", name: "Gone" },
+				{ kind: "rename-node", nodeId: "hero-1", name: "Still applied" },
+			]),
+			puckConfig: makePuckConfig(),
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.refineSelection("rename both", {
+			zoneId: "root-zone",
+			nodeIds: ["hero-1", "pricing-1"],
+		});
+
+		expect(ctx.emit).toHaveBeenCalledWith(
+			"ai-copilot:error",
+			expect.objectContaining({
+				code: "APPLY_FAILED",
+				message: expect.stringContaining("pricing-1"),
+			}),
+		);
+		expect(editor.annotation).toHaveBeenCalledTimes(1);
+		expect(editor.annotation).toHaveBeenCalledWith(
+			expect.objectContaining({ nodeId: "hero-1" }),
+		);
+	});
+
+	it("short-circuits a stale selection before asking the provider", async () => {
+		const editor = makeEditorApi(["hero-1"]);
+		const ctx = makeCtx(makeCanvas(), {
+			editor: {
+				editor: editor.api,
+			} as unknown as StudioPluginContext["editor"],
+		});
+		const refineSelection = vi.fn();
+		const plugin = createAiCopilotPlugin({
+			generatePage: vi.fn(),
+			refineSelection,
+			puckConfig: makePuckConfig(),
+		});
+
+		await initPlugin(ctx, plugin);
+		await plugin.refineSelection("rewrite ghost", {
+			zoneId: "root-zone",
+			nodeIds: ["ghost-node"],
+		});
+
+		expect(refineSelection).not.toHaveBeenCalled();
+		expect(ctx.emit).toHaveBeenCalledWith(
+			"ai-copilot:error",
+			expect.objectContaining({
+				code: "APPLY_FAILED",
+				message: expect.stringContaining("ghost-node"),
+			}),
+		);
 	});
 });
 

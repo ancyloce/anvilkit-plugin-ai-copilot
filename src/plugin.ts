@@ -1,8 +1,10 @@
+import { resolveEditorIntent } from "@anvilkit/core/react/editor";
 import type {
 	AiGenerationContext,
 	AiSectionContext,
 	AiSectionPatch,
 	AiSectionSelection,
+	EditorIntent,
 	PageIR,
 	StudioPluginContext,
 	StudioPluginRegistration,
@@ -28,6 +30,7 @@ import type {
 	AiCopilotPluginInstance,
 	AiCopilotTraceEvent,
 	AiErrorCode,
+	RefineSelectionOptions,
 	RegenerateSelectionOptions,
 } from "./types/types.js";
 
@@ -93,6 +96,14 @@ function assertValidOptions(opts: AiCopilotOptions): void {
 	) {
 		throw new Error(
 			"createAiCopilotPlugin: [CONFIG_INVALID] `generateSection`, when provided, must be a function",
+		);
+	}
+	if (
+		opts.refineSelection !== undefined &&
+		typeof opts.refineSelection !== "function"
+	) {
+		throw new Error(
+			"createAiCopilotPlugin: [CONFIG_INVALID] `refineSelection`, when provided, must be a function",
 		);
 	}
 	if (
@@ -177,8 +188,8 @@ export function createAiCopilotPlugin(
 	}
 
 	/**
-	 * Shared error-classification path used by both `runGeneration` and
-	 * `regenerateSelection`. Surfaces `TimeoutError` as `TIMEOUT` and
+	 * Shared error-classification path used by all three generation flows.
+	 * Surfaces `TimeoutError` as `TIMEOUT` and
 	 * everything else as `GENERATE_FAILED`, mapping the message to the
 	 * underlying `Error` or coerced string.
 	 */
@@ -203,12 +214,12 @@ export function createAiCopilotPlugin(
 	 * when the run was cancelled (stale or destroyed), or `{ ok: false }`
 	 * after surfacing the failure via `reportRunError` + `onTrace`.
 	 *
-	 * Centralizing the pattern keeps `runGeneration` and `regenerateSelection`
-	 * focused on flow-specific concerns (validation, dispatch) instead of
-	 * re-implementing cancellation bookkeeping.
+	 * Centralizing the pattern keeps each public generation method focused on
+	 * flow-specific concerns (validation, dispatch) instead of re-implementing
+	 * cancellation bookkeeping.
 	 */
 	async function cancellableRun<T>(
-		flow: "page" | "section",
+		flow: "page" | "section" | "refine",
 		generationId: number,
 		ctx: StudioPluginContext,
 		isCurrent: () => boolean,
@@ -295,6 +306,39 @@ export function createAiCopilotPlugin(
 	function buildIsCurrent(generationId: number): () => boolean {
 		return () =>
 			generationId === latestGenerationId && cachedStateByPlugin.has(plugin);
+	}
+
+	function resolveLiveSelection(
+		action: string,
+		cached: CachedState,
+		selection: AiSectionSelection,
+		generationId: number,
+		flow: "section" | "refine",
+	): ReturnType<typeof findCurrentNodes> | null {
+		const liveNodes = findCurrentNodes(cached.ctx.getData(), selection.nodeIds);
+		const presentIds = new Set(liveNodes.map((node) => node.id));
+		const missingIds = selection.nodeIds.filter((id) => !presentIds.has(id));
+		if (missingIds.length === 0) return liveNodes;
+
+		const noun = missingIds.length === 1 ? "node" : "nodes";
+		const verb = missingIds.length === 1 ? "is" : "are";
+		reportError(
+			cached.ctx,
+			{
+				code: "APPLY_FAILED",
+				message: `${action}: the selected ${noun} [${missingIds.join(
+					", ",
+				)}] ${verb} no longer on the canvas. Reselect a section and try again.`,
+			},
+			"warn",
+		);
+		trace(cached.ctx, {
+			type: "generation-failed",
+			flow,
+			generationId,
+			code: "APPLY_FAILED",
+		});
+		return null;
 	}
 
 	async function runGeneration(prompt: string): Promise<void> {
@@ -443,35 +487,14 @@ export function createAiCopilotPlugin(
 		// contiguous run" error; intercepting it here turns an expected,
 		// recoverable condition into one clean, actionable message instead
 		// of a scary console.error plus a wasted generation call.
-		const liveNodes = findCurrentNodes(cached.ctx.getData(), selection.nodeIds);
-		const presentIds = new Set(liveNodes.map((node) => node.id));
-		const missingIds = selection.nodeIds.filter((id) => !presentIds.has(id));
-		if (missingIds.length > 0) {
-			const noun = missingIds.length === 1 ? "node" : "nodes";
-			const verb = missingIds.length === 1 ? "is" : "are";
-			// Logged at `warn`, not `error`: a stale selection is a normal,
-			// user-recoverable condition, not a code fault. Surfacing it as a
-			// console.error trips the Next.js dev error overlay for something
-			// the user fixes simply by reselecting. The host still receives
-			// the structured `ai-copilot:error` event for inline UI.
-			reportError(
-				cached.ctx,
-				{
-					code: "APPLY_FAILED",
-					message: `Regenerate selection: the selected ${noun} [${missingIds.join(
-						", ",
-					)}] ${verb} no longer on the canvas. Reselect a section and try again.`,
-				},
-				"warn",
-			);
-			trace(cached.ctx, {
-				type: "generation-failed",
-				flow: "section",
-				generationId,
-				code: "APPLY_FAILED",
-			});
-			return;
-		}
+		const liveNodes = resolveLiveSelection(
+			"Regenerate selection",
+			cached,
+			selection,
+			generationId,
+			"section",
+		);
+		if (liveNodes === null) return;
 
 		// Auto-populate `selection.currentNodes` from the live Puck data
 		// when the host omitted them. Hosts driving the plugin from a UI
@@ -573,6 +596,203 @@ export function createAiCopilotPlugin(
 		}
 	}
 
+	async function refineSelection(
+		prompt: string,
+		selection: AiSectionSelection,
+		sectionOpts?: RefineSelectionOptions,
+	): Promise<void> {
+		const cached = cachedStateByPlugin.get(plugin);
+		if (!cached) {
+			throw new Error(
+				"createAiCopilotPlugin: refineSelection called before plugin onInit",
+			);
+		}
+
+		const refineSelectionCallback = opts.refineSelection;
+		if (!refineSelectionCallback) {
+			reportError(cached.ctx, {
+				code: "GENERATE_FAILED",
+				message:
+					"createAiCopilotPlugin: refineSelection called but no refineSelection callback was configured.",
+			});
+			return;
+		}
+
+		const generationId = ++latestGenerationId;
+		const isCurrent = buildIsCurrent(generationId);
+		trace(cached.ctx, {
+			type: "generation-start",
+			flow: "refine",
+			generationId,
+			promptLength: prompt.length,
+		});
+
+		const liveNodes = resolveLiveSelection(
+			"Refine selection",
+			cached,
+			selection,
+			generationId,
+			"refine",
+		);
+		if (liveNodes === null) return;
+
+		const editorApi = cached.ctx.editor?.editor;
+		if (!editorApi) {
+			reportError(cached.ctx, {
+				code: "APPLY_FAILED",
+				message:
+					"Refine selection requires the Studio visual-editor API to be enabled.",
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "refine",
+				generationId,
+				code: "APPLY_FAILED",
+			});
+			return;
+		}
+
+		const enrichedSelection: AiSectionSelection =
+			selection.currentNodes === undefined
+				? { ...selection, currentNodes: liveNodes }
+				: selection;
+
+		let sectionContext: AiSectionContext;
+		try {
+			sectionContext = configToAiSectionContext(
+				opts.puckConfig,
+				enrichedSelection,
+				sectionOpts,
+			);
+		} catch (err) {
+			reportError(cached.ctx, {
+				code: "VALIDATION_FAILED",
+				message: err instanceof Error ? err.message : String(err),
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "refine",
+				generationId,
+				code: "VALIDATION_FAILED",
+			});
+			return;
+		}
+
+		const generated = await cancellableRun<readonly EditorIntent[]>(
+			"refine",
+			generationId,
+			cached.ctx,
+			isCurrent,
+			Promise.resolve().then(() =>
+				refineSelectionCallback(prompt, sectionContext),
+			),
+		);
+		if (!generated.ok) return;
+
+		const intents = generated.value;
+		if (intents.length < 1 || intents.length > 10) {
+			reportError(cached.ctx, {
+				code: "VALIDATION_FAILED",
+				message: "Refinement must contain between 1 and 10 intents.",
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "refine",
+				generationId,
+				code: "VALIDATION_FAILED",
+			});
+			return;
+		}
+
+		const selectedIds = new Set(sectionContext.nodeIds);
+		const foreignIds = intents.flatMap((intent) => {
+			const addressedIds =
+				intent.kind === "set-instance-variant" || intent.kind === "delete-nodes"
+					? intent.nodeIds
+					: [intent.nodeId];
+			return addressedIds.filter((id) => !selectedIds.has(id));
+		});
+		if (foreignIds.length > 0) {
+			reportError(cached.ctx, {
+				code: "VALIDATION_FAILED",
+				message: `Refinement intents address nodes outside the selection: ${[
+					...new Set(foreignIds),
+				].join(", ")}.`,
+			});
+			trace(cached.ctx, {
+				type: "generation-failed",
+				flow: "refine",
+				generationId,
+				code: "VALIDATION_FAILED",
+			});
+			return;
+		}
+
+		trace(cached.ctx, {
+			type: "generation-validated",
+			flow: "refine",
+			generationId,
+		});
+
+		let applied = 0;
+		for (const [index, intent] of intents.entries()) {
+			if (!isCurrent()) {
+				trace(cached.ctx, {
+					type: "generation-stale-drop",
+					flow: "refine",
+					generationId,
+					stage: "after-validate",
+				});
+				return;
+			}
+
+			try {
+				const outcome = resolveEditorIntent(editorApi, intent);
+				if (outcome.status === "rejected") {
+					reportError(
+						cached.ctx,
+						{
+							code: "APPLY_FAILED",
+							message: `Refinement intent ${index} (${intent.kind}) was rejected: ${outcome.errors
+								.map((error) => error.message)
+								.join("; ")}`,
+						},
+						"warn",
+					);
+					trace(cached.ctx, {
+						type: "generation-failed",
+						flow: "refine",
+						generationId,
+						code: "APPLY_FAILED",
+					});
+					continue;
+				}
+				applied += 1;
+			} catch (err) {
+				reportError(cached.ctx, {
+					code: "APPLY_FAILED",
+					message: `Refinement intent ${index} (${intent.kind}) failed: ${
+						err instanceof Error ? err.message : String(err)
+					}`,
+				});
+				trace(cached.ctx, {
+					type: "generation-failed",
+					flow: "refine",
+					generationId,
+					code: "APPLY_FAILED",
+				});
+			}
+		}
+
+		if (applied > 0) {
+			trace(cached.ctx, {
+				type: "generation-dispatched",
+				flow: "refine",
+				generationId,
+			});
+		}
+	}
+
 	plugin = {
 		meta: META,
 		register(ctx) {
@@ -601,6 +821,7 @@ export function createAiCopilotPlugin(
 		},
 		runGeneration,
 		regenerateSelection,
+		refineSelection,
 	};
 
 	return plugin;
