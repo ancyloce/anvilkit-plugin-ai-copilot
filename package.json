@@ -98,17 +98,17 @@
 		"@anvilkit/vitest-config": "workspace:*",
 		"@puckeditor/core": "^0.23.0",
 		"@rsbuild/plugin-react": "^2.1.0",
-		"@rslib/core": "^0.23.2",
-		"@types/node": "^26.2.0",
-		"esbuild": "^0.28.1",
-		"lucide-react": "^1.31.0",
+		"@rslib/core": "^1.0.0",
+		"@types/node": "^26.4.1",
+		"esbuild": "^0.28.2",
+		"lucide-react": "^1.41.0",
 		"madge": "^8.0.0",
-		"motion": "^13.1.0",
+		"motion": "^13.2.0",
 		"publint": "^0.3.23",
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8",
 		"typedoc": "^0.28.20",
 		"typescript": "7.0.2",
-		"vitest": "^4.1.10"
+		"vitest": "^5.0.0"
 	}
 }
