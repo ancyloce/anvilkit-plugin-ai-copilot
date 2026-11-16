@@ -477,7 +477,7 @@
 								"type": "reference",
 								"target": {
 									"packageName": "@puckeditor/core",
-									"packagePath": "dist/actions-DA1J5F56.d.ts",
+									"packagePath": "dist/actions-Dgllwd-W.d.ts",
 									"qualifiedName": "Config"
 								},
 								"name": "Config",
@@ -620,7 +620,7 @@
 														"type": "reference",
 														"target": {
 															"packageName": "@puckeditor/core",
-															"packagePath": "dist/actions-DA1J5F56.d.ts",
+															"packagePath": "dist/actions-Dgllwd-W.d.ts",
 															"qualifiedName": "Data"
 														},
 														"name": "Data",
@@ -632,7 +632,7 @@
 												"type": "reference",
 												"target": {
 													"packageName": "@puckeditor/core",
-													"packagePath": "dist/actions-DA1J5F56.d.ts",
+													"packagePath": "dist/actions-Dgllwd-W.d.ts",
 													"qualifiedName": "Data"
 												},
 												"name": "Data",
@@ -1241,7 +1241,7 @@
 														"type": "reference",
 														"target": {
 															"packageName": "@puckeditor/core",
-															"packagePath": "dist/actions-DA1J5F56.d.ts",
+															"packagePath": "dist/actions-Dgllwd-W.d.ts",
 															"qualifiedName": "Config"
 														},
 														"name": "Config",
@@ -1269,7 +1269,7 @@
 														"type": "reference",
 														"target": {
 															"packageName": "@puckeditor/core",
-															"packagePath": "dist/actions-DA1J5F56.d.ts",
+															"packagePath": "dist/actions-Dgllwd-W.d.ts",
 															"qualifiedName": "Config"
 														},
 														"name": "Config",
@@ -1299,7 +1299,7 @@
 																"type": "reference",
 																"target": {
 																	"packageName": "@puckeditor/core",
-																	"packagePath": "dist/actions-DA1J5F56.d.ts",
+																	"packagePath": "dist/actions-Dgllwd-W.d.ts",
 																	"qualifiedName": "Config"
 																},
 																"name": "Config",
@@ -2927,7 +2927,7 @@
 										"type": "reference",
 										"target": {
 											"packageName": "@puckeditor/core",
-											"packagePath": "dist/actions-DA1J5F56.d.ts",
+											"packagePath": "dist/actions-Dgllwd-W.d.ts",
 											"qualifiedName": "Data"
 										},
 										"name": "Data",
@@ -2957,7 +2957,7 @@
 								"type": "reference",
 								"target": {
 									"packageName": "@puckeditor/core",
-									"packagePath": "dist/actions-DA1J5F56.d.ts",
+									"packagePath": "dist/actions-Dgllwd-W.d.ts",
 									"qualifiedName": "Data"
 								},
 								"name": "Data",
